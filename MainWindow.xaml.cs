@@ -25,7 +25,7 @@ namespace PureFlow
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowController(this);
+            this.DataContext = new MainWindowViewModel(this);
         }
 
         

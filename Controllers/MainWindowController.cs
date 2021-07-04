@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -7,12 +8,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using PureFlow;
-using PureFlow.Controllers;
-using PureFlowSystems;
 
 namespace PureFlow
 {
-    public class MainWindowController
+    public class MainWindowViewModel: INotifyPropertyChanged
     {
         private MainWindow mainWindow;
         private ICommand showAddNewBrandWindowCommand;
@@ -20,7 +19,7 @@ namespace PureFlow
         private ICommand enableMainWindowCommand;
 
      
-        public MainWindowController(MainWindow mainWindow)
+        public MainWindowViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
               CreateCustomCommands();
@@ -47,6 +46,15 @@ namespace PureFlow
             disableMainWindowCommand.Execute(null);
             brand.Show();
            
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged()
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(""));
+            }
         }
     }
 }

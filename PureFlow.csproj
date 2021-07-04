@@ -105,6 +105,7 @@
       <DependentUpon>AddBrandView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MainWindowController.cs" />
+    <Compile Include="DB\IDataSource.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +124,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\MSAccessDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
