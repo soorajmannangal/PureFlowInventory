@@ -1,0 +1,24 @@
+﻿<Window x:Class="RRSoftwares.Product"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RRSoftwares"
+        mc:Ignorable="d"
+        Title="Product" Height="450" Width="800"  Icon="Icon1.ico">
+    <Grid>
+        <Label Content="Catogery Name" HorizontalAlignment="Left" Margin="97,74,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtCatogery" HorizontalAlignment="Left" Height="23" Margin="219,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="136"/>
+        <Button Content="Add Product Catogery" HorizontalAlignment="Left" Margin="153,119,0,0" VerticalAlignment="Top" Width="140" Click="btnProductCategory_Click"/>
+        <Label Content="Catogery Name" HorizontalAlignment="Left" Margin="97,170,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.959,5.705"/>
+        <ComboBox x:Name="cmbCatogery" HorizontalAlignment="Left" Margin="219,170,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label Content="Product Name" HorizontalAlignment="Left" Margin="97,217,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtProductName" HorizontalAlignment="Left" Height="23" Margin="219,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="97,263,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Height="23" Margin="219,263,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Add Product" HorizontalAlignment="Left" Margin="153,304,0,0" VerticalAlignment="Top" Width="140" Click="btnAddProduct_Click"/>
+        <DataGrid x:Name="dgCatogery" HorizontalAlignment="Left" Height="141" Margin="488,25,0,0" VerticalAlignment="Top" Width="218"/>
+        <DataGrid x:Name="dgProduct" HorizontalAlignment="Left" Height="187" Margin="488,202,0,0" VerticalAlignment="Top" Width="218"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,49 @@
+﻿<Window x:Class="RRSoftwares.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RRSoftwares"
+        mc:Ignorable="d" ResizeMode="CanMinimize"
+        Title="RR Printers Version 1.0" Height="595.29" Width="1006.873" Icon="Icon1.ico">
+    <Grid>
+        <Menu Height="22" Name="menu1" Width="200" Margin="10, 10, 5, 5" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Blue" BorderThickness="2">
+            <Menu.BitmapEffect>
+                <DropShadowBitmapEffect />
+            </Menu.BitmapEffect>
+            <MenuItem Header="_File">
+                <MenuItem Header="New Transaction" IsCheckable="False" Click="MenuNewTransaction_Click" />
+                <MenuItem Header="Add Customer Details" IsCheckable="False" Click="MenuAddCustomer_Click" />
+                <MenuItem Header="Add Product Details" IsCheckable="False" Click="MenuAddProduct_Click" />
+                <MenuItem Header="Exit" IsCheckable="False" Click="MenuExit_Click" />
+            </MenuItem>
+        </Menu>
+        <DataGrid x:Name="dgTransaction" HorizontalAlignment="Left" Height="376" Margin="24,135,0,0" VerticalAlignment="Top" Width="948" MouseDoubleClick="dgTransaction_MouseDoubleClick"/>
+        <Button x:Name="btnGo" Content="Refresh" HorizontalAlignment="Left" Margin="904,74,0,0" VerticalAlignment="Top" Width="68" Click="btnRefresh_Click" RenderTransformOrigin="1.246,0.665"/>
+        <ComboBox x:Name="cmbCustomer" HorizontalAlignment="Left" Margin="405,73,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbCustomer_SelectionChanged"/>
+        <ComboBox x:Name="cmbBranch" HorizontalAlignment="Left" Margin="530,73,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbBranch_SelectionChanged"/>
+        <ComboBox x:Name="cmbProductCategory" HorizontalAlignment="Left" Margin="655,73,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbProductCategory_SelectionChanged"/>
+        <ComboBox x:Name="cmbProductName" HorizontalAlignment="Left" Margin="779,73,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbProductName_SelectionChanged"/>
+        <Label Content="Customer" HorizontalAlignment="Left" Margin="431,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Branch" HorizontalAlignment="Left" Margin="560,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Product Category" HorizontalAlignment="Left" Margin="660,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Product Name" HorizontalAlignment="Left" Margin="792,45,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnNewTransaction" Content="New Transaction" HorizontalAlignment="Left" Margin="24,49,0,0" VerticalAlignment="Top" Width="106" Click="btnNewTransaction_Click" Height="52"/>
+        <Button x:Name="cmbDelete" Content="Delete" HorizontalAlignment="Left" Margin="814,521,0,0" VerticalAlignment="Top" Width="75" Click="cmbDelete_Click"/>
+        <Button x:Name="btnEdit" Content="Modify" HorizontalAlignment="Left" Margin="897,521,0,0" VerticalAlignment="Top" Width="75" Click="btnEdit_Click"/>
+        <Label Content="Rows: " HorizontalAlignment="Left" Margin="48,512,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="lblRowsCount" Content="0" HorizontalAlignment="Left" Margin="112,512,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="lblPageCurrent" Content="0" HorizontalAlignment="Left" Margin="828,103,0,0" VerticalAlignment="Top" Width="31" Height="26"/>
+        <Button x:Name="btnNext" Content=">>" HorizontalAlignment="Left" Margin="930,106,0,0" VerticalAlignment="Top" Width="42" Click="btnNext_Click"/>
+        <Button x:Name="btnPrev" Content="&lt;&lt;"  HorizontalAlignment="Left" Margin="779,106,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="-0.642,0.72" Click="btnPrev_Click"/>
+        <Label x:Name="lblPageTotal" Content="0" HorizontalAlignment="Left" Margin="894,104,0,0" VerticalAlignment="Top" Width="31" Height="26"/>
+        <Label x:Name="lblPageCurrent_Copy" Content=" - " HorizontalAlignment="Left" Margin="865,103,0,0" VerticalAlignment="Top" Width="20" Height="26"/>
+        <Label Content="Max Rows Per Page: " HorizontalAlignment="Left" Margin="189,516,0,0" VerticalAlignment="Top" Width="125"/>
+        <TextBox x:Name="txtMaxRows"  PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" Margin="309,520,0,0" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="94"/>
+        <DatePicker x:Name="dpToDate" HorizontalAlignment="Left" Margin="266,71,0,0" VerticalAlignment="Top" Width="133" SelectedDateChanged="dpToDate_SelectedDateChanged"/>
+        <DatePicker x:Name="dpFromDate" HorizontalAlignment="Left" Margin="134,71,0,0" VerticalAlignment="Top" SelectedDateChanged="dpFromDate_SelectedDateChanged"/>
+        <Label Content="From" HorizontalAlignment="Left" Margin="162,43,0,0" VerticalAlignment="Top"/>
+        <Label Content="To" HorizontalAlignment="Left" Margin="287,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.65,0.364"/>
+
+    </Grid>
+</Window>

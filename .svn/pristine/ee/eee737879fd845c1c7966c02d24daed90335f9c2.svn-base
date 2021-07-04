@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+
+namespace RRSoftwares
+{
+    /// <summary>
+    /// Interaction logic for NewTransaction.xaml
+    /// </summary>
+    public partial class NewTransaction : Window
+    {
+        DBHelper dBHelper;
+        public NewTransaction()
+        {
+            InitializeComponent();
+            dBHelper = new DBHelper();
+            LoadCustomerCombo();
+            LoadBranchCombo();
+            LoadCategoryCombo();
+            LoadProductCombo();
+            dpDate.SelectedDate = DateTime.Now;
+        }
+
+        void LoadCustomerCombo()
+        {
+            cmbCustomer.ItemsSource = dBHelper.GetCustomerNames();
+            cmbCustomer.SelectedIndex = 0;
+        }
+
+        void LoadBranchCombo()
+        {
+            cmbBranch.ItemsSource = dBHelper.GetBranchNames(cmbCustomer.SelectedItem.ToString());
+            cmbBranch.SelectedIndex = 0;
+        }
+
+       
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void DecimalValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9/.]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void cmbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadBranchCombo();
+        }
+
+        void LoadCategoryCombo()
+        {
+            cmbProductCategory.ItemsSource = dBHelper.GetCategoryNames();
+            cmbProductCategory.SelectedIndex = 0;
+        }
+
+        void LoadProductCombo()
+        {
+            cmbProduct.ItemsSource = dBHelper.GetProductNames(cmbProductCategory.SelectedItem.ToString());
+            cmbProduct.SelectedIndex = 0;
+
+            LoadProductDescription();
+        }
+
+        void LoadProductDescription()
+        {
+            lblProductDescription.Content = dBHelper.GetProductDescription(cmbProduct.SelectedItem.ToString());
+           
+        }
+
+        private void cmbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadProductCombo();
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            string customerName = cmbCustomer.SelectedItem.ToString();
+            int customerId = dBHelper.GetCustomerID(customerName);
+            string branchName = cmbBranch.SelectedItem.ToString();
+            int branchId = dBHelper.GetBranchID(branchName);
+
+            string catogaryName = cmbProductCategory.SelectedItem.ToString();
+            int categoryId = dBHelper.GetCategoryID(catogaryName);
+            string productName = cmbProduct.SelectedItem.ToString();
+            int productId = dBHelper.GetProductID(productName);          
+            DateTime transDate = dpDate.SelectedDate.Value;
+            int.TryParse( txtLeafCount.Text, out int lc);
+            int leafCount = lc;
+            int.TryParse(txtBookCount.Text, out int bc);
+            int bookCount = bc;
+            decimal.TryParse(txtAmount1.Text, out decimal amt);
+            decimal amount = amt;
+            string details = new TextRange(txtDetails.Document.ContentStart, txtDetails.Document.ContentEnd).Text;
+           
+            dBHelper.NewTransaction(branchId,  customerId,  categoryId,  productId,  transDate,  leafCount,  bookCount,  amount,  details  );         
+            MessageBox.Show("Transaction added");
+            ClearGui();
+        }
+
+        void ClearGui()
+        {
+            dpDate.SelectedDate = DateTime.Now;
+            txtLeafCount.Text = "0";
+            txtBookCount.Text = "0";
+            txtAmount1.Text = "0.0";
+        }
+
+        private void txtLeafCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+    }
+}

@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Data.OleDb;
+using System.Data;
+
+namespace RRSoftwares
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class Customer : Window
+    {
+        DBHelper dBHelper;
+        Home callerObject;
+        public Customer(Home parentObj)
+        {
+            InitializeComponent();
+            dBHelper = new DBHelper();
+            FillCustomerGrid();
+            FillCustomerCombo();
+            FillBranchGrid();
+            callerObject = parentObj;
+        }
+
+        private void btnAddCustomerName_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (!string.IsNullOrWhiteSpace(txtAddCustomerName.Text))
+            {
+                int customerId = dBHelper.GetCustomerID(txtAddCustomerName.Text);
+                if (customerId != 0)
+                {
+                    MessageBox.Show("Duplicate or invalid entry");
+                    return;
+                }
+
+                dBHelper.InsertCustomerName(txtAddCustomerName.Text);
+                FillCustomerGrid();
+                FillCustomerCombo();
+                txtAddCustomerName.Text = "";
+                MessageBox.Show("Customer Added");
+            }
+            else
+            {
+                MessageBox.Show("Duplicate or invalid entry");
+            }
+        }
+
+        private void FillCustomerGrid()
+        {
+            DataTable dt = dBHelper.GetCustomerName();
+            dataGridCustomer.ItemsSource = dt.AsDataView();
+            dataGridCustomer.Items.Refresh();
+        }
+        private void FillBranchGrid()
+        {
+            DataTable dt = dBHelper.GetBranchDetails();
+            dataGridBranch.ItemsSource = dt.AsDataView();
+            dataGridBranch.Items.Refresh();
+        }
+        private void FillCustomerCombo()
+        {
+            cmbCustomer.ItemsSource = dBHelper.GetCustomerNames();
+            cmbCustomer.SelectedIndex = 0;
+        }
+
+        private void btnAddBranch_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtBranchName.Text))
+            {
+                int branchId = dBHelper.GetBranchID(txtBranchName.Text);
+                if(branchId != 0)
+                {
+                    MessageBox.Show("Duplicate or invalid entry");
+                    return;
+                }
+                int customerId = dBHelper.GetCustomerID(cmbCustomer.Text);
+                dBHelper.InsertBranchDetails(customerId, txtBranchName.Text);
+                FillBranchGrid();
+                txtBranchName.Text = "";
+                MessageBox.Show("Branch Added");
+            }
+            else
+            {
+                MessageBox.Show("Duplicate or invalid entry");
+            }
+        }
+
+        private void windowCustomer_Closed(object sender, EventArgs e)
+        {
+            callerObject.IsEnabled = true;
+            //callerObject.UpdateTransGrid(true, 0, 0);
+            callerObject.UpdateCombos();
+        }
+    }
+}

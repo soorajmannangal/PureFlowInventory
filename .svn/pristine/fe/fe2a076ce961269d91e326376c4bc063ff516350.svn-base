@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace RRSoftwares
+{
+    /// <summary>
+    /// Interaction logic for NewTransaction.xaml
+    /// </summary>
+    public partial class NewTransaction : Window
+    {
+        DBHelper dBHelper;
+        public NewTransaction()
+        {
+            InitializeComponent();
+            dBHelper = new DBHelper();
+            LoadCustomerCombo();
+            LoadBranchCombo();
+            LoadCategoryCombo();
+            LoadProductCombo();
+            dpDate.SelectedDate = DateTime.Now;
+        }
+
+        void LoadCustomerCombo()
+        {
+            cmbCustomer.ItemsSource = dBHelper.GetCustomerNames();
+            cmbCustomer.SelectedIndex = 0;
+        }
+
+        void LoadBranchCombo()
+        {
+            cmbBranch.ItemsSource = dBHelper.GetBranchNames(cmbCustomer.SelectedItem.ToString());
+            cmbBranch.SelectedIndex = 0;
+        }
+
+        private void cmbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadBranchCombo();
+        }
+
+        void LoadCategoryCombo()
+        {
+            cmbProductCategory.ItemsSource = dBHelper.GetCategoryNames();
+            cmbProductCategory.SelectedIndex = 0;
+        }
+
+        void LoadProductCombo()
+        {
+            cmbProduct.ItemsSource = dBHelper.GetProductNames(cmbProductCategory.SelectedItem.ToString());
+            cmbProduct.SelectedIndex = 0;
+
+            LoadProductDescription();
+        }
+
+        void LoadProductDescription()
+        {
+            lblProductDescription.Content = dBHelper.GetProductDescription(cmbProduct.SelectedItem.ToString());
+           
+        }
+
+        private void cmbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadProductCombo();
+        }
+    }
+}

@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace RRSoftwares
+{
+    /// <summary>
+    /// Interaction logic for Product.xaml
+    /// </summary>
+    public partial class Product : Window
+    {
+        DBHelper dBHelper;
+        public Product()
+        {
+            InitializeComponent();
+            dBHelper = new DBHelper();
+            UpdateGui();
+        }
+
+        private void FillCustomerCombo()
+        {
+            cmbCatogery.ItemsSource = dBHelper.GetCategoryNames();
+            cmbCatogery.SelectedIndex = 0;
+        }
+
+        private void btnProductCategory_Click(object sender, RoutedEventArgs e)
+        {
+            string category = txtCatogery.Text;
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                int catogeryId = dBHelper.GetCategoryID(category);
+                if(catogeryId != 0)
+                {
+                    MessageBox.Show("Duplicate or invalid entry");
+                    return;
+                }
+                dBHelper.InsertCategoryName(category);
+                UpdateGui();
+                txtCatogery.Text = "";
+                MessageBox.Show("Product Catogery Added");
+            }
+            else
+            {
+                MessageBox.Show("Duplicate or invalid entry");
+            }
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(cmbCatogery.Text) &&
+                !string.IsNullOrWhiteSpace(txtProductName.Text))
+            {
+                int catogeryId = dBHelper.GetCategoryID(cmbCatogery.Text);
+                int productId = dBHelper.GetProductID(txtProductName.Text);
+                if(productId !=0)
+                {
+                    MessageBox.Show("Duplicate or invalid entry");
+                    return;
+                }
+                dBHelper.InsertProductDetails(catogeryId, txtProductName.Text, txtDescription.Text);
+                UpdateGui();
+                txtDescription.Text = "";
+                txtProductName.Text = "";
+                MessageBox.Show("Product Added");
+            }
+            else
+            {
+                MessageBox.Show("Duplicate or invalid entry");
+            }
+        }
+
+        private void FillCategoryGrid()
+        {
+            DataTable dt = dBHelper.GetCategoryrName();
+            dgCatogery.ItemsSource = dt.AsDataView();
+            dgCatogery.Items.Refresh();
+        }
+
+        private void FillProductGrid()
+        {
+            DataTable dt = dBHelper.GetProductDetails();
+            dgProduct.ItemsSource = dt.AsDataView();
+            dgProduct.Items.Refresh();
+        }
+
+        void UpdateGui()
+        {
+            FillCustomerCombo();
+            FillCategoryGrid();
+            FillProductGrid();          
+        }
+    }
+}

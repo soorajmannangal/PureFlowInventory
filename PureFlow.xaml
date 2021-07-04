@@ -1,0 +1,43 @@
+﻿<Window x:Class="PureFlowSystems.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PureFlowSystems"
+        mc:Ignorable="d"
+        Title="PureFlowSystems" Height="768" Width="1024">
+    <Grid>
+        <Menu Height="22" Name="menu1" Width="170" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderThickness="2">
+            <Menu.BitmapEffect>
+                <DropShadowBitmapEffect />
+            </Menu.BitmapEffect>
+            <MenuItem Header="_Tools                                        ">
+                <MenuItem Header="Update Inventory" IsCheckable="False"  />
+                <Separator />
+                <MenuItem Header="Create New Inventory Item" IsCheckable="False"  />
+                <MenuItem Header="Add New Brand" IsCheckable="False"  />
+                <MenuItem Header="Add New Model" IsCheckable="False" />
+                <MenuItem Header="Add Technition" IsCheckable="False" />
+                <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" />
+                <Separator />
+                <MenuItem Header="Service Request Report" IsCheckable="False" />
+                <MenuItem Header="Invoice Report" IsCheckable="False" />
+                <MenuItem Header="Inventory Report" IsCheckable="False" />
+                <MenuItem Header="Inventory Transaction Report" IsCheckable="False" />
+                <Separator />
+                <MenuItem Header="Exit" IsCheckable="False" Click="MenuItem_Click" />
+            </MenuItem>
+        </Menu>
+        <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242"/>
+        <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242"/>
+        <DataGrid x:Name="dgServiceReminder" HorizontalAlignment="Center" Height="376" Margin="0,228,0,0" VerticalAlignment="Top" Width="978" />
+        <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,123,0,0" VerticalAlignment="Top" Width="220"/>
+        <ComboBox x:Name="cmbBrand" HorizontalAlignment="Left" Margin="431,173,0,0" VerticalAlignment="Top" Width="120" />
+        <DatePicker x:Name="dpFromDate" HorizontalAlignment="Left" Margin="82,171,0,0" VerticalAlignment="Top" />
+        <Label Content="From" HorizontalAlignment="Left" Margin="35,169,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dpToDate" HorizontalAlignment="Left" Margin="232,171,0,0" VerticalAlignment="Top" />
+        <Label Content="To" HorizontalAlignment="Left" Margin="203,169,0,0" VerticalAlignment="Top"/>
+        <Label Content="Brand" HorizontalAlignment="Left" Margin="385,172,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

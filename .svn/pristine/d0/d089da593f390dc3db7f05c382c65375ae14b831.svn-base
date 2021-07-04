@@ -1,0 +1,249 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace RRSoftwares
+{
+    /// <summary>
+    /// Interaction logic for Home.xaml
+    /// </summary>
+    public partial class Home : Window
+    {
+        DBHelper dBHelper;
+        DataTable dtTransaction;
+        List<PageIndex> pageIndices;
+        public Home()
+        {
+            InitializeComponent();
+            dBHelper = new DBHelper();
+
+            if(!dBHelper.CheckDBVersion(1))
+            {
+                MessageBox.Show("DB Version miss match, Required Version " + 1 + ".0 \n Application Exiting");
+                this.Close();
+            }
+
+            UpdateCombos();
+            UpdateTransGrid(true, 0, 0);
+           
+        }
+
+        private void MenuAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var CustomerPage = new Customer(); //create your new form.
+            CustomerPage.Show(); //show the new form.          
+        }
+
+        private void MenuAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            var ProductPage = new Product(); //create your new form.
+            ProductPage.Show();
+        }
+
+        private void MenuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MenuNewTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var NewTrasactionPage = new NewTransaction( 0, null, 0); //create your new form.
+            NewTrasactionPage.Show();
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateCombos();
+            UpdateTransGrid(true, 0, 0);
+            MessageBox.Show("Page refreshed");
+        }
+
+        void UpdateCombos()
+        {
+            List<string> customerNames = new List<string>();
+            customerNames.Add("All");
+            customerNames.AddRange(dBHelper.GetCustomerNames());
+            cmbCustomer.ItemsSource = customerNames;
+            cmbCustomer.SelectedIndex = 0;
+
+            cmbBranch.ItemsSource = new List<string>() { "All" };
+
+            List<string> productCategory = new List<string>();
+            productCategory.Add("All");
+            productCategory.AddRange(dBHelper.GetCategoryNames());
+            cmbProductCategory.ItemsSource = productCategory;
+            cmbProductCategory.SelectedIndex = 0;
+
+            cmbProductName.ItemsSource = new List<string>() { "All" };
+
+            dpFromDate.SelectedDate = new DateTime(2000, 01, 01);
+            dpToDate.SelectedDate = DateTime.Now;
+
+
+        }
+
+        private void cmbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string customerName = cmbCustomer.SelectedItem.ToString();
+            if (customerName.Equals("All"))
+            {
+                cmbBranch.ItemsSource = new List<string>() { "All" };
+            }
+            else
+            {
+                cmbBranch.ItemsSource = dBHelper.GetBranchNames(customerName.ToString());
+            }
+            cmbBranch.SelectedIndex = 0;
+            UpdateTransGrid(true, 0, 0);
+        }
+
+        private void cmbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string productCategory = cmbProductCategory.SelectedItem.ToString();
+            if (productCategory.Equals("All"))
+            {
+                cmbProductName.ItemsSource = new List<string>() { "All"};
+            }
+            else
+            {
+                cmbProductName.ItemsSource = dBHelper.GetProductNames(productCategory);
+            }
+            cmbProductName.SelectedIndex = 0;
+            UpdateTransGrid(true, 0, 0);
+        }
+
+        void UpdateTransGrid( bool skipIndex, int starIndex, int endIndex)
+        {
+            string customerName = cmbCustomer.SelectedItem?.ToString();
+            string branchName = cmbBranch.SelectedItem?.ToString();
+            string productCategory = cmbProductCategory.SelectedItem?.ToString();
+            string productName = cmbProductName.SelectedItem?.ToString();
+
+            if (skipIndex)
+            {
+                int rowsPerPage = int.Parse( txtMaxRows.Text);
+                pageIndices = dBHelper.GetTransactionPages( rowsPerPage, customerName, branchName, productCategory, productName);
+                lblPageCurrent.Content = "1";
+                lblPageTotal.Content = pageIndices.Count;
+                if (pageIndices.Count == 0)
+                { 
+                    lblPageCurrent.Content = 0; 
+                }
+                 starIndex = 0;
+                 endIndex = 0;
+                if (pageIndices.Count > 0)
+                {
+                    starIndex = pageIndices[0].start;
+                    endIndex = pageIndices[0].end;
+                }
+            }
+
+            DataTable dt = dBHelper.GetTransactions(customerName, branchName, productCategory, productName, starIndex, endIndex);
+            dgTransaction.ItemsSource = dt.AsDataView();
+            dgTransaction.Items.Refresh();
+            dtTransaction = dt;
+            lblRowsCount.Content = dt.Rows.Count;
+        }
+
+        private void cmbBranch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTransGrid(true, 0, 0);
+        }
+
+        private void cmbProductName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTransGrid(true, 0, 0);
+        }
+
+        private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var NewTrasactionPage = new NewTransaction(0, null, 0); //create your new form.
+            NewTrasactionPage.Show();
+        }
+
+        private void cmbDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = dgTransaction.SelectedItem as DataRowView;
+            int.TryParse(row.Row.ItemArray[0].ToString(), out int id);
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show($"Are you sure to delete transaction with id = {id} ?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {                
+                dBHelper.DeleteTransactionRow(id);
+                MessageBox.Show("Deleted transaction row id : " + id);
+                UpdateTransGrid(true, 0, 0);
+            }                
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditRow();            
+        }
+
+        private void dgTransaction_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EditRow();           
+        }
+
+        void EditRow()
+        {
+            DataRowView row = dgTransaction.SelectedItem as DataRowView;
+            if (row == null)
+            {
+                MessageBox.Show("Please select a row");
+                return;
+            }
+            int rowIndex = dgTransaction.SelectedIndex;
+            int.TryParse(row.Row.ItemArray[0].ToString(), out int id);
+            var NewTrasactionPage = new NewTransaction(id, dtTransaction, rowIndex); //create your new form.
+            NewTrasactionPage.Show();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            int currentPage =  int.Parse( lblPageCurrent.Content.ToString());
+            int nextPage = currentPage + 1;
+            if (nextPage <= pageIndices.Count)
+            {
+                MovePage(nextPage);
+            }
+        }
+
+        private void MovePage(int nextPage)
+        {
+            int starIndex = pageIndices[nextPage - 1].start;
+            int endIndex = pageIndices[nextPage - 1].end;
+
+            UpdateTransGrid(false, starIndex, endIndex);
+            lblPageCurrent.Content = nextPage;
+        }
+
+        private void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            int currentPage = int.Parse(lblPageCurrent.Content.ToString());
+            int nextPage = currentPage - 1;
+            if (nextPage > 0)
+            {
+                MovePage(nextPage);
+            }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+    }
+}

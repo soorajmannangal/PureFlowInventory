@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RRSoftwares
+{
+    class DBHelper
+    {
+        private readonly string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\RRSoftware\RRDatabase.accdb";
+        OleDbConnection con;
+        OleDbCommand cmd;
+
+        public DBHelper()
+        {
+            con = new OleDbConnection(conString);
+        }
+
+        public void InsertCustomerName(string customerName)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            con.Open();
+            cmd.CommandText = "Insert into Customer(Name) Values('" + customerName + "')";
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public void InsertBranchDetails(int customerId, string branchName)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            con.Open();
+            cmd.CommandText = "Insert into Branch(CustomerID,Name) Values(" + customerId + ",'" + branchName + "')";
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public int GetCustomerID(string customerName)
+        {
+            int customerId = 0;
+            con.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("select ID from Customer where name='" + customerName + "'", con);
+            reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                customerId = reader.GetInt32(0);
+                //firstName.Add(reader["FirstName"].ToString());
+                //lastName.Add(reader["LastName"].ToString());
+            }
+            con.Close();
+            return customerId;
+        }
+
+        public DataTable GetTableData(string commandText)
+        {
+            cmd = new OleDbCommand();
+            cmd.Connection = con;
+            cmd.CommandText = commandText;
+            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable GetBranchDetails()
+        {
+            return GetTableData(@"SELECT c.name as CustomerName, b.name as Branch FROM (branch as b left join customer as c on b.customerid= c.id)");
+        }
+
+        // return GetTableData("SELECT customerid,name FROM branch");
+    
+
+        public DataTable GetCustomerName()
+        {
+          return GetTableData("SELECT name as CustomerName FROM Customer");
+        }
+
+        public List<string> GetCustomerNames()
+        {
+            List<string> customerName = new List<string>();
+            con.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("select Name from Customer", con);
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                customerName.Add(reader["Name"].ToString());
+               
+            }
+            con.Close();
+            return customerName;
+        }
+    }
+}
