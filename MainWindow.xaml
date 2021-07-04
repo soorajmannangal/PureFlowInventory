@@ -1,11 +1,11 @@
-﻿<Window x:Class="PureFlowSystems.MainWindow"
+﻿<Window x:Class="PureFlow.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PureFlowSystems"
         mc:Ignorable="d"
-        Title="PureFlowSystems" Height="768" Width="1024">
+        Title="PureFlow" Height="768" Width="1024">
     <Grid>
         <Menu Height="22" Name="menu1" Width="170" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderThickness="2">
             <Menu.BitmapEffect>
@@ -15,9 +15,9 @@
                 <MenuItem Header="Update Inventory" IsCheckable="False"  />
                 <Separator />
                 <MenuItem Header="Create New Inventory Item" IsCheckable="False"  />
-                <MenuItem Header="Add New Brand" IsCheckable="False"  />
+                <MenuItem Header="Add New Brand" IsCheckable="False" Command="{Binding Path=ShowAddNewBrandWindowCommand }" />
                 <MenuItem Header="Add New Model" IsCheckable="False" />
-                <MenuItem Header="Add Technition" IsCheckable="False" />
+                <MenuItem Header="Add Technician" IsCheckable="False" />
                 <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" />
                 <Separator />
                 <MenuItem Header="Service Request Report" IsCheckable="False" />
@@ -25,7 +25,7 @@
                 <MenuItem Header="Inventory Report" IsCheckable="False" />
                 <MenuItem Header="Inventory Transaction Report" IsCheckable="False" />
                 <Separator />
-                <MenuItem Header="Exit" IsCheckable="False" Click="MenuItem_Click" />
+                <MenuItem Header="Exit" IsCheckable="False" Click="OnClick_Exit" />
             </MenuItem>
         </Menu>
         <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242"/>

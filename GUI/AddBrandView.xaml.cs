@@ -10,24 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PureFlow.Controllers;
 
-namespace PureFlowSystems
+namespace PureFlow
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddNewBrand.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddBrandView : Window
     {
-        public MainWindow()
+        private IWindowController windowController; 
+        public AddBrandView(IWindowController windowController)
         {
             InitializeComponent();
+            this.windowController = windowController;
+            this.DataContext = windowController;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void AddBrandView_OnClosed(object sender, EventArgs e)
         {
-            this.Close();
+            windowController.Close();
         }
     }
 }

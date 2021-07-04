@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,135 @@ using System.Windows.Forms;
 
 namespace PureFlowSystems
 {
+    enum BrandTable
+    {
+        Name,
+        Details
+    }
+
+    enum TableNames
+    {
+        Brand
+    }
+
+   
+
     class DBHelper
     {
+        //COMMANDS
+        private const string INSERT_INTO = "INSERT INTO";
+        private const string VALUES = "VALUES";
+
+        private string Str(string value)
+        {
+            return "'" + value + "'";
+        }
+
         private OleDbConnection con;
         private OleDbCommand cmd;
         private const String DB_NAME = @"\DB\PureFlowDB.accdb";
 
-        public DBHelper()
+        private static DBHelper instance;
+
+        public static DBHelper GetInstance()
+        {
+            return instance ?? (instance = new DBHelper());
+        }
+        
+
+        private DBHelper()
         {
             string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + DB_NAME;
             con = new OleDbConnection(connectionString);
+        }
+
+        public void InsertBrand(String name, String details)
+        {
+            Insert(TableNames.Brand, BrandTable.Name, name, BrandTable.Details, details);
+            //OleDbCommand cmd = new OleDbCommand();
+            //con.Open();
+            //cmd.CommandText = $"{INSERT_INTO} {TableNames.Brand}({BrandTable.Name},{BrandTable.Details}) {VALUES}({Str(name)},{Str(details)})";
+            //cmd.Connection = con;
+            //cmd.ExecuteNonQuery();
+            //con.Close();
+        }
+
+       
+        public void Insert(params object[] p)
+        {
+            //TableName - column name, value, column name, value
+            int len = p.Length;
+
+            if (len < 3) throw new InvalidDataException("Invalid format");
+
+            string tableName = p[0].ToString() ;
+            StringBuilder query = new StringBuilder();
+            query.Append($"{INSERT_INTO} {tableName}(");
+            for (int i = 1; i < len; i += 2)
+            {
+                string val = p[i].ToString();
+                query.Append(val);
+                if (i + i + 1 < len)
+                {
+                    query.Append(",");
+                }
+            }
+            query.Append($") {VALUES}(");
+            for (int i = 2; i < len; i += 2)
+            {
+                Type tp = p[i].GetType();
+                string val = p[i].ToString();
+
+                if (tp.Equals(typeof(string)) || tp.Equals(typeof(DateTime)))
+                {
+                    query.Append(Str(val));
+                }
+                else if(tp.Equals(typeof(int)))
+                {
+                    query.Append(val);
+                }
+                else if (tp.Equals(typeof(double)))
+                {
+                    query.Append( val);
+                }
+                else
+                {
+                    throw new InvalidDataException("Invalid data type"+tp.GetType());
+                }
+
+                if (i +1< len)
+                {
+                    query.Append(",");
+                }
+            }
+            query.Append(")");
+
+            OleDbCommand cmd = new OleDbCommand();
+            con.Open();
+            cmd.CommandText = query.ToString();
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public int GetBrandId(string brandName)
+        {
+            int id = 0;
+            con.Open();
+            OleDbDataReader reader = null;
+            cmd = new OleDbCommand("select ID from Brand where name='" + brandName + "'", con);
+            reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                id = reader.GetInt32(0);
+            }
+            con.Close();
+            return id;
+        }
+
+        public bool IsBrandNameExist(string brandName)
+        {
+            return GetBrandId(brandName) != 0;
         }
 
         public void InsertCustomerName(string name)
