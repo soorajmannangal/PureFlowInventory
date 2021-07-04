@@ -1,8 +1,8 @@
 ﻿<Application x:Class="RRSoftwares.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RRSoftwares"
-             StartupUri="Splash.xaml">
+             xmlns:local="clr-namespace:PureFlowSystems"
+             StartupUri="PureFlow.xaml">
     <Application.Resources>
          
     </Application.Resources>

@@ -5,18 +5,20 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace RRSoftwares
+namespace PureFlowSystems
 {
     class DBHelper
     {
-        private readonly string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\RRSoftware\RRDatabase.accdb";
-        OleDbConnection con;
-        OleDbCommand cmd;
+        private OleDbConnection con;
+        private OleDbCommand cmd;
+        private const String DB_NAME = @"\DB\PureFlowDB.accdb";
 
         public DBHelper()
         {
-            con = new OleDbConnection(conString);
+            string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + DB_NAME;
+            con = new OleDbConnection(connectionString);
         }
 
         public void InsertCustomerName(string name)
