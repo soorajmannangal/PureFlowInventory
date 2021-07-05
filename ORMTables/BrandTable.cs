@@ -29,6 +29,11 @@ namespace PureFlow
             _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details);
         }
 
+        public List<BrandListView> GetAllBrands()
+        {
+           return _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
+        }
+
         public bool IsValidForInsert()
         {
             if (String.IsNullOrEmpty(Name)) return false;
@@ -42,5 +47,7 @@ namespace PureFlow
                 Details = DEFAULT_STRING;
             }
         }
+
+
     }
 }

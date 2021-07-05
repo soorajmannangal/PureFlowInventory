@@ -13,12 +13,32 @@ namespace PureFlow
     {      
         private readonly ICommand enableMainWindowCommand;
         private readonly BrandTable brandTable;
+        private List<BrandListView> gridBrandList;
+
+        public List<BrandListView> GridBrandListView
+        {
+            get => gridBrandList;
+            set
+            {
+                //gridBrandList = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public class ArticleItem
+        {
+            public int ID { get; set; }
+            public int ViewCount { get; set; }
+            public String Title { get; set; }
+        }
+
+       
 
         public AddBrandViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
             brandTable = new BrandTable();
-        }
+            gridBrandList = brandTable.GetAllBrands();
+         }
 
         private bool CanAddNewBrand()
         {
@@ -29,6 +49,9 @@ namespace PureFlow
 
         private void AddNewBrand()
         {
+            //gridBrandList.Add(new BrandListView() { ID = 2, Name = "Kelvinator2", Details = "NA" });
+            //gridBrandList.Add(new BrandListView(2,"test","test"));
+            GridBrandListView = null;
             brandTable.InsertAll();
             SetDefaults();
         }
@@ -37,6 +60,10 @@ namespace PureFlow
         {
             Name = "";
             Description = "";
+        }
+        public void Close()
+        {
+            enableMainWindowCommand.Execute(null);
         }
 
         private ICommand addNewBrandCommand;
@@ -58,10 +85,7 @@ namespace PureFlow
             set { brandTable.Details = value; NotifyPropertyChanged(); }
         }
 
-        public void Close()
-        {
-            enableMainWindowCommand.Execute(null);
-        }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged()

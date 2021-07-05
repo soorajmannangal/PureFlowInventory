@@ -4,8 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 
 namespace PureFlow
-{
-    
+{ 
     public class DBHelper
     {        
         private OleDbConnection con;

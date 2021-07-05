@@ -16,6 +16,7 @@ namespace PureFlow
         private const string VALUES = "VALUES";
         private const string FROM = "FROM";
         private const string WHERE = "WHERE";
+        private const string ORDER_BY = "ORDER BY";
 
         private OleDbConnection con;
         private OleDbCommand cmd;
@@ -33,9 +34,8 @@ namespace PureFlow
             string colName = columnName.ToString();
             int id = 0;
             con.Open();
-            OleDbDataReader reader = null;
             cmd = new OleDbCommand($"{SELECT} {eGenericColumnName.ID} {FROM} {tableName} {WHERE} {colName}={val}", con);
-            reader = cmd.ExecuteReader();
+            OleDbDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
                 id = reader.GetInt32(0);
@@ -44,12 +44,28 @@ namespace PureFlow
             return id;
         }
 
+        public List<BrandListView> GetAllBrands(string id, string name, string details, string orderBy)
+        {
+            List<BrandListView> allBrands = new List<BrandListView>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.Brand} {ORDER_BY} {name}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                allBrands.Add(new BrandListView(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
+            }
+            con.Close();
+            return allBrands;
+        }
+       
         public void Insert(params object[] p)
         {
             //TableName - column name, value, column name, value
             int len = p.Length;
-
-            if (len < 3) throw new InvalidDataException("Invalid format");
+            if (len < 3)
+            {
+                throw new InvalidDataException("Invalid format");
+            }
 
             string tableName = p[0].ToString();
             StringBuilder query = new StringBuilder();
@@ -66,26 +82,7 @@ namespace PureFlow
             query.Append($") {VALUES}(");
             for (int i = 2; i < len; i += 2)
             {
-                Type tp = p[i].GetType();
-                string val = p[i].ToString();
-
-                if (tp.Equals(typeof(string)) || tp.Equals(typeof(DateTime)))
-                {
-                    query.Append(Str(val));
-                }
-                else if (tp.Equals(typeof(int)))
-                {
-                    query.Append(val);
-                }
-                else if (tp.Equals(typeof(double)))
-                {
-                    query.Append(val);
-                }
-                else
-                {
-                    throw new InvalidDataException("Invalid data type" + tp.GetType());
-                }
-
+                query.Append(TypeConvertor(p[i]));             
                 if (i + 1 < len)
                 {
                     query.Append(",");
@@ -106,25 +103,24 @@ namespace PureFlow
             string query;
             Type tp = p.GetType();
             string val = p.ToString();
-
             if (tp.Equals(typeof(string)) || tp.Equals(typeof(DateTime)))
             {
-                query = (Str(val));
+                query = Str(val);
             }
             else if (tp.Equals(typeof(int)))
             {
-                query = (val);
+                query = val;
             }
             else if (tp.Equals(typeof(double)))
             {
-                query = (val);
+                query = val;
             }
             else
             {
                 throw new InvalidDataException("Invalid data type" + tp.GetType());
             }
 
-            return query.ToString();
+            return query;
         }
 
         private string Str(string value)

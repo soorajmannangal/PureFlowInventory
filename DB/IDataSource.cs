@@ -21,5 +21,6 @@ namespace PureFlow
     {
         void Insert(params object[] p);
         int GetId(eTableNames tableName, object columnName, object columnValue);
+        List<BrandListView> GetAllBrands(string id, string name, string details, string orderBy);
     }
 }
