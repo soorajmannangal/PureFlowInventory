@@ -29,7 +29,6 @@ namespace PureFlow
         }
 
         
-
         private void OnClick_Exit(object sender, RoutedEventArgs e)
         {
            this.Close();

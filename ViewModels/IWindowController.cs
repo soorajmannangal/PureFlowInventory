@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace PureFlow
 {
-    public interface IWindowController
+    public interface IWindowViewModel
     {
         void Close();
+        void SetDefaults();
     } 
    
 }

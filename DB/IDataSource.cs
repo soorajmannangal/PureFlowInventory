@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace PureFlow
 {
-    public enum eBrandTable
-    {
-        Name,
-        Details
-    }
-
     public enum eTableNames
     {
         Brand
@@ -21,6 +15,7 @@ namespace PureFlow
     {
         ID
     }
+
 
     public interface IDataSource
     {

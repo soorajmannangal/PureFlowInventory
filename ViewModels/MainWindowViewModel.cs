@@ -31,7 +31,6 @@ namespace PureFlow
             enableMainWindowCommand = new EnableMainWindowCommand(mainWindow);
         }
 
-        //public ICommand ShowAddNewBrandWindowCommand => showAddNewBrandWindowCommand ?? (showAddNewBrandWindowCommand = new RelayCommand(AddNewBrand, CanAddNewBrand));
         public ICommand ShowAddNewBrandWindowCommand => showAddNewBrandWindowCommand ?? (showAddNewBrandWindowCommand = new RelayCommand(ShowAddNewBrandWindow, CanShowAddNewBrandWindow));
 
         private bool CanShowAddNewBrandWindow()
@@ -41,7 +40,7 @@ namespace PureFlow
 
         private void ShowAddNewBrandWindow()
         {
-            IWindowController addBrandController = new AddBrandViewModel(enableMainWindowCommand);
+            IWindowViewModel addBrandController = new AddBrandViewModel(enableMainWindowCommand);
             var brand = new AddBrandView(addBrandController);
             disableMainWindowCommand.Execute(null);
             brand.Show();

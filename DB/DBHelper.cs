@@ -2,24 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PureFlow
 {
     
-    class DBHelper
-    {
-         
+    public class DBHelper
+    {        
         private OleDbConnection con;
         private OleDbCommand cmd;
-        private const String DB_NAME = @"\DB\PureFlowDB.accdb";
-
+   
         private static DBHelper instance;
-        private readonly IDataSource dataSource;
+        public readonly IDataSource DataSource;
 
         public static DBHelper GetInstance()
         {
@@ -28,93 +21,10 @@ namespace PureFlow
 
         private DBHelper()
         {
-            string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + DB_NAME;
-            con = new OleDbConnection(connectionString);
-
-            dataSource = new MSAccessDB();
+            DataSource = new MSAccessDB();
         }
 
-        public void InsertBrand(String name, String details)
-        {
-            dataSource.Insert(eTableNames.Brand, eBrandTable.Name, name, eBrandTable.Details, details);
-        }
-
-        public bool IsBrandNameExist(string brandName)
-        {
-            return dataSource.GetId(eTableNames.Brand, eBrandTable.Name, brandName) != 0;
-        }
-
-        public void InsertCustomerName(string name)
-        {
-            OleDbCommand cmd = new OleDbCommand();
-            con.Open();
-            cmd.CommandText = "Insert into Customer(Name) Values('" + name + "')";
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
-        public void InsertBranchDetails(int customerId, string branchName)
-        {
-            OleDbCommand cmd = new OleDbCommand();
-            con.Open();
-            cmd.CommandText = "Insert into Branch(CustomerID,Name) Values(" + customerId + ",'" + branchName + "')";
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
-        public void InsertCategoryName(string name)
-        {
-            OleDbCommand cmd = new OleDbCommand();
-            con.Open();
-            cmd.CommandText = "Insert into Category(Name) Values('" + name + "')";
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-        
-        public void InsertProductDetails(int catergoryId, string name, string description)
-        {
-            OleDbCommand cmd = new OleDbCommand();
-            con.Open();
-            cmd.CommandText = "Insert into Product(name,description, categoryid) Values('" + name + "','" + description + "',"+catergoryId+")";
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
-        public int GetCustomerID(string customerName)
-        {
-            int customerId = 0;
-            con.Open();
-            OleDbDataReader reader = null;
-            cmd = new OleDbCommand("select ID from Customer where name='" + customerName + "' order by id", con);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                customerId = reader.GetInt32(0);
-                //firstName.Add(reader["FirstName"].ToString());
-            }
-            con.Close();
-            return customerId;
-        }
-
-        public int GetBranchID(string branchName)
-        {
-            int id = 0;
-            con.Open();
-            OleDbDataReader reader = null;
-            cmd = new OleDbCommand("select ID from Branch where name='" + branchName + "' order by id", con);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                id = reader.GetInt32(0);
-            }
-            con.Close();
-            return id;
-        }
-
+      
         public int GetBranchID(string branchName, int customerId)
         {
             int id = 0;
@@ -130,50 +40,7 @@ namespace PureFlow
             return id;
         }
 
-        public int GetCategoryID(string categoryName)
-        {
-            int customerId = 0;
-            con.Open();
-            OleDbDataReader reader = null;
-            cmd = new OleDbCommand("select ID from Category where name='" + categoryName + "' order by id", con);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                customerId = reader.GetInt32(0);
-            }
-            con.Close();
-            return customerId;
-        }
-
-        public int GetProductID(string name)
-        {
-            int id = 0;
-            con.Open();
-            OleDbDataReader reader = null;
-            cmd = new OleDbCommand("select ID from Product where name='" + name + "'", con);
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                id = reader.GetInt32(0);
-            }
-            con.Close();
-            return id;
-        }
-
-        public int GetProductID(string name, int categoryId)
-        {
-            int id = 0;
-            con.Open();
-            cmd = new OleDbCommand("select ID from Product where name='" + name + "' and categoryId="+categoryId, con);
-            OleDbDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                id = reader.GetInt32(0);
-            }
-            con.Close();
-            return id;
-        }
-
+   
         public DataTable GetTableData(string commandText)
         {
             cmd = new OleDbCommand();
@@ -349,20 +216,20 @@ namespace PureFlow
             return customerName;
         }
 
-        public List<string> GetBranchNames(string customerName)
-        {
-            int customerId = GetCustomerID(customerName);
-            List<string> branchNames = new List<string>();
-            con.Open();            
-            cmd = new OleDbCommand("select Name from Branch where customerid="+customerId +" order by name", con);
-            OleDbDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                branchNames.Add(reader["Name"].ToString());
-            }
-            con.Close();
-            return branchNames;
-        }
+        //public List<string> GetBranchNames(string customerName)
+        //{
+        //    int customerId = GetCustomerID(customerName);
+        //    List<string> branchNames = new List<string>();
+        //    con.Open();            
+        //    cmd = new OleDbCommand("select Name from Branch where customerid="+customerId +" order by name", con);
+        //    OleDbDataReader reader = cmd.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        branchNames.Add(reader["Name"].ToString());
+        //    }
+        //    con.Close();
+        //    return branchNames;
+        //}
 
         public List<string> GetCategoryNames()
         {
@@ -378,35 +245,35 @@ namespace PureFlow
             return productCategory;
         }
 
-        public List<string> GetProductNames(string categoryName)
-        {
-            int categoryId = GetCategoryID(categoryName);
-            List<string> productNames = new List<string>();
-            con.Open();
-            cmd = new OleDbCommand("select Name from Product where categoryId=" + categoryId +" order by name", con);
-            OleDbDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                productNames.Add(reader["Name"].ToString());
-            }
-            con.Close();
-            return productNames;
-        }
+        //public List<string> GetProductNames(string categoryName)
+        //{
+        //    int categoryId = GetCategoryID(categoryName);
+        //    List<string> productNames = new List<string>();
+        //    con.Open();
+        //    cmd = new OleDbCommand("select Name from Product where categoryId=" + categoryId +" order by name", con);
+        //    OleDbDataReader reader = cmd.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        productNames.Add(reader["Name"].ToString());
+        //    }
+        //    con.Close();
+        //    return productNames;
+        //}
 
-        public string GetProductDescription(string productName)
-        {
-            int productId = GetProductID(productName);
-            string productDescription = "";
-            con.Open();
-            cmd = new OleDbCommand("select description from Product where id=" + productId, con);
-            OleDbDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                productDescription = (reader["description"].ToString());
-            }
-            con.Close();
-            return productDescription;
-        }
+        //public string GetProductDescription(string productName)
+        //{
+        //    int productId = GetProductID(productName);
+        //    string productDescription = "";
+        //    con.Open();
+        //    cmd = new OleDbCommand("select description from Product where id=" + productId, con);
+        //    OleDbDataReader reader = cmd.ExecuteReader();
+        //    if (reader.Read())
+        //    {
+        //        productDescription = (reader["description"].ToString());
+        //    }
+        //    con.Close();
+        //    return productDescription;
+        //}
 
         public void NewTransaction(int branchId, int customerId, int categoryId, int productId, DateTime transDate, int leafCount, int bookCount, decimal amount, string details )
         {

@@ -9,52 +9,53 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddBrandViewModel : IWindowController,INotifyPropertyChanged
-    {
-        
+    public class AddBrandViewModel : IWindowViewModel,INotifyPropertyChanged
+    {      
         private readonly ICommand enableMainWindowCommand;
+        private readonly BrandTable brandTable;
 
         public AddBrandViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
+            brandTable = new BrandTable();
         }
 
         private bool CanAddNewBrand()
         {
-            if (string.IsNullOrEmpty(name)) return false;
+            if (!brandTable.IsValidForInsert()) return false;
 
-            return !DBHelper.GetInstance().IsBrandNameExist(Name);
+            return !brandTable.IsBrandNameExist();
         }
 
         private void AddNewBrand()
         {
-            DBHelper.GetInstance().InsertBrand(Name, Description);
-            Name = "";
-            Description= "";
+            brandTable.InsertAll();
+            SetDefaults();
         }
 
-
-
+        public void SetDefaults()
+        {
+            Name = "";
+            Description = "";
+        }
 
         private ICommand addNewBrandCommand;
         public ICommand AddNewBrandCommand => addNewBrandCommand ?? (addNewBrandCommand = new RelayCommand(AddNewBrand, CanAddNewBrand));
 
-        private String name;
         public String Name
         {
-            get => this.name;
+            get => brandTable.Name;
             set
             {
-                this.name = value;
+                brandTable.Name = value;
                 NotifyPropertyChanged();
             }
         }
 
-        private String description;
         public String Description
         {
-            get => description;
-            set { this.description = value; NotifyPropertyChanged(); }
+            get => brandTable.Details;
+            set { brandTable.Details = value; NotifyPropertyChanged(); }
         }
 
         public void Close()

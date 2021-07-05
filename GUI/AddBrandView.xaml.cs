@@ -19,8 +19,8 @@ namespace PureFlow
     /// </summary>
     public partial class AddBrandView : Window
     {
-        private IWindowController windowController; 
-        public AddBrandView(IWindowController windowController)
+        private IWindowViewModel windowController; 
+        public AddBrandView(IWindowViewModel windowController)
         {
             InitializeComponent();
             this.windowController = windowController;

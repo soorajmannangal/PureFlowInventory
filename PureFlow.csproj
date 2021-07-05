@@ -97,14 +97,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controllers\AddBrandViewModel.cs" />
-    <Compile Include="Controllers\IWindowController.cs" />
+    <Compile Include="ViewModels\AddBrandViewModel.cs" />
+    <Compile Include="ViewModels\IWindowController.cs" />
     <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
     <Compile Include="CustomCommands\DisableMainWindowCommand.cs" />
     <Compile Include="GUI\AddBrandView.xaml.cs">
       <DependentUpon>AddBrandView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\MainWindowController.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="DB\IDataSource.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -113,7 +113,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DBHelper.cs" />
+    <Compile Include="DB\DBHelper.cs" />
     <Page Include="GUI\AddBrandView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\MSAccessDB.cs" />
+    <Compile Include="ORMTables\BrandTable.cs" />
+    <Compile Include="ORMTables\IORMTable.cs" />
+    <Compile Include="ORMTables\ORMBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
