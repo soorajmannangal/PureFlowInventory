@@ -26,12 +26,22 @@ namespace PureFlow
         ID
     }
 
+    public class Dto
+    {
+        private string _field;
+        public string Field => _field;
+        public Dto(string field)
+        {
+            _field = field;
+        }
+    }
+
 
     public interface IDataSource
     {
         void Insert(params object[] p);
         int GetId(eTableNames tableName, object columnName, object columnValue);
-        List<BrandGrid> GetAllBrands(string id, string name, string details, string orderBy);
-        List<String> GetColumnData(eTableNames tableName, string columnName);
+        List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
+        List<Dto> GetColumnData(eTableNames tableName, string columnName);
     }
 }

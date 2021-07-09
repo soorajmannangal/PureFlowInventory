@@ -23,35 +23,7 @@ namespace PureFlow
 
     public class BrandGrid
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Details { get; set; }
-
+        public List<BrandGridDto> Grid => new BrandTable().GetAllBrands();     
        
-
-        public BrandGrid(int id, string name, string details)
-        {
-            this.ID = id;
-            this.Name = name;
-            this.Details = details;
-        }
-
-        public List<BrandGrid> Grid
-        {
-            get
-            {
-                if(_brandTable == null)
-                {
-                    _brandTable = new BrandTable();
-                }
-
-                return _brandTable.GetAllBrands();
-            }
-        }
-
-        private BrandTable _brandTable;
-        public BrandGrid()
-        {
-        }
     }
 }

@@ -28,9 +28,18 @@ namespace PureFlow
             con = new OleDbConnection(connectionString);
         }
 
-        public List<String> GetColumnData(eTableNames tableName, string columnName)
+        public List<Dto> GetColumnData(eTableNames tableName, string columnName)
         {
-            return new List<String>();
+            List<Dto> columnData = new List<Dto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {columnName} {FROM} {tableName} {ORDER_BY} {columnName}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                columnData.Add(new Dto(reader[columnName].ToString()));
+            }
+            con.Close();
+            return columnData;
         }
 
         public int GetId(eTableNames tableName, object columnName, object columnValue )
@@ -49,15 +58,15 @@ namespace PureFlow
             return id;
         }
 
-        public List<BrandGrid> GetAllBrands(string id, string name, string details, string orderBy)
+        public List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy)
         {
-            List<BrandGrid> allBrands = new List<BrandGrid>();
+            List<BrandGridDto> allBrands = new List<BrandGridDto>();
             con.Open();
             cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.Brand} {ORDER_BY} {name}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                allBrands.Add(new BrandGrid(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
+                allBrands.Add(new BrandGridDto(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
             }
             con.Close();
             return allBrands;

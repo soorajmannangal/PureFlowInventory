@@ -31,12 +31,12 @@ namespace PureFlow
              _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details);
         }
 
-        public List<BrandGrid> GetAllBrands()
+        public List<BrandGridDto> GetAllBrands()
         {
            return _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
         }
 
-        public List<String> GetBrandNames()
+        public List<Dto> GetBrandNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }
