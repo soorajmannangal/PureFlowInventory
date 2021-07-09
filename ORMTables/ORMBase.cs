@@ -10,8 +10,8 @@ namespace PureFlow
     {
         protected readonly IDataSource _dataSource;
 
-        protected const string DEFAULT_STRING = "NA";
-        protected const int DEFAULT_INT = -1;
+        protected const string DEFAULT_STRING = " ";
+        protected const int DEFAULT_INT = 0;
 
 
         public ORMBase()

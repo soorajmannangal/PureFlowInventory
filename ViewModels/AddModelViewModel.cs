@@ -9,34 +9,44 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddBrandViewModel : IWindowViewModel,INotifyPropertyChanged
+    public class AddModelViewModel : IWindowViewModel,INotifyPropertyChanged
     {      
         private readonly ICommand enableMainWindowCommand;
         private readonly BrandTable brandTable;
-        private List<BrandGrid> gridBrands;
 
-       
-        public List<BrandGrid> Grid => new BrandGrid().Grid;
-
-        public List<BrandGrid> GridBrandListView
+        private List<ModelsGrid> gridModels;
+        public List<ModelsGrid> GridModels
         {
-            get => gridBrands;
+            get => gridModels;
             set
             {
-                if (gridBrands != null)
-                    gridBrands.AddRange(value);
+                if (gridModels != null)
+                    gridModels.AddRange(value);
                 else
-                    gridBrands = value;
+                    gridModels = value;
                 NotifyPropertyChanged();
             }
         }
-        
-        public AddBrandViewModel(ICommand enableMainWindowCommand)
+
+        private List<string> brandNameCombo;
+        public List<String> BrandNameCombo
+        {
+            get => brandNameCombo;
+            set
+            {
+                brandNameCombo = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+
+        public AddModelViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
             brandTable = new BrandTable();
-            gridBrands = brandTable.GetAllBrands();
-         }
+            SetDefaults();
+        }
 
         private bool CanAddNewBrand()
         {
@@ -52,10 +62,10 @@ namespace PureFlow
         }
 
         public void SetDefaults()
-        {                 
-            gridBrands = brandTable.GetAllBrands();
+        {          
             Name = "";
             Description = "";
+            //gridBrandList = brandTable.GetAllBrands();
         }
         public void Close()
         {

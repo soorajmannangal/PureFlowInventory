@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 namespace PureFlow
 {
     public class BrandTable : ORMBase
-    {      
-        public string Name { get; set; }
-        public string Details { get; set; }
+    {
+        private string name;
+        public string Name { get { return name; } set { name = value; } }
+
+        private string details;
+        public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
       
         public override eTableNames TableName => eTableNames.Brand;
 
@@ -25,13 +28,17 @@ namespace PureFlow
 
         public void InsertAll()
         {
-            SetMissingAsDefaults();
-            _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details);
+             _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details);
         }
 
-        public List<BrandListView> GetAllBrands()
+        public List<BrandGrid> GetAllBrands()
         {
            return _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
+        }
+
+        public List<String> GetBrandNames()
+        {
+            return _dataSource.GetColumnData(TableName, nameof(Name));
         }
 
         public bool IsValidForInsert()
@@ -40,14 +47,6 @@ namespace PureFlow
             return true;
         }
 
-        public void SetMissingAsDefaults()
-        {
-            if(string.IsNullOrEmpty(Details))
-            {
-                Details = DEFAULT_STRING;
-            }
-        }
-
-
+       
     }
 }

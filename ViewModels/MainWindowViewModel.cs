@@ -15,6 +15,7 @@ namespace PureFlow
     {
         private MainWindow mainWindow;
         private ICommand showAddNewBrandWindowCommand;
+        private ICommand showAddNewModelWindowCommand;
         private ICommand disableMainWindowCommand;
         private ICommand enableMainWindowCommand;
 
@@ -32,6 +33,20 @@ namespace PureFlow
         }
 
         public ICommand ShowAddNewBrandWindowCommand => showAddNewBrandWindowCommand ?? (showAddNewBrandWindowCommand = new RelayCommand(ShowAddNewBrandWindow, CanShowAddNewBrandWindow));
+        public ICommand ShowAddNewModelWindowCommand => showAddNewModelWindowCommand ?? (showAddNewModelWindowCommand = new RelayCommand(ShowAddNewModelWindow, CanShowAddNewModelWindow));
+
+        private bool CanShowAddNewModelWindow()
+        {
+            return true;
+        }
+
+        private void ShowAddNewModelWindow()
+        {
+            IWindowViewModel contextViewModel = new AddModelViewModel(enableMainWindowCommand);
+            var contextView = new AddModelView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
 
         private bool CanShowAddNewBrandWindow()
         {
@@ -40,11 +55,10 @@ namespace PureFlow
 
         private void ShowAddNewBrandWindow()
         {
-            IWindowViewModel addBrandController = new AddBrandViewModel(enableMainWindowCommand);
-            var brand = new AddBrandView(addBrandController);
+            IWindowViewModel contextViewModel = new AddBrandViewModel(enableMainWindowCommand);
+            var contextView = new AddBrandView(contextViewModel);
             disableMainWindowCommand.Execute(null);
-            brand.Show();
-           
+            contextView.Show();        
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

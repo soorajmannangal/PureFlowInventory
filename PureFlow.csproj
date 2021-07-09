@@ -97,12 +97,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ORMTables\BrandListView.cs" />
+    <Compile Include="ORMTables\ModelsGrid.cs" />
+    <Compile Include="ORMTables\BrandGrid.cs" />
+    <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />
     <Compile Include="ViewModels\IWindowController.cs" />
     <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
     <Compile Include="CustomCommands\DisableMainWindowCommand.cs" />
-    <Compile Include="GUI\AddBrandView.xaml.cs">
+    <Compile Include="View\AddBrandView.xaml.cs">
       <DependentUpon>AddBrandView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -115,13 +117,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DB\DBHelper.cs" />
-    <Page Include="GUI\AddBrandView.xaml">
+    <Compile Include="View\AddModelView.xaml.cs">
+      <DependentUpon>AddModelView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\AddBrandView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddModelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

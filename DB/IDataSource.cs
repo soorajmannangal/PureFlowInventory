@@ -8,7 +8,17 @@ namespace PureFlow
 {
     public enum eTableNames
     {
-        Brand
+        Brand,
+        Customer,
+        InventoryTransaction,
+        Invoice,
+        Model,
+        ServiceMan,
+        ServiceReminder,
+        ServiceRequest,
+        SpareInventory,
+        User,
+        WorkType
     }
 
     public enum eGenericColumnName
@@ -21,6 +31,7 @@ namespace PureFlow
     {
         void Insert(params object[] p);
         int GetId(eTableNames tableName, object columnName, object columnValue);
-        List<BrandListView> GetAllBrands(string id, string name, string details, string orderBy);
+        List<BrandGrid> GetAllBrands(string id, string name, string details, string orderBy);
+        List<String> GetColumnData(eTableNames tableName, string columnName);
     }
 }

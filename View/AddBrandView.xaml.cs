@@ -19,17 +19,19 @@ namespace PureFlow
     /// </summary>
     public partial class AddBrandView : Window
     {
-        private IWindowViewModel windowController; 
-        public AddBrandView(IWindowViewModel windowController)
+        private IWindowViewModel contextViewModel; 
+        public AddBrandView(IWindowViewModel contextViewModel)
         {
             InitializeComponent();
-            this.windowController = windowController;
-            this.DataContext = windowController;
+            this.contextViewModel = contextViewModel;
+            this.DataContext = contextViewModel;
         }
 
-        private void AddBrandView_OnClosed(object sender, EventArgs e)
+        private void Window_OnClosed(object sender, EventArgs e)
         {
-            windowController.Close();
+            contextViewModel.Close();
         }
+
+       
     }
 }

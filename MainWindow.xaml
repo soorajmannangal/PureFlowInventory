@@ -16,7 +16,7 @@
                 <Separator />
                 <MenuItem Header="Create New Inventory Item" IsCheckable="False"  />
                 <MenuItem Header="Add New Brand" IsCheckable="False" Command="{Binding Path=ShowAddNewBrandWindowCommand }" />
-                <MenuItem Header="Add New Model" IsCheckable="False" />
+                <MenuItem Header="Add New Model" IsCheckable="False" Command="{Binding Path=ShowAddNewModelWindowCommand }" /> 
                 <MenuItem Header="Add Technician" IsCheckable="False" />
                 <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" />
                 <Separator />

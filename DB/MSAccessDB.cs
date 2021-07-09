@@ -28,6 +28,11 @@ namespace PureFlow
             con = new OleDbConnection(connectionString);
         }
 
+        public List<String> GetColumnData(eTableNames tableName, string columnName)
+        {
+            return new List<String>();
+        }
+
         public int GetId(eTableNames tableName, object columnName, object columnValue )
         {
             string val = TypeConvertor(columnValue);
@@ -44,15 +49,15 @@ namespace PureFlow
             return id;
         }
 
-        public List<BrandListView> GetAllBrands(string id, string name, string details, string orderBy)
+        public List<BrandGrid> GetAllBrands(string id, string name, string details, string orderBy)
         {
-            List<BrandListView> allBrands = new List<BrandListView>();
+            List<BrandGrid> allBrands = new List<BrandGrid>();
             con.Open();
             cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.Brand} {ORDER_BY} {name}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                allBrands.Add(new BrandListView(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
+                allBrands.Add(new BrandGrid(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
             }
             con.Close();
             return allBrands;
