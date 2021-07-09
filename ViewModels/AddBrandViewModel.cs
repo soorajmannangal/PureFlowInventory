@@ -16,19 +16,10 @@ namespace PureFlow
 
         public List<BrandGridDto> Grid
         {
-            get
-            {
-                return new BrandGrid().Grid;
-            }
-            set
-            {
-                OnPropertyChanged("Grid");
-            }
+            get => brandTable.Grid;
+            set => OnPropertyChanged("Grid");
         }
 
-        public List<Dto> SimpleGrid => new BrandTable().GetBrandNames();
-
-       
         public AddBrandViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;

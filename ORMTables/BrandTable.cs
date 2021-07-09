@@ -13,7 +13,11 @@ namespace PureFlow
 
         private string details;
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
-      
+
+
+        private List<BrandGridDto> grid;
+        public List<BrandGridDto> Grid => grid ?? (grid = _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name)));
+
         public override eTableNames TableName => eTableNames.Brand;
 
         public int GetIdByName()
@@ -30,12 +34,7 @@ namespace PureFlow
         {
              _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details);
         }
-
-        public List<BrandGridDto> GetAllBrands()
-        {
-           return _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
-        }
-
+   
         public List<Dto> GetBrandNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));

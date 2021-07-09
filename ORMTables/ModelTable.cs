@@ -45,5 +45,10 @@ namespace PureFlow
             if (BrandID <= 0) return false;
             return true;
         }
+
+        private List<ModelGridDto> GetModelBrandData()
+        {
+            return new List<ModelGridDto>();
+        }
     }
 }

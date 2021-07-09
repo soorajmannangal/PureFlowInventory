@@ -97,9 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ORMTables\JoinTable.cs" />
-    <Compile Include="ORMTables\ModelGrid.cs" />
-    <Compile Include="ORMTables\BrandGrid.cs" />
+    <Compile Include="ORMTables\ModelGridDto.cs" />
+    <Compile Include="ORMTables\BrandGridDto.cs" />
     <Compile Include="ORMTables\ModelTable.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />

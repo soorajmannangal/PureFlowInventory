@@ -11,40 +11,22 @@ namespace PureFlow
         private readonly ICommand enableMainWindowCommand;
         private readonly ModelTable modelTable;
 
+
         public List<Dto> SimpleGrid
         {
-            get
-            {
-                return new ModelTable().GetModelNames();
-            }
-            set
-            {
-                OnPropertyChanged("SimpleGrid");
-            }
+            get => new ModelTable().GetModelNames();
+            set => OnPropertyChanged("SimpleGrid");
         }
 
         private List<Dto> brands;
-
-        public List<Dto> Brands
-        {
-            get
-            {
-                if(brands == null)
-                {
-                    brands = new BrandTable().GetBrandNames(); 
-                }
-                return brands;
-            }
-        }
+        public List<Dto> Brands => brands ?? (brands = new BrandTable().GetBrandNames());
 
         private Dto selectedBrand;
         public Dto SelectedBrand
-        { 
-            get 
-            {              
-                return selectedBrand; 
-            } 
-            set { 
+        {
+            get => selectedBrand;
+            set 
+            { 
                 selectedBrand = value;
                 OnPropertyChanged("SelectedBrand");
                 modelTable.BrandID = selectedBrand.ID;
@@ -55,14 +37,15 @@ namespace PureFlow
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
             modelTable = new ModelTable();
-            SelectedBrand = Brands[0];
-
+            if (Brands.Count > 0)
+            {
+                SelectedBrand = Brands[0];
+            }
         }
 
         private bool CanAddNew()
         {          
             if (!modelTable.IsValidForInsert()) return false;
-
             return !modelTable.IsModelNameExist();
         }
 
@@ -89,11 +72,7 @@ namespace PureFlow
         public String Name
         {
             get => modelTable.Name;
-            set
-            {
-                modelTable.Name = value;
-                OnPropertyChanged("Name");
-            }
+            set { modelTable.Name = value; OnPropertyChanged("Name");}
         }
 
         public String Details

@@ -7,23 +7,19 @@ using System.Threading.Tasks;
 namespace PureFlow
 {
 
-    public class BrandGridDto
+    public class ModelGridDto
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string BrandName { get; set; }
+        public string ModelName { get; set; }
         public string Details { get; set; }
 
-        public BrandGridDto(int id, string name, string details)
+        public ModelGridDto(int id, string brandName, string modelName, string details)
         {
             this.ID = id;
-            this.Name = name;
+            this.BrandName = brandName;
+            this.ModelName = modelName;
             this.Details = details;
         }
-    }
-
-    public class BrandGrid
-    {
-        public List<BrandGridDto> Grid => new BrandTable().GetAllBrands();     
-       
     }
 }
