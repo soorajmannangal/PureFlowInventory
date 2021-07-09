@@ -2,105 +2,115 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PureFlow
 {
     public class AddModelViewModel : IWindowViewModel,INotifyPropertyChanged
-    {      
+    {
         private readonly ICommand enableMainWindowCommand;
-        private readonly BrandTable brandTable;
+        private readonly ModelTable modelTable;
 
-        private List<ModelsGrid> gridModels;
-        public List<ModelsGrid> GridModels
+        public List<Dto> SimpleGrid
         {
-            get => gridModels;
+            get
+            {
+                return new ModelTable().GetModelNames();
+            }
             set
             {
-                if (gridModels != null)
-                    gridModels.AddRange(value);
-                else
-                    gridModels = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged("SimpleGrid");
             }
         }
 
-        private List<string> brandNameCombo;
-        public List<String> BrandNameCombo
+        private List<Dto> brands;
+
+        public List<Dto> Brands
         {
-            get => brandNameCombo;
-            set
+            get
             {
-                brandNameCombo = value;
-                NotifyPropertyChanged();
+                if(brands == null)
+                {
+                    brands = new BrandTable().GetBrandNames(); 
+                }
+                return brands;
             }
         }
 
-
+        private Dto selectedBrand;
+        public Dto SelectedBrand
+        { 
+            get 
+            {              
+                return selectedBrand; 
+            } 
+            set { 
+                selectedBrand = value;
+                OnPropertyChanged("SelectedBrand");
+                modelTable.BrandID = selectedBrand.ID;
+            } 
+        }
 
         public AddModelViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
-            brandTable = new BrandTable();
-            SetDefaults();
+            modelTable = new ModelTable();
+            SelectedBrand = Brands[0];
+
         }
 
-        private bool CanAddNewBrand()
-        {
-            if (!brandTable.IsValidForInsert()) return false;
+        private bool CanAddNew()
+        {          
+            if (!modelTable.IsValidForInsert()) return false;
 
-            return !brandTable.IsBrandNameExist();
+            return !modelTable.IsModelNameExist();
         }
 
-        private void AddNewBrand()
+        private void AddNew()
         {
-            brandTable.InsertAll();
+            modelTable.InsertAll();
             SetDefaults();
         }
 
         public void SetDefaults()
-        {          
+        {
             Name = "";
-            Description = "";
-            //gridBrandList = brandTable.GetAllBrands();
+            Details = "";
+            SimpleGrid = null;
         }
         public void Close()
         {
             enableMainWindowCommand.Execute(null);
         }
 
-        private ICommand addNewBrandCommand;
-        public ICommand AddNewBrandCommand => addNewBrandCommand ?? (addNewBrandCommand = new RelayCommand(AddNewBrand, CanAddNewBrand));
+        private ICommand addNewCommand;
+        public ICommand AddNewCommand => addNewCommand ?? (addNewCommand = new RelayCommand(AddNew, CanAddNew));
 
         public String Name
         {
-            get => brandTable.Name;
+            get => modelTable.Name;
             set
             {
-                brandTable.Name = value;
-                NotifyPropertyChanged();
+                modelTable.Name = value;
+                OnPropertyChanged("Name");
             }
         }
 
-        public String Description
+        public String Details
         {
-            get => brandTable.Details;
-            set { brandTable.Details = value; NotifyPropertyChanged(); }
+            get => modelTable.Details;
+            set { modelTable.Details = value; OnPropertyChanged("Details"); }
         }
 
-        
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged()
+        protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(""));
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+                this.PropertyChanged(this, args);
             }
         }
-
+      
+        public event PropertyChangedEventHandler PropertyChanged;      
     }
 }

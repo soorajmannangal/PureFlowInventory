@@ -32,11 +32,11 @@ namespace PureFlow
         {
             List<Dto> columnData = new List<Dto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {columnName} {FROM} {tableName} {ORDER_BY} {columnName}", con);
+            cmd = new OleDbCommand($"{SELECT} {eGenericColumnName.ID},{columnName} {FROM} {tableName} {ORDER_BY} {columnName}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                columnData.Add(new Dto(reader[columnName].ToString()));
+                columnData.Add(new Dto(int.Parse(reader[eGenericColumnName.ID.ToString()].ToString()), reader[columnName].ToString()));
             }
             con.Close();
             return columnData;
@@ -88,7 +88,7 @@ namespace PureFlow
             {
                 string val = p[i].ToString();
                 query.Append(val);
-                if (i + i + 1 < len)
+                if (i +  2 < len)
                 {
                     query.Append(",");
                 }

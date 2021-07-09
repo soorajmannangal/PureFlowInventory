@@ -25,14 +25,19 @@ namespace PureFlow
     {
         ID
     }
-
+   
     public class Dto
     {
-        private string _field;
+        private int _id;
+        public int ID => _id;
+
+        private string _field;     
         public string Field => _field;
-        public Dto(string field)
+       
+        public Dto(int id, string field)
         {
             _field = field;
+            _id = id;
         }
     }
 

@@ -13,24 +13,36 @@ namespace PureFlow
     {      
         private readonly ICommand enableMainWindowCommand;
         private readonly BrandTable brandTable;
-             
-        public List<BrandGridDto> Grid => new BrandGrid().Grid;
+
+        public List<BrandGridDto> Grid
+        {
+            get
+            {
+                return new BrandGrid().Grid;
+            }
+            set
+            {
+                OnPropertyChanged("Grid");
+            }
+        }
+
         public List<Dto> SimpleGrid => new BrandTable().GetBrandNames();
-      
+
+       
         public AddBrandViewModel(ICommand enableMainWindowCommand)
         {
             this.enableMainWindowCommand = enableMainWindowCommand;
             brandTable = new BrandTable();
         }
 
-        private bool CanAddNewBrand()
+        private bool CanAddNew()
         {
             if (!brandTable.IsValidForInsert()) return false;
 
             return !brandTable.IsBrandNameExist();
         }
 
-        private void AddNewBrand()
+        private void AddNew()
         {
             brandTable.InsertAll();
             SetDefaults();
@@ -39,15 +51,17 @@ namespace PureFlow
         public void SetDefaults()
         {                 
             Name = "";
-            Description = "";
+            Details = "";
+            Grid = null;
         }
+
         public void Close()
         {
             enableMainWindowCommand.Execute(null);
         }
 
-        private ICommand addNewBrandCommand;
-        public ICommand AddNewBrandCommand => addNewBrandCommand ?? (addNewBrandCommand = new RelayCommand(AddNewBrand, CanAddNewBrand));
+        private ICommand addNewCommand;
+        public ICommand AddNewCommand => addNewCommand ?? (addNewCommand = new RelayCommand(AddNew, CanAddNew));
 
         public String Name
         {
@@ -55,24 +69,26 @@ namespace PureFlow
             set
             {
                 brandTable.Name = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged("Name");
             }
         }
 
-        public String Description
+        public String Details
         {
             get => brandTable.Details;
-            set { brandTable.Details = value; NotifyPropertyChanged(); }
-        }      
+            set { brandTable.Details = value; OnPropertyChanged("Details"); }
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged()
+        protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(""));
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+                this.PropertyChanged(this, args);
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
     }
 }
