@@ -18,12 +18,11 @@ namespace PureFlow
         private ICommand showAddNewModelWindowCommand;
         private ICommand disableMainWindowCommand;
         private ICommand enableMainWindowCommand;
-
      
         public MainWindowViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
-              CreateCustomCommands();
+            CreateCustomCommands();
         }
 
         private void CreateCustomCommands()
