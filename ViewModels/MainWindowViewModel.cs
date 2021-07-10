@@ -14,11 +14,9 @@ namespace PureFlow
     public class MainWindowViewModel: INotifyPropertyChanged
     {
         private MainWindow mainWindow;
-        private ICommand showAddNewBrandWindowCommand;
-        private ICommand showAddNewModelWindowCommand;
         private ICommand disableMainWindowCommand;
         private ICommand enableMainWindowCommand;
-     
+            
         public MainWindowViewModel(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -31,14 +29,21 @@ namespace PureFlow
             enableMainWindowCommand = new EnableMainWindowCommand(mainWindow);
         }
 
+        private ICommand showAddNewBrandWindowCommand;      
         public ICommand ShowAddNewBrandWindowCommand => showAddNewBrandWindowCommand ?? (showAddNewBrandWindowCommand = new RelayCommand(ShowAddNewBrandWindow, CanShowAddNewBrandWindow));
-        public ICommand ShowAddNewModelWindowCommand => showAddNewModelWindowCommand ?? (showAddNewModelWindowCommand = new RelayCommand(ShowAddNewModelWindow, CanShowAddNewModelWindow));
-
-        private bool CanShowAddNewModelWindow()
+        private bool CanShowAddNewBrandWindow() => true;  
+        private void ShowAddNewBrandWindow()
         {
-            return true;
+            IWindowViewModel contextViewModel = new AddBrandViewModel(enableMainWindowCommand);
+            var contextView = new AddBrandView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
         }
 
+        private ICommand showAddNewModelWindowCommand;
+        public ICommand ShowAddNewModelWindowCommand => showAddNewModelWindowCommand ?? (showAddNewModelWindowCommand = new RelayCommand(ShowAddNewModelWindow, CanShowAddNewModelWindow));
+
+        private bool CanShowAddNewModelWindow() => true;     
         private void ShowAddNewModelWindow()
         {
             IWindowViewModel contextViewModel = new AddModelViewModel(enableMainWindowCommand);
@@ -47,17 +52,132 @@ namespace PureFlow
             contextView.Show();
         }
 
-        private bool CanShowAddNewBrandWindow()
+        private ICommand showAddInvoiceWorkTypeViewCommand;
+        public ICommand ShowAddInvoiceWorkTypeViewCommand => showAddInvoiceWorkTypeViewCommand ?? (showAddInvoiceWorkTypeViewCommand = new RelayCommand(ShowAddInvoiceWorkTypeView, CanShowAddInvoiceWorkTypeView));
+
+        private bool CanShowAddInvoiceWorkTypeView() => true;
+        private void ShowAddInvoiceWorkTypeView()
         {
-            return true;
+            IWindowViewModel contextViewModel = new AddInvoiceWorkTypeViewModel(enableMainWindowCommand);
+            var contextView = new AddInvoiceWorkTypeView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
         }
 
-        private void ShowAddNewBrandWindow()
+        private ICommand showAddServiceManViewCommand;
+        public ICommand ShowAddServiceManViewCommand => showAddServiceManViewCommand ?? (showAddServiceManViewCommand = new RelayCommand(ShowAddServiceManView, CanShowAddServiceManView));
+
+        private bool CanShowAddServiceManView() => true;
+        private void ShowAddServiceManView()
         {
-            IWindowViewModel contextViewModel = new AddBrandViewModel(enableMainWindowCommand);
-            var contextView = new AddBrandView(contextViewModel);
+            IWindowViewModel contextViewModel = new AddServiceManViewModel(enableMainWindowCommand);
+            var contextView = new AddServiceManView(contextViewModel);
             disableMainWindowCommand.Execute(null);
-            contextView.Show();        
+            contextView.Show();
+        }
+
+        private ICommand showAddSpareInventoryViewCommand;
+        public ICommand ShowAddSpareInventoryViewCommand => showAddSpareInventoryViewCommand ?? (showAddSpareInventoryViewCommand = new RelayCommand(ShowAddSpareInventoryView, CanShowAddSpareInventoryView));
+
+        private bool CanShowAddSpareInventoryView() => true;
+        private void ShowAddSpareInventoryView()
+        {
+            IWindowViewModel contextViewModel = new AddSpareInventoryViewModel(enableMainWindowCommand);
+            var contextView = new AddSpareInventoryView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+
+        private ICommand showInventoryReportViewCommand;
+        public ICommand ShowInventoryReportViewCommand => showInventoryReportViewCommand ?? 
+            (showInventoryReportViewCommand = new RelayCommand(ShowInventoryReportView, CanShowInventoryReportView));
+
+        private bool CanShowInventoryReportView() => true;
+        private void ShowInventoryReportView()
+        {
+            IWindowViewModel contextViewModel = new InventoryReportViewModel(enableMainWindowCommand);
+            var contextView = new InventoryReportView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showInventoryTransactionReportViewCommand;
+        public ICommand ShowInventoryTransactionReportViewCommand => showInventoryTransactionReportViewCommand 
+            ?? (showInventoryTransactionReportViewCommand = new RelayCommand(ShowInventoryTransactionReportView, CanShowInventoryTransactionReportView));
+
+        private bool CanShowInventoryTransactionReportView() => true;
+        private void ShowInventoryTransactionReportView()
+        {
+            IWindowViewModel contextViewModel = new InventoryTransactionReportViewModel(enableMainWindowCommand);
+            var contextView = new InventoryTransactionReportView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showInvoiceReportViewCommand;
+        public ICommand ShowInvoiceReportViewCommand => showInvoiceReportViewCommand ??
+            (showInvoiceReportViewCommand = new RelayCommand(ShowInvoiceReportView, CanShowInvoiceReportView));
+
+        private bool CanShowInvoiceReportView() => true;
+        private void ShowInvoiceReportView()
+        {
+            IWindowViewModel contextViewModel = new InvoiceReportViewModel(enableMainWindowCommand);
+            var contextView = new InvoiceReportView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showNewInvoiceViewCommand;
+        public ICommand ShowNewInvoiceViewCommand => showNewInvoiceViewCommand
+            ?? (showNewInvoiceViewCommand = new RelayCommand(ShowNewInvoiceView, CanShowNewInvoiceView));
+
+        private bool CanShowNewInvoiceView() => true;
+        private void ShowNewInvoiceView()
+        {
+            IWindowViewModel contextViewModel = new NewInvoiceViewModel(enableMainWindowCommand);
+            var contextView = new NewInvoiceView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showNewServiceRequestViewCommand;
+        public ICommand ShowNewServiceRequestViewCommand => showNewServiceRequestViewCommand 
+            ?? (showNewServiceRequestViewCommand = new RelayCommand(ShowAddNewServiceRequestView, CanShowNewServiceRequestView));
+
+        private bool CanShowNewServiceRequestView() => true;
+        private void ShowAddNewServiceRequestView()
+        {
+            IWindowViewModel contextViewModel = new NewServiceRequestViewModel(enableMainWindowCommand);
+            var contextView = new NewServiceRequestView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showServiceRequestReportViewCommand;
+        public ICommand ShowServiceRequestReportViewCommand => showServiceRequestReportViewCommand
+            ?? (showServiceRequestReportViewCommand = new RelayCommand(ShowServiceRequestReportView, CanShowServiceRequestReportView));
+
+        private bool CanShowServiceRequestReportView() => true;
+        private void ShowServiceRequestReportView()
+        {
+            IWindowViewModel contextViewModel = new NewServiceRequestViewModel(enableMainWindowCommand);
+            var contextView = new NewServiceRequestView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
+        private ICommand showUpdateSpareInventoryViewCommand;
+        public ICommand ShowUpdateSpareInventoryViewCommand => showUpdateSpareInventoryViewCommand 
+            ?? (showUpdateSpareInventoryViewCommand = new RelayCommand(ShowUpdateSpareInventoryView, CanShowUpdateSpareInventoryView));
+
+        private bool CanShowUpdateSpareInventoryView() => true;
+        private void ShowUpdateSpareInventoryView()
+        {
+            IWindowViewModel contextViewModel = new UpdateSpareInventoryViewModel(enableMainWindowCommand);
+            var contextView = new UpdateSpareInventoryView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
         }
 
         protected void OnPropertyChanged(string propertyName)

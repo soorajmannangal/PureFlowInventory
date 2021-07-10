@@ -100,11 +100,22 @@
     <Compile Include="ORMTables\ModelGridDto.cs" />
     <Compile Include="ORMTables\BrandGridDto.cs" />
     <Compile Include="ORMTables\ModelTable.cs" />
+    <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />
-    <Compile Include="ViewModels\IWindowController.cs" />
+    <Compile Include="ViewModels\ServiceRequestReportViewModel.cs" />
+    <Compile Include="ViewModels\UpdateSpareInventoryViewModel.cs" />
+    <Compile Include="ViewModels\NewServiceRequestViewModel.cs" />
+    <Compile Include="ViewModels\NewInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceReportViewModel.cs" />
+    <Compile Include="ViewModels\InventoryTransactionReportViewModel.cs" />
+    <Compile Include="ViewModels\InventoryReportViewModel.cs" />
+    <Compile Include="ViewModels\AddSpareInventoryViewModel.cs" />
+    <Compile Include="ViewModels\AddServiceManViewModel.cs" />
+    <Compile Include="ViewModels\IWindowViewModel.cs" />
     <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
     <Compile Include="CustomCommands\DisableMainWindowCommand.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="View\AddBrandView.xaml.cs">
       <DependentUpon>AddBrandView.xaml</DependentUpon>
     </Compile>

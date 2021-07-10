@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PureFlow"
+        xmlns:local="clr-namespace:PureFlow" WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="PureFlow" Height="768" Width="1024">
     <Grid>
@@ -12,24 +12,24 @@
                 <DropShadowBitmapEffect />
             </Menu.BitmapEffect>
             <MenuItem Header="_Tools                                        ">
-                <MenuItem Header="Update Inventory" IsCheckable="False"  />
+                <MenuItem Header="Update Inventory" IsCheckable="False" Command="{Binding Path=ShowUpdateSpareInventoryViewCommand }" />
                 <Separator />
-                <MenuItem Header="Create New Inventory Item" IsCheckable="False"  />
+                <MenuItem Header="Create New Inventory Item" IsCheckable="False" Command="{Binding Path=ShowAddSpareInventoryViewCommand }" />
                 <MenuItem Header="Add New Brand" IsCheckable="False" Command="{Binding Path=ShowAddNewBrandWindowCommand }" />
-                <MenuItem Header="Add New Model" IsCheckable="False" Command="{Binding Path=ShowAddNewModelWindowCommand }" /> 
-                <MenuItem Header="Add Technician" IsCheckable="False" />
-                <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" />
+                <MenuItem Header="Add New Model" IsCheckable="False" Command="{Binding Path=ShowAddNewModelWindowCommand }" />
+                <MenuItem Header="Add Technician" IsCheckable="False" Command="{Binding Path=ShowAddServiceManViewCommand }"  />
+                <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" Command="{Binding Path=ShowAddInvoiceWorkTypeViewCommand }" />
                 <Separator />
-                <MenuItem Header="Service Request Report" IsCheckable="False" />
-                <MenuItem Header="Invoice Report" IsCheckable="False" />
-                <MenuItem Header="Inventory Report" IsCheckable="False" />
-                <MenuItem Header="Inventory Transaction Report" IsCheckable="False" />
+                <MenuItem Header="Service Request Report" IsCheckable="False" Command="{Binding Path=ShowServiceRequestReportViewCommand}" />
+                <MenuItem Header="Invoice Report" IsCheckable="False" Command="{Binding Path=ShowInvoiceReportViewCommand }" />
+                <MenuItem Header="Inventory Report" IsCheckable="False"  Command="{Binding Path=ShowInventoryReportViewCommand }"/>
+                <MenuItem Header="Inventory Transaction Report" IsCheckable="False"  Command="{Binding Path=ShowInventoryTransactionReportViewCommand }"/>
                 <Separator />
                 <MenuItem Header="Exit" IsCheckable="False" Click="OnClick_Exit" />
             </MenuItem>
         </Menu>
-        <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242"/>
-        <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242"/>
+        <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewServiceRequestViewCommand }"/>
+        <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewInvoiceViewCommand }"/>
         <DataGrid x:Name="dgServiceReminder" HorizontalAlignment="Center" Height="376" Margin="0,228,0,0" VerticalAlignment="Top" Width="978" />
         <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,123,0,0" VerticalAlignment="Top" Width="220"/>
         <ComboBox x:Name="cmbBrand" HorizontalAlignment="Left" Margin="431,173,0,0" VerticalAlignment="Top" Width="120" />

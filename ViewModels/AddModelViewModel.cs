@@ -6,11 +6,9 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddModelViewModel : IWindowViewModel,INotifyPropertyChanged
+    public class AddModelViewModel : ViewModelBase,INotifyPropertyChanged
     {
-        private readonly ICommand enableMainWindowCommand;
         private readonly ModelTable modelTable;
-
 
         public List<Dto> SimpleGrid
         {
@@ -34,9 +32,8 @@ namespace PureFlow
             } 
         }
 
-        public AddModelViewModel(ICommand enableMainWindowCommand)
+        public AddModelViewModel(ICommand enableMainWindowCommand):base(enableMainWindowCommand)
         {
-            this.enableMainWindowCommand = enableMainWindowCommand;
             modelTable = new ModelTable();
             if (Brands.Count > 0)
             {
@@ -56,17 +53,13 @@ namespace PureFlow
             SetDefaults();
         }
 
-        public void SetDefaults()
+        public override void SetDefaults()
         {
             Name = "";
             Details = "";
             SimpleGrid = null;
         }
-        public void Close()
-        {
-            enableMainWindowCommand.Execute(null);
-        }
-
+       
         private ICommand addNewCommand;
         public ICommand AddNewCommand => addNewCommand ?? (addNewCommand = new RelayCommand(AddNew, CanAddNew));
 

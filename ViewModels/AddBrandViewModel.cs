@@ -9,9 +9,8 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddBrandViewModel : IWindowViewModel,INotifyPropertyChanged
+    public class AddBrandViewModel : ViewModelBase, INotifyPropertyChanged
     {      
-        private readonly ICommand enableMainWindowCommand;
         private readonly BrandTable brandTable;
 
         public List<BrandGridDto> Grid
@@ -20,10 +19,9 @@ namespace PureFlow
             set => OnPropertyChanged("Grid");
         }
 
-        public AddBrandViewModel(ICommand enableMainWindowCommand)
+        public AddBrandViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
-            this.enableMainWindowCommand = enableMainWindowCommand;
-            brandTable = new BrandTable();
+              brandTable = new BrandTable();
         }
 
         private bool CanAddNew()
@@ -39,16 +37,11 @@ namespace PureFlow
             SetDefaults();
         }
 
-        public void SetDefaults()
-        {                 
+        public override void SetDefaults()
+        {
             Name = "";
             Details = "";
             Grid = null;
-        }
-
-        public void Close()
-        {
-            enableMainWindowCommand.Execute(null);
         }
 
         private ICommand addNewCommand;
@@ -78,6 +71,8 @@ namespace PureFlow
                 this.PropertyChanged(this, args);
             }
         }
+
+      
 
         public event PropertyChangedEventHandler PropertyChanged;
 

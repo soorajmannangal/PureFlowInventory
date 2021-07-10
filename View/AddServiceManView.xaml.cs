@@ -19,9 +19,17 @@ namespace PureFlow
     /// </summary>
     public partial class AddServiceManView : Window
     {
-        public AddServiceManView()
+        private IWindowViewModel contextViewModel;
+        public AddServiceManView(IWindowViewModel contextViewModel)
         {
             InitializeComponent();
+            this.contextViewModel = contextViewModel;
+            this.DataContext = contextViewModel;
+        }
+
+        private void Window_OnClosed(object sender, EventArgs e)
+        {
+            contextViewModel.Close();
         }
     }
 }

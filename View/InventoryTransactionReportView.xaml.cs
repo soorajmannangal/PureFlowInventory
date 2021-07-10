@@ -19,9 +19,17 @@ namespace PureFlow
     /// </summary>
     public partial class InventoryTransactionReportView : Window
     {
-        public InventoryTransactionReportView()
+        private IWindowViewModel contextViewModel;
+        public InventoryTransactionReportView(IWindowViewModel contextViewModel)
         {
             InitializeComponent();
+            this.contextViewModel = contextViewModel;
+            this.DataContext = contextViewModel;
+        }
+
+        private void Window_OnClosed(object sender, EventArgs e)
+        {
+            contextViewModel.Close();
         }
     }
 }
