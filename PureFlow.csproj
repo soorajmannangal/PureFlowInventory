@@ -100,7 +100,9 @@
     <Compile Include="ORMTables\ModelGridDto.cs" />
     <Compile Include="ORMTables\BrandGridDto.cs" />
     <Compile Include="ORMTables\ModelTable.cs" />
+    <Compile Include="ORMTables\ServiceManTable.cs" />
     <Compile Include="ORMTables\SpareInventoryTable.cs" />
+    <Compile Include="ORMTables\WorkTypeTable.cs" />
     <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />
