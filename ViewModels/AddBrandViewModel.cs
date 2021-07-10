@@ -12,29 +12,10 @@ namespace PureFlow
     public class AddBrandViewModel : ViewModelBase, INotifyPropertyChanged
     {      
         private readonly BrandTable brandTable;
-
-        public List<BrandGridDto> Grid
-        {
-            get => brandTable.Grid;
-            set => OnPropertyChanged("Grid");
-        }
-
+    
         public AddBrandViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
               brandTable = new BrandTable();
-        }
-
-        private bool CanAddNew()
-        {
-            if (!brandTable.IsValidForInsert()) return false;
-
-            return !brandTable.IsBrandNameExist();
-        }
-
-        private void AddNew()
-        {
-            brandTable.InsertAll();
-            SetDefaults();
         }
 
         public override void SetDefaults()
@@ -46,7 +27,18 @@ namespace PureFlow
 
         private ICommand addNewCommand;
         public ICommand AddNewCommand => addNewCommand ?? (addNewCommand = new RelayCommand(AddNew, CanAddNew));
+        private void AddNew()
+        {
+            brandTable.InsertAll();
+            SetDefaults();
+        }
+        private bool CanAddNew()
+        {
+            if (!brandTable.IsValidForInsert()) return false;
 
+            return !brandTable.IsBrandNameExist();
+        }
+     
         public String Name
         {
             get => brandTable.Name;
@@ -61,6 +53,12 @@ namespace PureFlow
         {
             get => brandTable.Details;
             set { brandTable.Details = value; OnPropertyChanged("Details"); }
+        }
+
+        public List<BrandGridDto> Grid
+        {
+            get => brandTable.Grid;
+            set => OnPropertyChanged("Grid");
         }
 
         protected void OnPropertyChanged(string propertyName)

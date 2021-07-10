@@ -13,13 +13,11 @@ namespace PureFlow
         protected const string DEFAULT_STRING = " ";
         protected const int DEFAULT_INT = 0;
 
-
         public ORMBase()
         {
             _dataSource = DBHelper.GetInstance().DataSource;
         }
-        public abstract eTableNames TableName { get; }
 
-       
+        public abstract eTableNames TableName { get; }      
     }
 }

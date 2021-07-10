@@ -10,11 +10,11 @@
         <Label Content="Item Name" HorizontalAlignment="Left" Margin="155,80,0,0" VerticalAlignment="Top"/>
         <Label Content="Details" HorizontalAlignment="Left" Margin="158,188,0,0" VerticalAlignment="Top"/>
         <Label Content="Quantity" HorizontalAlignment="Left" Margin="158,136,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="284,84,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="155"/>
-        <TextBox HorizontalAlignment="Left" Height="62" Margin="284,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="155"/>
-        <TextBox HorizontalAlignment="Left" Height="22" Margin="284,140,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="155"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="256,287,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid HorizontalAlignment="Left" Height="305" Margin="488,37,0,0" VerticalAlignment="Top" Width="259"/>
+        <TextBox Text="{Binding Path=Name, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="284,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+        <TextBox Text="{Binding Path=Details, Mode=TwoWay}" HorizontalAlignment="Left" Height="62" Margin="284,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+        <TextBox Text="{Binding Path=Quantity, Mode=TwoWay}" HorizontalAlignment="Left" Height="22" Margin="284,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+        <Button Command="{Binding Path=AddNewCommand}" Content="Add" HorizontalAlignment="Left" Margin="256,287,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="305" Margin="488,37,0,0" VerticalAlignment="Top" Width="259"/>
 
     </Grid>
 </Window>
