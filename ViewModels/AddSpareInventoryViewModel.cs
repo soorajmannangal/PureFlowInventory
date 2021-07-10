@@ -25,9 +25,9 @@ namespace PureFlow
             Grid = null;
         }
 
-        public List<Dto> Grid
+        public List<SpareInventoryDto> Grid
         {
-            get => new SpareInventoryTable().GetItemNames();
+            get => spareInventoryTable.Grid;
             set => OnPropertyChanged("Grid");
         }
 

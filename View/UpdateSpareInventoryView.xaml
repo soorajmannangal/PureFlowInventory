@@ -13,8 +13,8 @@
         <TextBox HorizontalAlignment="Left" Height="62" Margin="188,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="251"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="188,209,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="135"/>
         <Button Content="Update" HorizontalAlignment="Left" Margin="260,322,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid HorizontalAlignment="Left" Height="305" Margin="488,37,0,0" VerticalAlignment="Top" Width="259"/>
-        <ComboBox HorizontalAlignment="Left" Margin="188,84,0,0" VerticalAlignment="Top" Width="251"/>
+        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="305" Margin="488,37,0,0" VerticalAlignment="Top" Width="259"/>
+        <ComboBox ItemsSource="{Binding Items}" DisplayMemberPath="Name"  SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Left" Margin="188,84,0,0" VerticalAlignment="Top" Width="251"/>
         <Label Content="Quantity +/-" HorizontalAlignment="Left" Margin="109,249,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="22" Margin="188,253,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="135"/>
 

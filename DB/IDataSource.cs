@@ -45,8 +45,9 @@ namespace PureFlow
     public interface IDataSource
     {
         void Insert(params object[] p);
-        int GetId(eTableNames tableName, object columnName, object columnValue);
-        List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
+        int GetId(eTableNames tableName, object columnName, object columnValue);      
         List<Dto> GetColumnData(eTableNames tableName, string columnName);
+        List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
+        List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy);
     }
 }

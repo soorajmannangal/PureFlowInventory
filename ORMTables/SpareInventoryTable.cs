@@ -20,6 +20,8 @@ namespace PureFlow
         private DateTime lastUpdatedDate;
         public DateTime LastUpdated { get => lastUpdatedDate; set { lastUpdatedDate = value; } }
 
+        public List<SpareInventoryDto> Grid => _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(LastUpdated), nameof(Name));
+
         public SpareInventoryTable()
         {
             lastUpdatedDate = DateTime.Now;

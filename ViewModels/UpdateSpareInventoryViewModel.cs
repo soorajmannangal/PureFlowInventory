@@ -10,9 +10,38 @@ namespace PureFlow
 {
     public class UpdateSpareInventoryViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private readonly SpareInventoryTable spareInventoryTable;
+        
         public UpdateSpareInventoryViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
+            spareInventoryTable = new SpareInventoryTable();
+            if (Items.Count > 0)
+            {
+                SelectedItem = Items[0];
+            }
+        }
 
+
+        public List<SpareInventoryDto> Grid
+        {
+            get => spareInventoryTable.Grid;
+            set => OnPropertyChanged("Grid");
+        }
+
+        private List<SpareInventoryDto> items;
+        public List<SpareInventoryDto> Items => items ?? (items = spareInventoryTable.Grid);
+
+        private SpareInventoryDto selectedItem;
+        public SpareInventoryDto SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                selectedItem = value;
+                OnPropertyChanged("SelectedItem");
+                //SpareInventoryTable.BrandID = selectedBrand.ID;
+                //SetDefaults();
+            }
         }
 
         public override void SetDefaults()

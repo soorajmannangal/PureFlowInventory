@@ -141,5 +141,25 @@ namespace PureFlow
         {
             return "'" + value + "'";
         }
+
+        public List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy)
+        {
+            List<SpareInventoryDto> results = new List<SpareInventoryDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details},{lastUpdated} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {name}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                results.Add(
+                    new SpareInventoryDto(
+                        int.Parse(reader[id].ToString()), 
+                        reader[name].ToString(), 
+                        reader[details].ToString(), 
+                        int.Parse(reader[quantity].ToString()), 
+                        DateTime.Parse( reader[lastUpdated].ToString())));
+            }
+            con.Close();
+            return results;
+        }
     }
 }
