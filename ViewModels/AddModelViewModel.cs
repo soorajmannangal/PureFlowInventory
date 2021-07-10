@@ -30,6 +30,7 @@ namespace PureFlow
                 selectedBrand = value;
                 OnPropertyChanged("SelectedBrand");
                 modelTable.BrandID = selectedBrand.ID;
+                SetDefaults();
             } 
         }
 
@@ -72,7 +73,9 @@ namespace PureFlow
         public String Name
         {
             get => modelTable.Name;
-            set { modelTable.Name = value; OnPropertyChanged("Name");}
+            set { 
+                modelTable.Name = value; 
+                OnPropertyChanged("Name");}
         }
 
         public String Details

@@ -60,13 +60,15 @@ namespace PureFlow
             contextView.Show();        
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged()
+        protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(""));
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+                this.PropertyChanged(this, args);
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

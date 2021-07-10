@@ -10,7 +10,7 @@
         <Label Content="Brand Name" HorizontalAlignment="Left" Margin="75,89,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="75,164,0,0" VerticalAlignment="Top" Width="109"/>
         <Button Content="Create" Command="{Binding Path=AddNewCommand}" HorizontalAlignment="Left" Margin="192,258,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.937,-0.056"/>
-        <TextBox HorizontalAlignment="Left" Height="66" Margin="192,166,0,0" TextWrapping="Wrap" Text="{Binding Path=Description, Mode=TwoWay}" VerticalAlignment="Top" Width="193"/>
+        <TextBox HorizontalAlignment="Left" Height="66" Margin="192,166,0,0" TextWrapping="Wrap" Text="{Binding Path=Details, Mode=TwoWay}" VerticalAlignment="Top" Width="193"/>
         <DataGrid ItemsSource="{Binding Path=SimpleGrid}" HorizontalAlignment="Left" Height="258" Margin="480,54,0,0" VerticalAlignment="Top" Width="254"/>
         <Label Content="Model" HorizontalAlignment="Left" Margin="75,132,0,0" VerticalAlignment="Top" Width="109"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="192,132,0,0" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay}" VerticalAlignment="Top" Width="193"/>

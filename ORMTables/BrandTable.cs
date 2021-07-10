@@ -15,8 +15,9 @@ namespace PureFlow
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
 
 
-        private List<BrandGridDto> grid;
-        public List<BrandGridDto> Grid => grid ?? (grid = _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name)));
+       // private List<BrandGridDto> grid;
+       // public List<BrandGridDto> Grid => grid ?? (grid = _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name)));
+        public List<BrandGridDto> Grid => _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
 
         public override eTableNames TableName => eTableNames.Brand;
 
