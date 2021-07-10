@@ -36,6 +36,7 @@ namespace PureFlow
         public ICommand AddNewCommand => addNewCommand ?? (addNewCommand = new RelayCommand(AddNew, CanAddNew));
         private void AddNew()
         {
+
             serviceManTable.InsertAll();
             SetDefaults();
         }

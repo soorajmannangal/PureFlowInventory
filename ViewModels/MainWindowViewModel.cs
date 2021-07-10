@@ -161,8 +161,8 @@ namespace PureFlow
         private bool CanShowServiceRequestReportView() => true;
         private void ShowServiceRequestReportView()
         {
-            IWindowViewModel contextViewModel = new NewServiceRequestViewModel(enableMainWindowCommand);
-            var contextView = new NewServiceRequestView(contextViewModel);
+            IWindowViewModel contextViewModel = new ServiceRequestReportViewModel(enableMainWindowCommand);
+            var contextView = new ServiceRequestReportView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }

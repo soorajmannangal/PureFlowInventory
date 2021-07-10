@@ -10,9 +10,17 @@ namespace PureFlow
 {
     public class InventoryReportViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private readonly SpareInventoryTable spareInventoryTable;
+
         public InventoryReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
+            spareInventoryTable = new SpareInventoryTable();
+        }
 
+        public List<SpareInventoryDto> Grid
+        {
+            get => spareInventoryTable.Grid;
+            set => OnPropertyChanged("Grid");
         }
 
         public override void SetDefaults()

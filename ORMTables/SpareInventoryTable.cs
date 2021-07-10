@@ -32,6 +32,11 @@ namespace PureFlow
             _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details, nameof(Quantity), Quantity, nameof(LastUpdated), LastUpdated);
         }
 
+        public void UpdateQty(int id, int newQuantity)
+        {
+            _dataSource.UpdateSingleColumn(TableName, id, nameof(Quantity), newQuantity);
+        }
+
         public List<Dto> GetItemNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
@@ -46,6 +51,11 @@ namespace PureFlow
         public bool IsItemNameExist()
         {
             return _dataSource.GetId(TableName, nameof(Name), Name) != 0;
+        }
+
+        public int GetId()
+        {
+            return _dataSource.GetId(TableName, nameof(Name), Name);
         }
 
         public override eTableNames TableName => eTableNames.SpareInventory;

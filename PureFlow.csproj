@@ -97,6 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ORMTables\InventoryTransactionDto.cs" />
+    <Compile Include="ORMTables\InventoryTransactionTable.cs" />
     <Compile Include="ORMTables\SpareInventoryDto.cs" />
     <Compile Include="ORMTables\ModelGridDto.cs" />
     <Compile Include="ORMTables\BrandGridDto.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="ORMTables\ServiceManTable.cs" />
     <Compile Include="ORMTables\SpareInventoryTable.cs" />
     <Compile Include="ORMTables\WorkTypeTable.cs" />
+    <Compile Include="UserInfo.cs" />
     <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />

@@ -7,7 +7,7 @@
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
         Title="InventoryReportView" Height="450" Width="800">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="230" Margin="116,103,0,0" VerticalAlignment="Top" Width="542"/>
+        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="230" Margin="116,103,0,0" VerticalAlignment="Top" Width="542"/>
 
     </Grid>
 </Window>

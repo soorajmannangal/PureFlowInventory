@@ -16,7 +16,10 @@ namespace PureFlow
         private const string VALUES = "VALUES";
         private const string FROM = "FROM";
         private const string WHERE = "WHERE";
+        private const string UPDATE = "UPDATE";
         private const string ORDER_BY = "ORDER BY";
+        private const string SET = "SET";
+
 
         private OleDbConnection con;
         private OleDbCommand cmd;
@@ -66,7 +69,12 @@ namespace PureFlow
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                allBrands.Add(new BrandGridDto(int.Parse(reader[id].ToString()),reader[name].ToString(), reader[details].ToString()));
+                allBrands.Add(new BrandGridDto()
+                {
+                    ID = int.Parse(reader[id].ToString()),
+                    Name = reader[name].ToString(),
+                    Details = reader[details].ToString()
+                });              
             }
             con.Close();
             return allBrands;
@@ -142,21 +150,56 @@ namespace PureFlow
             return "'" + value + "'";
         }
 
+        public void UpdateSingleColumn(eTableNames tableName, int rowId, string columnName, object columnValue)
+        {
+            string val = TypeConvertor(columnValue);
+            OleDbCommand cmd = new OleDbCommand();  
+            con.Open();
+            cmd.CommandText = $"{UPDATE} {tableName} {SET} {columnName} = {val}  {WHERE} {eGenericColumnName.ID}={rowId}";
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
         public List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy)
         {
             List<SpareInventoryDto> results = new List<SpareInventoryDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details},{lastUpdated} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {name}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details},{lastUpdated} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 results.Add(
-                    new SpareInventoryDto(
-                        int.Parse(reader[id].ToString()), 
-                        reader[name].ToString(), 
-                        reader[details].ToString(), 
-                        int.Parse(reader[quantity].ToString()), 
-                        DateTime.Parse( reader[lastUpdated].ToString())));
+                    new SpareInventoryDto()
+                    {
+                        ID = int.Parse(reader[id].ToString()),
+                        Name = reader[name].ToString(),
+                        Details = reader[details].ToString(),
+                        Quantity = int.Parse(reader[quantity].ToString()),
+                        LastUpdated = DateTime.Parse(reader[lastUpdated].ToString())
+                    });                                       
+            }
+            con.Close();
+            return results;
+        }
+
+        public List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy)
+        {
+            List<InventoryTransactionDto> results = new List<InventoryTransactionDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{spareInventoryID},{qty},{userID},{transactionDate} {FROM} {eTableNames.InventoryTransaction} {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                results.Add(
+                    new InventoryTransactionDto()
+                    {
+                        ID = int.Parse(reader[id].ToString()),
+                        SpareInventoryID = int.Parse(reader[spareInventoryID].ToString()),
+                        Qty = int.Parse(reader[qty].ToString()),
+                        UserID = int.Parse(reader[userID].ToString()),
+                        TransactionDate = DateTime.Parse(reader[transactionDate].ToString())
+                    });
             }
             con.Close();
             return results;

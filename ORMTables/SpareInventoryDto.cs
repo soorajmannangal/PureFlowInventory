@@ -12,16 +12,6 @@ namespace PureFlow
         public string Name { get; set; }
         public string Details { get; set; }
         public int Quantity { get; set; }
-        public DateTime LastUpdated { get; set; }
-
-
-        public SpareInventoryDto(int id, string name, string details, int qty, DateTime lastUpdated)
-        {
-            this.ID = id;
-            this.Name = name;
-            this.Details = details;
-            Quantity = qty;
-            LastUpdated = lastUpdated;
-        }
+        public DateTime LastUpdated { get; set; }     
     }
 }

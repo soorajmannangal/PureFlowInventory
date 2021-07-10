@@ -7,7 +7,7 @@
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
         Title="ServiceRequestReportView" Height="450" Width="800">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="296" Margin="45,80,0,0" VerticalAlignment="Top" Width="695"/>
+        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="296" Margin="45,80,0,0" VerticalAlignment="Top" Width="695"/>
 
     </Grid>
 </Window>

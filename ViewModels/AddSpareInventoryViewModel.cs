@@ -36,6 +36,9 @@ namespace PureFlow
         private void AddNew()
         {
             spareInventoryTable.InsertAll();
+            var invTrans = new InventoryTransactionTable(spareInventoryTable.GetId(), spareInventoryTable.Quantity, UserInfo.GetInstance().UserID);
+            invTrans.InsertAll();
+
             SetDefaults();
         }
 
@@ -72,6 +75,8 @@ namespace PureFlow
                 this.PropertyChanged(this, args);
             }
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

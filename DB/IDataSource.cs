@@ -47,7 +47,11 @@ namespace PureFlow
         void Insert(params object[] p);
         int GetId(eTableNames tableName, object columnName, object columnValue);      
         List<Dto> GetColumnData(eTableNames tableName, string columnName);
+        void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
         List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
         List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy);
+        List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy);
+
+
     }
 }
