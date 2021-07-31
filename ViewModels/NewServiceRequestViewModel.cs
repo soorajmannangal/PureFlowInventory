@@ -45,8 +45,6 @@ namespace PureFlow
             IsUnderWarranty = false;
 
             MakeCustomerFieldsReadonly = true;
-
-            //IsUnderWarranty = true;
         }
 
         private void SetCustomerFieldsDefaults()

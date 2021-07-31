@@ -10,6 +10,7 @@ namespace PureFlow
     {
         void Close();
         void SetDefaults();
+        
     } 
    
 }

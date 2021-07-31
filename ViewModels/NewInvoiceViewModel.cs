@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
@@ -15,10 +16,32 @@ namespace PureFlow
 
         }
 
+        private NewInvoiceView invoiceView;
+        public NewInvoiceView InvoiceView
+        {
+            get { return invoiceView; }
+            set
+            {
+                invoiceView = value;
+            }
+        }
+
         public override void SetDefaults()
         {
             throw new NotImplementedException();
         }
+
+        private ICommand addInvoiceItemCommand;
+        public ICommand AddInvoiceItemCommand => addInvoiceItemCommand ?? (addInvoiceItemCommand = new RelayCommand(AddInvoiceItem, CanAddInvoiceItem));
+        private void AddInvoiceItem()
+        {
+            IWindowViewModel contextViewModel = new AddInvoiceItemViewModel(new EnableInvoiceWindowCommand(InvoiceView));
+            var contextView = new AddInvoiceItemView(contextViewModel);
+            new DisableInvoiceWindowCommand(InvoiceView).Execute(null);
+            contextView.Show();
+        }
+
+        private bool CanAddInvoiceItem() => true;
 
         protected void OnPropertyChanged(string propertyName)
         {

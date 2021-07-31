@@ -97,6 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomCommands\DisableInvoiceWindowCommand.cs" />
+    <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
     <Compile Include="ORMTables\ServiceRequestGridDto.cs" />
     <Compile Include="ORMTables\CustomerGridDto.cs" />
     <Compile Include="ORMTables\CustomerTable.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="ORMTables\SpareInventoryTable.cs" />
     <Compile Include="ORMTables\WorkTypeTable.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="ViewModels\AddInvoiceItemViewModel.cs" />
     <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />
@@ -125,9 +128,12 @@
     <Compile Include="ViewModels\AddSpareInventoryViewModel.cs" />
     <Compile Include="ViewModels\AddServiceManViewModel.cs" />
     <Compile Include="ViewModels\IWindowViewModel.cs" />
-    <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
+    <Compile Include="CustomCommands\EnableInvoiceWindowCommand.cs" />
     <Compile Include="CustomCommands\DisableMainWindowCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="View\AddInvoiceItemView.xaml.cs">
+      <DependentUpon>AddInvoiceItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddBrandView.xaml.cs">
       <DependentUpon>AddBrandView.xaml</DependentUpon>
     </Compile>
@@ -177,6 +183,10 @@
     <Compile Include="View\UpdateSpareInventoryView.xaml.cs">
       <DependentUpon>UpdateSpareInventoryView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AddInvoiceItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AddBrandView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

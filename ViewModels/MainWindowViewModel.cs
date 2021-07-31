@@ -135,8 +135,8 @@ namespace PureFlow
         private bool CanShowNewInvoiceView() => true;
         private void ShowNewInvoiceView()
         {
-            IWindowViewModel contextViewModel = new NewInvoiceViewModel(enableMainWindowCommand);
-            var contextView = new NewInvoiceView(contextViewModel);
+            NewInvoiceViewModel newInvoiceViewModel = new NewInvoiceViewModel(enableMainWindowCommand);
+            var contextView = new NewInvoiceView(newInvoiceViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
