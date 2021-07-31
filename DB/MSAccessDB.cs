@@ -146,11 +146,12 @@ namespace PureFlow
             string BrandID,
             string ModelID,
             string RequestDate,
+            string resolvedDate,
             string orderBy            )
         {
             List<ServiceRequestGridDto> dtos = new List<ServiceRequestGridDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate} {FROM} {eTableNames.ServiceRequest} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate},{resolvedDate} {FROM} {eTableNames.ServiceRequest} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -165,12 +166,50 @@ namespace PureFlow
                     BrandID = int.Parse(reader[BrandID].ToString()),
                     ModelID = int.Parse(reader[ModelID].ToString()),
                     RequestDate = DateTime.Parse(reader[RequestDate].ToString()),
-
+                    ResolvedDate = DateTime.Parse(reader[resolvedDate].ToString()),
+                      
                 });
             }
             con.Close();
             return dtos;
         }
+
+        public List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
+            string Status,
+            string BrandID,
+            string ModelID,
+            string RequestDate,
+            string resolvedDate,
+            string orderBy,
+            int customerId)
+        {
+            List<ServiceRequestGridDto> dtos = new List<ServiceRequestGridDto>();
+            con.Open();
+
+            string condition = $" {CustomerID} = {customerId} AND {resolvedDate} =  Format(#" + DateTime.MinValue + "#, 'dd/mm/yyyy') ";
+            string fieldsToSelect = $"{id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate},{resolvedDate}";
+            cmd = new OleDbCommand($"{SELECT} {fieldsToSelect} {FROM} {eTableNames.ServiceRequest} {WHERE} {condition}  {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                dtos.Add(new ServiceRequestGridDto()
+                {
+                    ID = int.Parse(reader[id].ToString()),
+                    CustomerID = int.Parse(reader[CustomerID].ToString()),
+                    Details = reader[Details].ToString(),
+                    IsUnderWarranty = bool.Parse(reader[IsUnderWarranty].ToString()),
+                    DateOfEntry = DateTime.Parse(reader[DateOfEntry].ToString()),
+                    Status = reader[Status].ToString(),
+                    BrandID = int.Parse(reader[BrandID].ToString()),
+                    ModelID = int.Parse(reader[ModelID].ToString()),
+                    RequestDate = DateTime.Parse(reader[RequestDate].ToString()),
+                    ResolvedDate = DateTime.Parse(reader[resolvedDate].ToString()),
+                });
+            }
+            con.Close();
+            return dtos;
+        }
+
 
         public void Insert(params object[] p)
         {

@@ -37,7 +37,8 @@ namespace PureFlow
         public DateTime ResovedDate { get => resolvedDate; set => resolvedDate = value; }
 
         public List<ServiceRequestGridDto> Grid => _dataSource.GetServiceRequestList(
-            eGenericColumnName.ID.ToString(),   nameof(CustomerID),
+                                                eGenericColumnName.ID.ToString(),   
+                                                nameof(CustomerID),
                                                 nameof(Details),
                                                 nameof(IsUnderWarranty),
                                                 nameof(DateOfEntry),
@@ -45,15 +46,27 @@ namespace PureFlow
                                                 nameof(BrandID),
                                                 nameof(ModelID),
                                                 nameof(RequestDate),
+                                                nameof(ResovedDate),
                                                 nameof(RequestDate));
             
-        //public InventoryTransactionTable(intnameof(ResolvedDate), spareInvId, int qty, int userId)
-        //{
-        //    transactionDate = DateTime.Now;
-        //    this.spareInventoryID = spareInvId;
-        //    this.qty = qty;
-        //    this.userID = userId;
-        //}
+      
+
+        public List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(int customerId)
+        {
+            return _dataSource.GetServiceRequestListForCustomerId(
+                                                eGenericColumnName.ID.ToString(),
+                                                nameof(CustomerID),
+                                                nameof(Details),
+                                                nameof(IsUnderWarranty),
+                                                nameof(DateOfEntry),
+                                                nameof(Status),
+                                                nameof(BrandID),
+                                                nameof(ModelID),
+                                                nameof(RequestDate),
+                                                nameof(ResovedDate),
+                                                nameof(RequestDate),
+                                                customerId);
+        }
 
         public void InsertAll()
         {

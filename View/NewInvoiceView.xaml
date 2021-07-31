@@ -12,11 +12,11 @@
         <Label Content="Customer Name" HorizontalAlignment="Left" Margin="49,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
         <Label Content="Customer Email" HorizontalAlignment="Left" Margin="49,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
         <Label Content="Customer Address" HorizontalAlignment="Left" Margin="49,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,75,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="154"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,110,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,141,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
-        <TextBox HorizontalAlignment="Left" Height="78" Margin="183,172,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
-        <Button Content="Fetch" HorizontalAlignment="Left" Margin="354,77,0,0" VerticalAlignment="Top" Width="76"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,75,0,0" TextWrapping="Wrap" Text="{Binding Path=CustomerMobile, Mode=TwoWay}" VerticalAlignment="Top" Width="154"/>
+        <TextBox IsReadOnly="{Binding Path=MakeCustomerFieldsReadonly}" HorizontalAlignment="Left" Height="23" Margin="183,110,0,0" TextWrapping="Wrap" Text="{Binding Path=CustomerName, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
+        <TextBox IsReadOnly="{Binding Path=MakeCustomerFieldsReadonly}" HorizontalAlignment="Left" Height="23" Margin="183,141,0,0" TextWrapping="Wrap"  Text="{Binding Path=CustomerEmail, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
+        <TextBox IsReadOnly="{Binding Path=MakeCustomerFieldsReadonly}" HorizontalAlignment="Left" Height="78" Margin="183,172,0,0" TextWrapping="Wrap"  Text="{Binding Path=CustomerAddress, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
+        <Button Command="{Binding Path=FetchCommand}" Content="Fetch" HorizontalAlignment="Left" Margin="354,77,0,0" VerticalAlignment="Top" Width="76"/>
         <Label Content="Product Brand" HorizontalAlignment="Left" Margin="569,89,0,0" VerticalAlignment="Top"/>
         <Label Content="Product Model" HorizontalAlignment="Left" Margin="569,118,0,0" VerticalAlignment="Top"/>
         <Label Content="Warranty" HorizontalAlignment="Left" Margin="569,141,0,0" VerticalAlignment="Top"/>
@@ -27,8 +27,8 @@
         <TextBox HorizontalAlignment="Left" Height="78" Margin="689,175,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
         <Button Content="Create Invoice" HorizontalAlignment="Left" Margin="836,565,0,0" VerticalAlignment="Top" Width="100"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="704,565,0,0" VerticalAlignment="Top" Width="101"/>
-        <DatePicker HorizontalAlignment="Left" Margin="183,34,0,0" VerticalAlignment="Top" Width="134"/>
-        <ComboBox HorizontalAlignment="Left" Margin="689,32,0,0" VerticalAlignment="Top" Width="181"/>
+        <DatePicker  SelectedDate="{Binding Path=InvoiceDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="183,34,0,0" VerticalAlignment="Top" Width="134"/>
+        <ComboBox ItemsSource="{Binding ServiceRequestCombo}" DisplayMemberPath="RequestDate" HorizontalAlignment="Left" Margin="689,32,0,0" VerticalAlignment="Top" Width="181"/>
         <Label Content="Date of Invoice" HorizontalAlignment="Left" Margin="51,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
         <DataGrid HorizontalAlignment="Left" Height="220" Margin="51,328,0,0" VerticalAlignment="Top" Width="885"/>
         <Button Content="Add Item" Command="{Binding Path=AddInvoiceItemCommand}" HorizontalAlignment="Left" Margin="820,297,0,0" VerticalAlignment="Top" Width="116"/>

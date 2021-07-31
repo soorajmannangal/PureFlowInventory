@@ -19,7 +19,6 @@ namespace PureFlow
         {
             modelTable = new ModelTable();
             customerTable = new CustomerTable();
-            CustomerId = 0; //to check is a new customer
             serviceRequestTable = new ServiceRequestTable();
             SetDefaults();
         }
@@ -28,6 +27,7 @@ namespace PureFlow
         {
             RequestDate = DateTime.Now;
             CustomerMobile = "";
+            CustomerId = 0;
             SetCustomerFieldsDefaults();
             if (Brands.Count > 0)
             {
@@ -55,7 +55,7 @@ namespace PureFlow
         }
 
         private ICommand fetchCommand;
-        public ICommand FetchCommand => fetchCommand ?? (fetchCommand = new RelayCommand(FetchCustomerDetails, CanFetchCustomerDetails));
+        public ICommand FetchCommand => fetchCommand ?? (fetchCommand = new RelayCommand(FetchCustomerDetails, ()=>true));
         private void FetchCustomerDetails()
         {
             if (String.IsNullOrEmpty(CustomerMobile)) return;
@@ -78,13 +78,7 @@ namespace PureFlow
             CustomerId = customerGridDto.ID;
            
         }
-
-        private bool CanFetchCustomerDetails()
-        {
-           // if (String.IsNullOrEmpty(CustomerMobile)) return false;
-            return true;
-        }
-
+    
         private bool ValidateCustomerFields()
         {
             if (String.IsNullOrEmpty(CustomerMobile) || String.IsNullOrEmpty(CustomerName)) return false;
@@ -191,6 +185,12 @@ namespace PureFlow
                 OnPropertyChanged("SelectedModel");       
             }
         }
+        private DateTime requestDate;
+        public DateTime RequestDate
+        {
+            get { return requestDate; }
+            set { requestDate = value; OnPropertyChanged("RequestDate"); }
+        }
 
 
         private String requestDetails;
@@ -201,13 +201,7 @@ namespace PureFlow
         }
 
 
-        private DateTime requestDate;
-        public DateTime RequestDate 
-        { 
-            get { return requestDate; } 
-            set { requestDate = value; OnPropertyChanged("RequestDate"); } 
-        }
-
+      
         public String CustomerName
         {
             get => customerTable.Name;
