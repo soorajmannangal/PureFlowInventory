@@ -31,19 +31,34 @@ namespace PureFlow
             con = new OleDbConnection(connectionString);
         }
 
-        public List<Dto> GetColumnData(eTableNames tableName, string columnName)
+        public List<ComboDto> GetColumnData(eTableNames tableName, string columnName)
         {
-            List<Dto> columnData = new List<Dto>();
+            List<ComboDto> columnData = new List<ComboDto>();
             con.Open();
             cmd = new OleDbCommand($"{SELECT} {eGenericColumnName.ID},{columnName} {FROM} {tableName} {ORDER_BY} {columnName}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                columnData.Add(new Dto(int.Parse(reader[eGenericColumnName.ID.ToString()].ToString()), reader[columnName].ToString()));
+                columnData.Add(new ComboDto(int.Parse(reader[eGenericColumnName.ID.ToString()].ToString()), reader[columnName].ToString()));
             }
             con.Close();
             return columnData;
         }
+
+        public List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue )
+        {
+            List<ComboDto> columnData = new List<ComboDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {eGenericColumnName.ID},{columnName} {FROM} {tableName} {WHERE} {fkIdColumnName}={fkIdValue} {ORDER_BY} {columnName}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                columnData.Add(new ComboDto(int.Parse(reader[eGenericColumnName.ID.ToString()].ToString()), reader[columnName].ToString()));
+            }
+            con.Close();
+            return columnData;
+        }
+
 
         public int GetId(eTableNames tableName, object columnName, object columnValue )
         {
@@ -79,7 +94,54 @@ namespace PureFlow
             con.Close();
             return allBrands;
         }
+
        
+
+        public CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch)
+        {
+            CustomerGridDto dto = null;
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address}, {FROM} {eTableNames.Customer} {WHERE} {phone}={Str(phoneNoToMatch)}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                dto = (new CustomerGridDto()
+                {
+                    ID = int.Parse(reader[id].ToString()),
+                    Name = reader[name].ToString(),
+                    Phone = reader[phone].ToString(),
+                    Address = reader[address].ToString(),
+                    Email = reader[email].ToString()
+                });
+                break;
+            }
+            con.Close();
+            return dto;
+        }
+
+
+        public List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy)
+        {
+            List<CustomerGridDto> dtos = new List<CustomerGridDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address}, {FROM} {eTableNames.Customer} {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                dtos.Add(new CustomerGridDto()
+                {
+                    ID = int.Parse(reader[id].ToString()),
+                    Name = reader[name].ToString(),
+                    Phone = reader[phone].ToString(),
+                    Address = reader[address].ToString(),
+                    Email = reader[email].ToString()
+                });
+            }
+            con.Close();
+            return dtos;
+        }
+
+
         public void Insert(params object[] p)
         {
             //TableName - column name, value, column name, value
@@ -147,7 +209,7 @@ namespace PureFlow
 
         private string Str(string value)
         {
-            return "'" + value + "'";
+            return "'" + value.Trim() + "'";
         }
 
         public void UpdateSingleColumn(eTableNames tableName, int rowId, string columnName, object columnValue)

@@ -37,7 +37,7 @@ namespace PureFlow
             _dataSource.UpdateSingleColumn(TableName, id, nameof(Quantity), newQuantity);
         }
 
-        public List<Dto> GetItemNames()
+        public List<ComboDto> GetItemNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }

@@ -34,10 +34,17 @@ namespace PureFlow
             _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details, nameof(BrandID), BrandID);          
         }
    
-        public List<Dto> GetModelNames()
+        public List<ComboDto> GetModelNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }
+
+        public List<ComboDto> GetModelNames(int brandId)
+        {
+            this.BrandID = brandId;
+            return _dataSource.GetColumnDataByFKId(TableName, nameof(Name), nameof(BrandID), brandId);
+        }
+
 
         public bool IsValidForInsert()
         {

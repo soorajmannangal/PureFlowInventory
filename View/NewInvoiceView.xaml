@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PureFlow"
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
-        Title="NewInvoiceView" Height="450" Width="800">
+        Title="NewInvoiceView" Height="600" Width="1000">
     <Grid>
-        
+        <Label Content="Request ID" HorizontalAlignment="Left" Margin="569,58,0,0" VerticalAlignment="Top"/>
+        <Label Content="Customer Mobile" HorizontalAlignment="Left" Margin="49,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+        <Label Content="Customer Name" HorizontalAlignment="Left" Margin="49,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+        <Label Content="Customer Email" HorizontalAlignment="Left" Margin="49,167,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+        <Label Content="Customer Address" HorizontalAlignment="Left" Margin="49,198,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,105,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="154"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,140,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="183,171,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+        <TextBox HorizontalAlignment="Left" Height="78" Margin="183,202,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+        <Button Content="Fetch" HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="76"/>
+        <Label Content="Product Brand" HorizontalAlignment="Left" Margin="569,104,0,0" VerticalAlignment="Top"/>
+        <Label Content="Product Model" HorizontalAlignment="Left" Margin="569,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Warranty" HorizontalAlignment="Left" Margin="569,171,0,0" VerticalAlignment="Top"/>
+        <Label Content="Request Details" HorizontalAlignment="Left" Margin="569,201,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="689,108,0,0" VerticalAlignment="Top" Width="181"/>
+        <ComboBox HorizontalAlignment="Left" Margin="689,141,0,0" VerticalAlignment="Top" Width="181"/>
+        <CheckBox Content="Under Warranty" HorizontalAlignment="Left" Margin="689,180,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="78" Margin="689,205,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="247"/>
+        <Button Content="Create Invoice" HorizontalAlignment="Left" Margin="610,499,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="747,499,0,0" VerticalAlignment="Top" Width="101"/>
+        <DatePicker HorizontalAlignment="Left" Margin="183,64,0,0" VerticalAlignment="Top" Width="134"/>
+        <ComboBox HorizontalAlignment="Left" Margin="689,62,0,0" VerticalAlignment="Top" Width="181"/>
+        <Label Content="Date of Invoice" HorizontalAlignment="Left" Margin="51,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+
     </Grid>
 </Window>

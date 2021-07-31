@@ -26,7 +26,7 @@ namespace PureFlow
         ID
     }
    
-    public class Dto
+    public class ComboDto
     {
         private int _id;
         public int ID => _id;
@@ -34,7 +34,7 @@ namespace PureFlow
         private string _field;     
         public string Field => _field;
        
-        public Dto(int id, string field)
+        public ComboDto(int id, string field)
         {
             _field = field;
             _id = id;
@@ -45,13 +45,15 @@ namespace PureFlow
     public interface IDataSource
     {
         void Insert(params object[] p);
-        int GetId(eTableNames tableName, object columnName, object columnValue);      
-        List<Dto> GetColumnData(eTableNames tableName, string columnName);
+        int GetId(eTableNames tableName, object columnName, object columnValue);
+        List<ComboDto> GetColumnData(eTableNames tableName, string columnName);
+        List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue);
         void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
         List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
         List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy);
         List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy);
-
+        List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy);
+        CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch);
 
     }
 }

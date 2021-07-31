@@ -97,6 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ORMTables\CustomerGridDto.cs" />
+    <Compile Include="ORMTables\CustomerTable.cs" />
     <Compile Include="ORMTables\InventoryTransactionDto.cs" />
     <Compile Include="ORMTables\InventoryTransactionTable.cs" />
     <Compile Include="ORMTables\SpareInventoryDto.cs" />

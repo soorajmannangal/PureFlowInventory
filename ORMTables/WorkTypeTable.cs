@@ -16,7 +16,7 @@ namespace PureFlow
             _dataSource.Insert(TableName, nameof(Name), Name);
         }
 
-        public List<Dto> GetItemNames()
+        public List<ComboDto> GetItemNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }

@@ -10,17 +10,17 @@ namespace PureFlow
     {
         private readonly ModelTable modelTable;
 
-        public List<Dto> SimpleGrid
+        public List<ComboDto> SimpleGrid
         {
             get => new ModelTable().GetModelNames();
             set => OnPropertyChanged("SimpleGrid");
         }
 
-        private List<Dto> brands;
-        public List<Dto> Brands => brands ?? (brands = new BrandTable().GetBrandNames());
+        private List<ComboDto> brands;
+        public List<ComboDto> Brands => brands ?? (brands = new BrandTable().GetBrandNames());
 
-        private Dto selectedBrand;
-        public Dto SelectedBrand
+        private ComboDto selectedBrand;
+        public ComboDto SelectedBrand
         {
             get => selectedBrand;
             set 

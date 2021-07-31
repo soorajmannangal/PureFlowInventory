@@ -24,7 +24,7 @@ namespace PureFlow
             Grid = null;
         }
 
-        public List<Dto> Grid
+        public List<ComboDto> Grid
         {
             get => new WorkTypeTable().GetItemNames();
             set => OnPropertyChanged("Grid");

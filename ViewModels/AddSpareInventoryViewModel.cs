@@ -23,6 +23,7 @@ namespace PureFlow
             Name = "";
             Details = "";
             Grid = null;
+            Quantity = 0;
         }
 
         public List<SpareInventoryDto> Grid

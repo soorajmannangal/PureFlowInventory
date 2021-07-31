@@ -30,7 +30,7 @@ namespace PureFlow
             _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details, nameof(Phone), Phone, nameof(IsActive), IsActive);
         }
 
-        public List<Dto> GetItemNames()
+        public List<ComboDto> GetItemNames()
         {
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }
