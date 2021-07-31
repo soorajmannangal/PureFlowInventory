@@ -15,7 +15,7 @@ namespace PureFlow
         public AddInvoiceItemViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             spareInventoryTable = new SpareInventoryTable();
-            Items = spareInventoryTable.GetInventoryItems();
+            Items = spareInventoryTable.GetInventoryItemsWithStock();
             if (Items.Count > 0)
             {
                 SelectedItem = Items[0];
@@ -46,6 +46,48 @@ namespace PureFlow
                 selectedItem = value;
                 OnPropertyChanged("SelectedItem");
                 SetDefaults();
+                PrepareQty();
+            }
+        }
+
+        void PrepareQty()
+        {
+            var lst = new List<ComboDto>();
+            for(int i=1; i <= SelectedItem.Quantity; i++)
+            {
+                lst.Add(new ComboDto(i, ""));
+            }
+
+            Qty = lst;
+            if(lst.Count > 0)
+            {
+                SelectedQty = lst[0];
+            }
+        }
+
+        private List<ComboDto> qty;
+        public List<ComboDto> Qty
+        {
+            get
+            {
+                return qty;
+            }
+            set
+            {
+                qty = value;
+                OnPropertyChanged("Qty");
+            }
+        }
+
+        private ComboDto selectedQty;
+        public ComboDto SelectedQty
+        {
+            get => selectedQty;
+            set
+            {
+                selectedQty = value;
+                SetDefaults();
+                OnPropertyChanged("SelectedQty");
             }
         }
 

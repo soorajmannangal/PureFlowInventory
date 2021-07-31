@@ -26,6 +26,11 @@ namespace PureFlow
             return _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
         }
 
+        public List<SpareInventoryDto> GetInventoryItemsWithStock()
+        {
+            return _dataSource.GetAllSparesWithStock(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
+        }
+
         public SpareInventoryTable()
         {
          
