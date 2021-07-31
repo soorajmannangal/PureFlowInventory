@@ -13,20 +13,22 @@ namespace PureFlow
     {
         private ModelTable modelTable;
         private CustomerTable customerTable;
+        ServiceRequestTable serviceRequestTable;
+        private int CustomerId;
         public NewServiceRequestViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             modelTable = new ModelTable();
             customerTable = new CustomerTable();
+            CustomerId = 0; //to check is a new customer
+            serviceRequestTable = new ServiceRequestTable();
             SetDefaults();
         }
 
         public override void SetDefaults()
         {
             RequestDate = DateTime.Now;
-            CustomerName = " ";
-            CustomerMobile = " ";
-            CustomerEmail = " ";
-            CustomerAddress = " ";
+            CustomerMobile = "";
+            SetCustomerFieldsDefaults();
             if (Brands.Count > 0)
             {
                 SelectedBrand = Brands[0];
@@ -39,30 +41,55 @@ namespace PureFlow
                 SelectedModel = Models[0];
             }
 
-        
+            RequestDetails = "";
+            IsUnderWarranty = false;
+
+            MakeCustomerFieldsReadonly = true;
+
             //IsUnderWarranty = true;
+        }
+
+        private void SetCustomerFieldsDefaults()
+        {
+            CustomerName = "";
+            CustomerEmail = "";
+            CustomerAddress = "";
         }
 
         private ICommand fetchCommand;
         public ICommand FetchCommand => fetchCommand ?? (fetchCommand = new RelayCommand(FetchCustomerDetails, CanFetchCustomerDetails));
         private void FetchCustomerDetails()
         {
+            if (String.IsNullOrEmpty(CustomerMobile)) return;
             CustomerGridDto customerGridDto = customerTable.GetCustomerByPhone(CustomerMobile);
             if (customerGridDto == null)
             {
                 //Enable customer textboxes
+                CustomerId = 0;
+                MakeCustomerFieldsReadonly = false;
+                SetCustomerFieldsDefaults();
                 return;
             }
 
-            //Disable Customer details text boxes
+            MakeCustomerFieldsReadonly = true;
+
+              //Disable Customer details text boxes
             CustomerEmail = customerGridDto.Email;
             CustomerAddress = customerGridDto.Address;
             CustomerName = customerGridDto.Name;
+            CustomerId = customerGridDto.ID;
+           
         }
 
         private bool CanFetchCustomerDetails()
         {
-            if (String.IsNullOrEmpty(CustomerMobile)) return false;
+           // if (String.IsNullOrEmpty(CustomerMobile)) return false;
+            return true;
+        }
+
+        private bool ValidateCustomerFields()
+        {
+            if (String.IsNullOrEmpty(CustomerMobile) || String.IsNullOrEmpty(CustomerName)) return false;
             return true;
         }
 
@@ -71,7 +98,24 @@ namespace PureFlow
         public ICommand CreateRequestCommand => createRequestCommand ?? (createRequestCommand = new RelayCommand(CreateRequest, CanCreateRequest));
         private void CreateRequest()
         {
-            customerTable.InsertAll();
+            if (!ValidateCustomerFields()) return;
+
+
+            if (CustomerId == 0)
+            {
+                customerTable.InsertAll();
+            }
+
+            CustomerId = customerTable.GetIdByPhone();
+
+            serviceRequestTable.BrandID = SelectedBrand.ID;
+            serviceRequestTable.ModelID = selectedModel.ID;
+            serviceRequestTable.CustomerID = CustomerId;
+            serviceRequestTable.Details = RequestDetails;
+            serviceRequestTable.IsUnderWarranty = IsUnderWarranty;
+            serviceRequestTable.Status = ServiceRequestStatus.RequestPlaced.ToString();
+            serviceRequestTable.RequestDate = RequestDate;
+            serviceRequestTable.InsertAll();
             SetDefaults();
         }
 
@@ -92,6 +136,17 @@ namespace PureFlow
             }
         }
 
+        private bool makeCustomerFieldsReadonly;
+        public bool MakeCustomerFieldsReadonly
+        {
+            get => makeCustomerFieldsReadonly;
+            set
+            {
+                makeCustomerFieldsReadonly = value;
+                OnPropertyChanged("MakeCustomerFieldsReadonly");
+            }
+        }
+
         private List<ComboDto> brands;
         public List<ComboDto> Brands => brands ?? (brands = new BrandTable().GetBrandNames());
 
@@ -107,6 +162,8 @@ namespace PureFlow
                 {
                     SelectedModel = Models[0];
                 }
+
+              
                 OnPropertyChanged("SelectedBrand");
                 //modelTable.BrandID = selectedBrand.ID;
               //  SetDefaults();
@@ -132,6 +189,7 @@ namespace PureFlow
             set
             {
                 selectedModel = value;
+
                 OnPropertyChanged("SelectedModel");       
             }
         }

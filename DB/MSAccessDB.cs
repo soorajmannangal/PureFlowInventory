@@ -140,6 +140,37 @@ namespace PureFlow
             return dtos;
         }
 
+      
+        public List<ServiceRequestGridDto> GetServiceRequestList(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
+            string Status,
+            string BrandID,
+            string ModelID,
+            string RequestDate,
+            string orderBy            )
+        {
+            List<ServiceRequestGridDto> dtos = new List<ServiceRequestGridDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate} {FROM} {eTableNames.ServiceRequest} {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                dtos.Add(new ServiceRequestGridDto()
+                {
+                    ID = int.Parse(reader[id].ToString()),
+                    CustomerID = int.Parse(reader[CustomerID].ToString()),                 
+                    Details = reader[Details].ToString(),
+                    IsUnderWarranty = bool.Parse( reader[IsUnderWarranty].ToString()),
+                    DateOfEntry = DateTime.Parse( reader[DateOfEntry].ToString()),
+                    Status = reader[Status].ToString(),
+                    BrandID = int.Parse(reader[BrandID].ToString()),
+                    ModelID = int.Parse(reader[ModelID].ToString()),
+                    RequestDate = DateTime.Parse(reader[RequestDate].ToString()),
+
+                });
+            }
+            con.Close();
+            return dtos;
+        }
 
         public void Insert(params object[] p)
         {
@@ -195,6 +226,10 @@ namespace PureFlow
                 query = val;
             }
             else if (tp.Equals(typeof(double)))
+            {
+                query = val;
+            }
+            else if(tp.Equals(typeof(bool)))
             {
                 query = val;
             }

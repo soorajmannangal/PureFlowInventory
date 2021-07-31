@@ -10,9 +10,16 @@ namespace PureFlow
 {
     public class ServiceRequestReportViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private readonly ServiceRequestTable serviceRequestTable;
         public ServiceRequestReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
+            serviceRequestTable = new ServiceRequestTable();
+        }
 
+        public List<ServiceRequestGridDto> Grid
+        {
+            get => serviceRequestTable.Grid;
+            set => OnPropertyChanged("Grid");
         }
 
         public override void SetDefaults()
