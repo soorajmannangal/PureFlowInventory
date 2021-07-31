@@ -45,6 +45,11 @@ namespace PureFlow
             return _dataSource.GetColumnDataByFKId(TableName, nameof(Name), nameof(BrandID), brandId);
         }
 
+        public List<ComboDto> GetNamesById(int id)
+        {
+            return _dataSource.GetColumnDataById(TableName, nameof(Name), id);
+        }
+
 
         public bool IsValidForInsert()
         {
@@ -56,6 +61,11 @@ namespace PureFlow
         private List<ModelGridDto> GetModelBrandData()
         {
             return new List<ModelGridDto>();
+        }
+
+        internal List<ComboDto> GetModelNamesById(int modelID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -58,6 +58,7 @@ namespace PureFlow
                 CustomerId = 0;
                 MakeCustomerFieldsReadonly = false;
                 SetCustomerFieldsDefaults();
+                FillServiceRequestDetails(0);
                 return;
             }
 
@@ -68,11 +69,137 @@ namespace PureFlow
             CustomerAddress = customerGridDto.Address;
             CustomerName = customerGridDto.Name;
             CustomerId = customerGridDto.ID;
+              
+            FillServiceRequestDetails(customerGridDto.ID);
+        }
 
-            //Fetch service request details for CustomerID
-            ServiceRequestCombo = serviceRequestTable.GetServiceRequestListForCustomerId(CustomerId);        
+
+        private void FillServiceRequestDetails(int custId)
+        {
+            if (custId == 0 || (ServiceRequestCombo = serviceRequestTable.GetServiceRequestListForCustomerId(custId)).Count == 0)
+            {
+                ServiceRequestCombo = null;
+                Brands = new BrandTable().GetBrandNames();
+                if (Brands.Count > 0)
+                {
+                    SelectedBrand = Brands[0];
+                }
+
+                if (SelectedBrand != null)
+                {
+                    Models = new ModelTable().GetModelNames(SelectedBrand.ID);
+                    if (Models.Count > 0)
+                    {
+                        SelectedModel = Models[0];
+                    }
+                }
+
+                return;
+            }
+
+            SelectedServiceRequest = ServiceRequestCombo[0];
+
+            Brands = new BrandTable().GetNamesById(SelectedServiceRequest.BrandID);
+            if(Brands.Count > 0)
+            {
+                SelectedBrand = Brands[0];
+            }
+
+            Models = new ModelTable().GetNamesById(SelectedServiceRequest.ModelID);
+            if (Models.Count > 0)
+            {
+                SelectedModel = Models[0];
+            }
+
+            IsUnderWarranty = SelectedServiceRequest.IsUnderWarranty;
+            RequestDate = SelectedServiceRequest.RequestDate;
+            RequestDetails = SelectedServiceRequest.Details;
+            MakeServiceRequestFieldsReadonly = true;
+
 
         }
+
+        private List<ComboDto> brands;
+        public List<ComboDto> Brands
+        {
+            get
+            {
+                return brands;
+            }
+            set
+            {
+                brands = value;
+                if (SelectedBrand != null)
+                {
+                    Models = new ModelTable().GetModelNames(SelectedBrand.ID);
+                    if (Models.Count > 0)
+                    {
+                        SelectedModel = Models[0];
+                    }
+                }
+                OnPropertyChanged("Brands");
+            }
+        }
+
+        private ComboDto selectedBrand;
+        public ComboDto SelectedBrand
+        {
+            get => selectedBrand;
+            set
+            {
+                selectedBrand = value;
+                OnPropertyChanged("SelectedBrand");
+            }
+        }
+
+        private List<ComboDto> models;
+        public List<ComboDto> Models
+        {
+            get => models;
+            set
+            {
+                models = value;
+                OnPropertyChanged("Models");
+            }
+        }
+       
+        private ComboDto selectedModel;
+        public ComboDto SelectedModel
+        {
+            get => selectedModel;
+            set
+            {
+                selectedModel = value;
+                OnPropertyChanged("SelectedModel");
+            }
+        }
+        private DateTime requestDate;
+        public DateTime RequestDate
+        {
+            get { return requestDate; }
+            set { requestDate = value; OnPropertyChanged("RequestDate"); }
+        }
+
+
+        private String requestDetails;
+        public String RequestDetails
+        {
+            get { return requestDetails; }
+            set { requestDetails = value; OnPropertyChanged("RequestDetails"); }
+        }
+
+        private bool isUnderWarranty;
+        public bool IsUnderWarranty
+        {
+            get => isUnderWarranty;
+            set
+            {
+                isUnderWarranty = value;
+                OnPropertyChanged("IsUnderWarranty");
+            }
+        }
+
+
 
 
         private List<ServiceRequestGridDto> serviceRequestCombo;
@@ -107,6 +234,16 @@ namespace PureFlow
             }
         }
 
+        private bool makeServiceRequestFieldsReadonly;
+        public bool MakeServiceRequestFieldsReadonly
+        {
+            get => makeServiceRequestFieldsReadonly;
+            set
+            {
+                makeServiceRequestFieldsReadonly = value;
+                OnPropertyChanged("MakeServiceRequestFieldsReadonly");
+            }
+        }
 
         private bool makeCustomerFieldsReadonly;
         public bool MakeCustomerFieldsReadonly

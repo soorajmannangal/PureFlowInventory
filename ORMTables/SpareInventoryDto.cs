@@ -12,6 +12,5 @@ namespace PureFlow
         public string Name { get; set; }
         public string Details { get; set; }
         public int Quantity { get; set; }
-        public DateTime LastUpdated { get; set; }     
     }
 }

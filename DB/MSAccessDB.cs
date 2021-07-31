@@ -31,6 +31,19 @@ namespace PureFlow
             con = new OleDbConnection(connectionString);
         }
 
+        public List<ComboDto> GetColumnDataById(eTableNames tableName, string columnName, int id)
+        {
+            List<ComboDto> columnData = new List<ComboDto>();
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {eGenericColumnName.ID},{columnName} {FROM} {tableName} {WHERE} {eGenericColumnName.ID}={id} {ORDER_BY} {columnName}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                columnData.Add(new ComboDto(int.Parse(reader[eGenericColumnName.ID.ToString()].ToString()), reader[columnName].ToString()));
+            }
+            con.Close();
+            return columnData;
+        }
         public List<ComboDto> GetColumnData(eTableNames tableName, string columnName)
         {
             List<ComboDto> columnData = new List<ComboDto>();
@@ -296,22 +309,25 @@ namespace PureFlow
             con.Close();
         }
 
-        public List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string lastUpdated, string orderBy)
+        public List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy)
         {
             List<SpareInventoryDto> results = new List<SpareInventoryDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details},{lastUpdated} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
+                int resId = int.Parse(reader[id].ToString());
+                string resName = reader[name].ToString();
+                string resDetails = reader[details].ToString();
+                int resQty = int.Parse(reader[quantity].ToString());
                 results.Add(
                     new SpareInventoryDto()
                     {
-                        ID = int.Parse(reader[id].ToString()),
-                        Name = reader[name].ToString(),
-                        Details = reader[details].ToString(),
-                        Quantity = int.Parse(reader[quantity].ToString()),
-                        LastUpdated = DateTime.Parse(reader[lastUpdated].ToString())
+                        ID = resId,
+                        Name = resName,
+                        Details = resDetails,
+                        Quantity = resQty,
                     });                                       
             }
             con.Close();

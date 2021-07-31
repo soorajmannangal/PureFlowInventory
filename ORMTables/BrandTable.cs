@@ -41,6 +41,11 @@ namespace PureFlow
             return _dataSource.GetColumnData(TableName, nameof(Name));
         }
 
+        public List<ComboDto> GetNamesById(int brandId)
+        {
+            return _dataSource.GetColumnDataById(TableName, nameof(Name), brandId);
+        }
+
         public bool IsValidForInsert()
         {
             if (String.IsNullOrEmpty(Name)) return false;

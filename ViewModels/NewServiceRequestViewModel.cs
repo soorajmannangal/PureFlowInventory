@@ -155,10 +155,8 @@ namespace PureFlow
                     SelectedModel = Models[0];
                 }
 
-              
+
                 OnPropertyChanged("SelectedBrand");
-                //modelTable.BrandID = selectedBrand.ID;
-              //  SetDefaults();
             }
         }
 

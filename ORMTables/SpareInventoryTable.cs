@@ -17,19 +17,23 @@ namespace PureFlow
         private string details;
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
 
-        private DateTime lastUpdatedDate;
-        public DateTime LastUpdated { get => lastUpdatedDate; set { lastUpdatedDate = value; } }
+       
+        public List<SpareInventoryDto> Grid => _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
 
-        public List<SpareInventoryDto> Grid => _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(LastUpdated), nameof(Name));
+
+        public List<SpareInventoryDto> GetInventoryItems()
+        {
+            return _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
+        }
 
         public SpareInventoryTable()
         {
-            lastUpdatedDate = DateTime.Now;
+         
         }
 
         public void InsertAll()
         {
-            _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details, nameof(Quantity), Quantity, nameof(LastUpdated), LastUpdated);
+            _dataSource.Insert(TableName, nameof(Name), Name, nameof(Details), Details, nameof(Quantity), Quantity);
         }
 
         public void UpdateQty(int id, int newQuantity)
