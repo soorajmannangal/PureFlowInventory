@@ -119,7 +119,6 @@ namespace PureFlow
             return dto;
         }
 
-
         public List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy)
         {
             List<CustomerGridDto> dtos = new List<CustomerGridDto>();

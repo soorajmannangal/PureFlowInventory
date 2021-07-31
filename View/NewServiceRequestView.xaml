@@ -16,7 +16,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="183,140,0,0" TextWrapping="Wrap" Text="{Binding Path=CustomerName, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="183,171,0,0" TextWrapping="Wrap" Text="{Binding Path=CustomerEmail, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
         <TextBox HorizontalAlignment="Left" Height="78" Margin="183,202,0,0" TextWrapping="Wrap" Text="{Binding Path=CustomerAddress, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
-        <Button Content="Fetch" HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Fetch" Command="{Binding Path=FetchCommand}" HorizontalAlignment="Left" Margin="354,107,0,0" VerticalAlignment="Top" Width="76"/>
         <Label Content="Product Brand" HorizontalAlignment="Left" Margin="569,104,0,0" VerticalAlignment="Top"/>
         <Label Content="Product Model" HorizontalAlignment="Left" Margin="569,137,0,0" VerticalAlignment="Top"/>
         <Label Content="Warranty" HorizontalAlignment="Left" Margin="569,171,0,0" VerticalAlignment="Top"/>

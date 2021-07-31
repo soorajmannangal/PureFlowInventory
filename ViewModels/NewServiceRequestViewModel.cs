@@ -23,10 +23,10 @@ namespace PureFlow
         public override void SetDefaults()
         {
             RequestDate = DateTime.Now;
-            //CustomerName = "Sooraj";
-            //CustomerMobile = " 88";
-            //CustomerEmail = "email";
-            //CustomerAddress = "NA";
+            CustomerName = " ";
+            CustomerMobile = " ";
+            CustomerEmail = " ";
+            CustomerAddress = " ";
             if (Brands.Count > 0)
             {
                 SelectedBrand = Brands[0];
@@ -39,18 +39,39 @@ namespace PureFlow
                 SelectedModel = Models[0];
             }
 
-         
-
+        
             //IsUnderWarranty = true;
         }
+
+        private ICommand fetchCommand;
+        public ICommand FetchCommand => fetchCommand ?? (fetchCommand = new RelayCommand(FetchCustomerDetails, CanFetchCustomerDetails));
+        private void FetchCustomerDetails()
+        {
+            CustomerGridDto customerGridDto = customerTable.GetCustomerByPhone(CustomerMobile);
+            if (customerGridDto == null)
+            {
+                //Enable customer textboxes
+                return;
+            }
+
+            //Disable Customer details text boxes
+            CustomerEmail = customerGridDto.Email;
+            CustomerAddress = customerGridDto.Address;
+            CustomerName = customerGridDto.Name;
+        }
+
+        private bool CanFetchCustomerDetails()
+        {
+            if (String.IsNullOrEmpty(CustomerMobile)) return false;
+            return true;
+        }
+
 
         private ICommand createRequestCommand;
         public ICommand CreateRequestCommand => createRequestCommand ?? (createRequestCommand = new RelayCommand(CreateRequest, CanCreateRequest));
         private void CreateRequest()
         {
             customerTable.InsertAll();
-         //   var invTrans = new InventoryTransactionTable(SelectedItem.ID, UpdateQty, UserInfo.GetInstance().UserID);
-           // invTrans.InsertAll();
             SetDefaults();
         }
 
