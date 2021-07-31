@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
     <Compile Include="ViewModels\AddModelViewModel.cs" />
     <Compile Include="ViewModels\AddBrandViewModel.cs" />
+    <Compile Include="ViewModels\CustomerReportViewModel.cs" />
     <Compile Include="ViewModels\ServiceRequestReportViewModel.cs" />
     <Compile Include="ViewModels\UpdateSpareInventoryViewModel.cs" />
     <Compile Include="ViewModels\NewServiceRequestViewModel.cs" />
@@ -152,6 +153,9 @@
     </Compile>
     <Compile Include="View\InventoryReportView.xaml.cs">
       <DependentUpon>InventoryReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomerReportView.xaml.cs">
+      <DependentUpon>CustomerReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InventoryTransactionReportView.xaml.cs">
       <DependentUpon>InventoryTransactionReportView.xaml</DependentUpon>
@@ -198,6 +202,10 @@
     <Page Include="View\InventoryReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CustomerReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\InventoryTransactionReportView.xaml">
       <SubType>Designer</SubType>

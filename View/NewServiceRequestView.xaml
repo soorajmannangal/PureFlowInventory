@@ -25,7 +25,7 @@
         <ComboBox ItemsSource="{Binding Models}" DisplayMemberPath="Field"  SelectedItem="{Binding SelectedModel}" HorizontalAlignment="Left" Margin="689,141,0,0" VerticalAlignment="Top" Width="181"/>
         <CheckBox IsChecked="{Binding  Path=IsUnderWarranty, Mode=TwoWay}" Content="Under Warranty" HorizontalAlignment="Left" Margin="689,180,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="78" Margin="689,205,0,0" TextWrapping="Wrap" Text="{Binding Path=RequestDetails, Mode=TwoWay}" VerticalAlignment="Top" Width="247"/>
-        <Button Content="Create Request" HorizontalAlignment="Left" Margin="569,326,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Content="Create Request" Command="{Binding Path=CreateRequestCommand}" HorizontalAlignment="Left" Margin="569,326,0,0" VerticalAlignment="Top" Width="100"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="703,326,0,0" VerticalAlignment="Top" Width="101"/>
         <DatePicker   SelectedDate="{Binding Path=RequestDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="183,58,0,0" VerticalAlignment="Top" Width="134"/>
 

@@ -1,11 +1,11 @@
-﻿<Window x:Class="PureFlow.CustomerReportView"
+﻿<Window x:Class="PureFlow.InventoryTransactionReportView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PureFlow"
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
-        Title="CustomerReportView" Height="450" Width="800">
+        Title="InventoryTransactionReportView" Height="450" Width="800">
     <Grid>
         <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="243" Margin="120,97,0,0" VerticalAlignment="Top" Width="554"/>
 

@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
     public class NewServiceRequestViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private ModelTable modelTable;
+        private CustomerTable customerTable;
         public NewServiceRequestViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             modelTable = new ModelTable();
+            customerTable = new CustomerTable();
             SetDefaults();
         }
 
@@ -40,6 +43,22 @@ namespace PureFlow
 
             //IsUnderWarranty = true;
         }
+
+        private ICommand createRequestCommand;
+        public ICommand CreateRequestCommand => createRequestCommand ?? (createRequestCommand = new RelayCommand(CreateRequest, CanCreateRequest));
+        private void CreateRequest()
+        {
+            customerTable.InsertAll();
+         //   var invTrans = new InventoryTransactionTable(SelectedItem.ID, UpdateQty, UserInfo.GetInstance().UserID);
+           // invTrans.InsertAll();
+            SetDefaults();
+        }
+
+        private bool CanCreateRequest()
+        {
+            return true;
+        }
+
 
         private bool isUnderWarranty;
         public bool IsUnderWarranty 
@@ -112,32 +131,28 @@ namespace PureFlow
             set { requestDate = value; OnPropertyChanged("RequestDate"); } 
         }
 
-        private String customerName;
         public String CustomerName
         {
-            get => customerName;
-            set { customerName = value; OnPropertyChanged("CustomerName"); }
+            get => customerTable.Name;
+            set { customerTable.Name = value; OnPropertyChanged("CustomerName"); }
         }
 
-        private String customerMobile;
         public String CustomerMobile
         {
-            get => customerMobile;
-            set { customerMobile = value; OnPropertyChanged("CustomerMobile"); }
+            get => customerTable.Phone;
+            set { customerTable.Phone = value; OnPropertyChanged("CustomerMobile"); }
         }
 
-        private String customerEmail;
         public String CustomerEmail
         {
-            get => customerEmail;
-            set { customerEmail = value; OnPropertyChanged("CustomerEmail"); }
+            get => customerTable.Email;
+            set { customerTable.Email = value; OnPropertyChanged("CustomerEmail"); }
         }
 
-        private String customerAddress;
         public String CustomerAddress
         {
-            get => customerAddress;
-            set { customerAddress = value; OnPropertyChanged("CustomerAddress"); }
+            get => customerTable.Address;
+            set { customerTable.Address = value; OnPropertyChanged("CustomerAddress"); }
         }
 
 

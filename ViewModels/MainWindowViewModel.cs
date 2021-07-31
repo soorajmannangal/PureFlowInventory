@@ -180,6 +180,19 @@ namespace PureFlow
             contextView.Show();
         }
 
+        private ICommand showCustomerReportViewCommand;
+        public ICommand ShowCustomerReportViewCommand => showCustomerReportViewCommand ??
+            (showCustomerReportViewCommand = new RelayCommand(ShowCustomerReportView, CanShowCustomerReportView));
+
+        private bool CanShowCustomerReportView() => true;
+        private void ShowCustomerReportView()
+        {
+            IWindowViewModel contextViewModel = new CustomerReportViewModel(enableMainWindowCommand);
+            var contextView = new CustomerReportView(contextViewModel);
+            disableMainWindowCommand.Execute(null);
+            contextView.Show();
+        }
+
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

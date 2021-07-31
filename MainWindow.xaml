@@ -24,6 +24,7 @@
                 <MenuItem Header="Invoice Report" IsCheckable="False" Command="{Binding Path=ShowInvoiceReportViewCommand }" />
                 <MenuItem Header="Inventory Report" IsCheckable="False"  Command="{Binding Path=ShowInventoryReportViewCommand }"/>
                 <MenuItem Header="Inventory Transaction Report" IsCheckable="False"  Command="{Binding Path=ShowInventoryTransactionReportViewCommand }"/>
+                <MenuItem Header="Customer List" IsCheckable="False"  Command="{Binding Path=ShowCustomerReportViewCommand }"/>
                 <Separator />
                 <MenuItem Header="Exit" IsCheckable="False" Click="OnClick_Exit" />
             </MenuItem>

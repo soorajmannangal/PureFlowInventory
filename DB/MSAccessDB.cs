@@ -101,7 +101,7 @@ namespace PureFlow
         {
             CustomerGridDto dto = null;
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address}, {FROM} {eTableNames.Customer} {WHERE} {phone}={Str(phoneNoToMatch)}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.Customer} {WHERE} {phone}={Str(phoneNoToMatch)}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -124,7 +124,7 @@ namespace PureFlow
         {
             List<CustomerGridDto> dtos = new List<CustomerGridDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address}, {FROM} {eTableNames.Customer} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.Customer} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
