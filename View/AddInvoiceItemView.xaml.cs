@@ -17,17 +17,20 @@ namespace PureFlow
 
     public partial class AddInvoiceItemView : Window
     {
-        private IWindowViewModel contextViewModel; 
-        public AddInvoiceItemView(IWindowViewModel contextViewModel)
+        private IWindowViewModel contextViewModel;
+        NewInvoiceViewModel _invoiceViewModel;
+        public AddInvoiceItemView(IWindowViewModel contextViewModel, NewInvoiceViewModel invoiceViewModel)
         {
             InitializeComponent();
             this.contextViewModel = contextViewModel;
             this.DataContext = contextViewModel;
+            _invoiceViewModel = invoiceViewModel;
         }
 
         private void Window_OnClosed(object sender, EventArgs e)
         {
             contextViewModel.Close();
+            _invoiceViewModel.UpdateInvoiceItemsGrid();
         }
 
        

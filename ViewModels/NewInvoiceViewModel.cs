@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections.ObjectModel;
 
 namespace PureFlow
 {
@@ -13,12 +14,14 @@ namespace PureFlow
     {
         private CustomerTable customerTable;
         private ServiceRequestTable serviceRequestTable;
-        private int CustomerId;
+        private InvoiceTable invoiceTable;
         public NewInvoiceViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             customerTable = new CustomerTable();
             serviceRequestTable = new ServiceRequestTable();
+            invoiceTable = new InvoiceTable();
             SetDefaults();
+           // InvoiceItemsList = new List<InvoiceItemsGridDto>();
         }
 
         private NewInvoiceView invoiceView;
@@ -53,6 +56,9 @@ namespace PureFlow
             NextServiceDueDate = DateTime.Now.AddMonths(6);
             TotalAmount = 0;
             FillServiceRequestDetails(0);
+            Notes = "";
+
+            InvoiceItems = new ObservableCollection<InvoiceItemsGridDto>();
         }
 
         private ICommand fetchCommand;
@@ -82,12 +88,38 @@ namespace PureFlow
             FillServiceRequestDetails(customerGridDto.ID);
         }
 
-        
+        public int CustomerId
+        {
+            get => invoiceTable.CustomerID;
+            set => invoiceTable.CustomerID = value;
+        }  
+
         private ICommand createInvoiceCommand;
         public ICommand CreateInvoiceCommand => createInvoiceCommand ?? (createInvoiceCommand = new RelayCommand(CreateInvoice, () => true));
         private void CreateInvoice()
         {
 
+            int serviceRequestId = 0;
+            if(SelectedServiceRequest != null)
+            {
+                serviceRequestId = SelectedServiceRequest.ID;
+            }
+
+            //Decrease inventory count
+
+            int serviceManID = 0;
+            if (SelectedTechnician != null)
+            {
+                serviceManID = SelectedTechnician.ID;
+            }
+
+            invoiceTable.ServiceRequestID = serviceRequestId;
+            invoiceTable.ServiceManID = serviceManID;
+            invoiceTable.InsertAll();
+
+            serviceRequestTable.CloseRequest(serviceRequestId);
+
+            SetDefaults();
         }
 
 
@@ -128,7 +160,7 @@ namespace PureFlow
 
                 RequestDate = DateTime.Now;
                 IsUnderWarranty = false;
-
+                RequestDetails = "";
                 return;
             }
 
@@ -154,11 +186,16 @@ namespace PureFlow
 
         }
 
-        private int totalAmount; 
-        public int TotalAmount
+        public string Notes
         {
-            get => totalAmount;
-            set { totalAmount = value; OnPropertyChanged("TotalAmount"); }
+            get => invoiceTable.Notes;
+            set { invoiceTable.Notes = value; OnPropertyChanged("Note"); }
+        }
+
+        public Decimal TotalAmount
+        {
+            get => invoiceTable.TotalAmount;
+            set { invoiceTable.TotalAmount = value; OnPropertyChanged("TotalAmount"); }
         }
 
         private List<ComboDto> technician;
@@ -289,14 +326,7 @@ namespace PureFlow
             get => selectedServiceRequest;
             set
             {
-                selectedServiceRequest = value;
-                //Models = modelTable.GetModelNames(selectedBrand.ID);
-                //if (Models.Count > 0)
-                //{
-                //    SelectedModel = Models[0];
-                //}
-
-
+                selectedServiceRequest = value;            
                 OnPropertyChanged("SelectedServiceRequest");            
             }
         }
@@ -348,29 +378,51 @@ namespace PureFlow
         }
 
         
-
-        private DateTime nextServiceDueDate;
         public DateTime NextServiceDueDate
         {
-            get { return nextServiceDueDate; }
-            set { nextServiceDueDate = value; OnPropertyChanged("NextServiceDueDate"); }
+            get { return invoiceTable.NextServiceDueDate; }
+            set { invoiceTable.NextServiceDueDate = value; OnPropertyChanged("NextServiceDueDate"); }
         }
 
-        private DateTime invoiceDate;
         public DateTime InvoiceDate
         {
-            get { return invoiceDate; }
-            set { invoiceDate = value; OnPropertyChanged("InvoiceDate"); }
+            get { return invoiceTable.InvoiceDate; }
+            set { invoiceTable.InvoiceDate = value; OnPropertyChanged("InvoiceDate"); }
         }
+
+
+        ObservableCollection<InvoiceItemsGridDto> invoiceItems;
+
+        public ObservableCollection<InvoiceItemsGridDto> InvoiceItems
+        {
+            get { return invoiceItems; }
+            set { invoiceItems = value; OnPropertyChanged("InvoiceItems"); }
+        }
+
+      
 
         private ICommand addInvoiceItemCommand;
         public ICommand AddInvoiceItemCommand => addInvoiceItemCommand ?? (addInvoiceItemCommand = new RelayCommand(AddInvoiceItem, CanAddInvoiceItem));
         private void AddInvoiceItem()
-        {
-            IWindowViewModel contextViewModel = new AddInvoiceItemViewModel(new EnableInvoiceWindowCommand(InvoiceView));
-            var contextView = new AddInvoiceItemView(contextViewModel);
+        {         
+            IWindowViewModel contextViewModel = new AddInvoiceItemViewModel(new EnableInvoiceWindowCommand(InvoiceView), this);
+            var contextView = new AddInvoiceItemView(contextViewModel,this);
             new DisableInvoiceWindowCommand(InvoiceView).Execute(null);
-            contextView.Show();
+            contextView.Show();         
+        }
+
+        public Dictionary<int, int> usedStock = new Dictionary<int, int>();
+
+       // public IObservable<InvoiceItemsGridDto> InvoiceItemsList; //will update from different gui
+        public void UpdateInvoiceItemsGrid()
+        {
+            decimal total = 0;
+            foreach(InvoiceItemsGridDto i in InvoiceItems)
+            {
+                total += i.Amount;
+            }
+
+            TotalAmount = total;
         }
 
         private bool CanAddInvoiceItem() => true;

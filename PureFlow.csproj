@@ -99,6 +99,10 @@
     </ApplicationDefinition>
     <Compile Include="CustomCommands\DisableInvoiceWindowCommand.cs" />
     <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
+    <Compile Include="ORMTables\InvoiceItemsGridDto.cs" />
+    <Compile Include="ORMTables\InvoiceGridDto.cs" />
+    <Compile Include="ORMTables\InvoiceItemsTable.cs" />
+    <Compile Include="ORMTables\InvoiceTable.cs" />
     <Compile Include="ORMTables\ServiceRequestGridDto.cs" />
     <Compile Include="ORMTables\CustomerGridDto.cs" />
     <Compile Include="ORMTables\CustomerTable.cs" />

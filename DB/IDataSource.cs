@@ -18,7 +18,8 @@ namespace PureFlow
         ServiceRequest,
         SpareInventory,
         User,
-        WorkType
+        WorkType,
+        InvoiceItems
     }
 
     public enum ServiceRequestStatus
@@ -65,6 +66,8 @@ namespace PureFlow
         List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy);
         CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch);
         List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy, int customerId);
-
+        List<InvoiceGridDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        List<InvoiceItemsGridDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID);
+        void UpdateServiceRequest(string idColumn, int id, string columnName1, string status, string columnName2, DateTime resovedDate);
     }
 }

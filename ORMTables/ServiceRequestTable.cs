@@ -36,6 +36,16 @@ namespace PureFlow
         private DateTime resolvedDate;
         public DateTime ResovedDate { get => resolvedDate; set => resolvedDate = value; }
 
+        public void UpdateRequest(int id, string status, DateTime resovedDate)
+        {
+            _dataSource.UpdateServiceRequest(eGenericColumnName.ID.ToString(), id, nameof(Status), status, nameof(ResovedDate), resovedDate);
+        }
+
+        public void CloseRequest(int id)
+        {
+            UpdateRequest(id, ServiceRequestStatus.RequestResolved.ToString(), DateTime.Now);
+        }
+
         public List<ServiceRequestGridDto> Grid => _dataSource.GetServiceRequestList(
                                                 eGenericColumnName.ID.ToString(),   
                                                 nameof(CustomerID),

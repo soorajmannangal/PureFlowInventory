@@ -223,6 +223,16 @@ namespace PureFlow
             return dtos;
         }
 
+        public void UpdateServiceRequest(string idColumn, int id, string columnName1, string status, string columnName2, DateTime resovedDate)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            con.Open();
+            cmd.CommandText = $"UPDATE {eTableNames.ServiceRequest} SET {columnName1} = {Str(status)}, {columnName2} = {Str(resovedDate.ToString())}  {WHERE} {idColumn}= {id}";
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
 
         public void Insert(params object[] p)
         {
@@ -282,6 +292,10 @@ namespace PureFlow
                 query = val;
             }
             else if(tp.Equals(typeof(bool)))
+            {
+                query = val;
+            }
+            else if (tp.Equals(typeof(decimal)))
             {
                 query = val;
             }
@@ -359,6 +373,71 @@ namespace PureFlow
             con.Close();
             return results;
         }
+
+        public List<InvoiceItemsGridDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID)
+        {
+            List<InvoiceItemsGridDto> results = new List<InvoiceItemsGridDto>();
+            con.Open();
+
+            cmd = new OleDbCommand($"{SELECT} {id},{invoiceID},{spareInventoryID},{qty},{workTypeID},{amount} {FROM} {eTableNames.Invoice} {WHERE} {invoiceID}={reqInvoiceID}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int resId = int.Parse(reader[id].ToString());
+                int resinvoiceID = int.Parse(reader[invoiceID].ToString());
+                int resspareInventoryID = int.Parse(reader[spareInventoryID].ToString());
+                int resqty = int.Parse(reader[qty].ToString());
+                int resworkTypeID = int.Parse(reader[workTypeID].ToString());
+                decimal resamount = decimal.Parse(reader[amount].ToString());
+                results.Add(
+                    new InvoiceItemsGridDto()
+                    {
+                        ID = resId,
+                        InvoiceID = resinvoiceID,
+                        SpareInventoryID = resspareInventoryID,
+                        Qty = resqty,
+                        WorkTypeID = resworkTypeID,
+                        Amount = resamount,                     
+                    });
+            }
+            con.Close();
+            return results;
+        }
+
+        public List<InvoiceGridDto> GetAllInvoices(string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
+        {
+            List<InvoiceGridDto> results = new List<InvoiceGridDto>();
+            con.Open();
+            
+            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.Invoice} {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int resId = int.Parse(reader[id].ToString());
+                DateTime resinvoiceDate = DateTime.Parse(reader[invoiceDate].ToString());
+                DateTime resnextServiceDueDate = DateTime.Parse(reader[nextServiceDueDate].ToString());
+                int rescustomerID = int.Parse(reader[customerID].ToString());
+                int resserviceRequestID = int.Parse(reader[serviceRequestID].ToString());
+                int resserviceManID = int.Parse(reader[serviceManID].ToString());
+                decimal restotalAmount = decimal.Parse(reader[totalAmount].ToString());
+                string resnote = reader[note].ToString();
+                results.Add(
+                    new InvoiceGridDto()
+                    {
+                        ID = resId,
+                        InvoiceDate = resinvoiceDate,
+                        CustomerID = rescustomerID,
+                        ServiceRequestID = resserviceRequestID,
+                        ServiceManID = resserviceManID,
+                        NextServiceDueDate = resnextServiceDueDate,
+                        TotalAmount = restotalAmount,
+                        Notes = resnote,
+                    });
+            }
+            con.Close();
+            return results;
+        }
+
 
         public List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy)
         {

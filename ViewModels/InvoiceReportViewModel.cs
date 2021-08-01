@@ -10,10 +10,19 @@ namespace PureFlow
 {
     public class InvoiceReportViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public InvoiceReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
-        {
 
+        private readonly InvoiceTable invoiceTable;
+         public InvoiceReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
+        {
+            invoiceTable = new InvoiceTable();
         }
+
+        public List<InvoiceGridDto> Grid
+        {
+            get => invoiceTable.Grid;
+            set => OnPropertyChanged("Grid");
+        }
+
 
         public override void SetDefaults()
         {
