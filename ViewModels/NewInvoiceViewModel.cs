@@ -105,8 +105,6 @@ namespace PureFlow
                 serviceRequestId = SelectedServiceRequest.ID;
             }
 
-           
-
             int serviceManID = 0;
             if (SelectedTechnician != null)
             {
@@ -135,7 +133,11 @@ namespace PureFlow
                 invoiceItemsTable.InsertAll();
 
                 spareTable.UpdateQty(items.SpareInventoryID, items.Qty * -1);
+                var invTrans = new InventoryTransactionTable(items.SpareInventoryID, items.Qty*-1, UserInfo.GetInstance().UserID);
+                invTrans.InsertAll();
             }
+
+            usedStock = new Dictionary<int, int>();
 
             SetDefaults();
         }
