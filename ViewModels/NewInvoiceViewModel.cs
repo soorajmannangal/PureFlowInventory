@@ -44,6 +44,15 @@ namespace PureFlow
             SetCustomerFieldsDefaults();
             CustomerId = 0;
             MakeCustomerFieldsReadonly = true;
+            Technician = new ServiceManTable().GetItemNames();
+            if(Technician.Count > 0)
+            {
+                SelectedTechnician = Technician[0];
+            }
+
+            NextServiceDueDate = DateTime.Now.AddMonths(6);
+            TotalAmount = 0;
+            FillServiceRequestDetails(0);
         }
 
         private ICommand fetchCommand;
@@ -73,6 +82,29 @@ namespace PureFlow
             FillServiceRequestDetails(customerGridDto.ID);
         }
 
+        
+        private ICommand createInvoiceCommand;
+        public ICommand CreateInvoiceCommand => createInvoiceCommand ?? (createInvoiceCommand = new RelayCommand(CreateInvoice, () => true));
+        private void CreateInvoice()
+        {
+
+        }
+
+
+        
+        private ICommand removeItemCommand;
+        public ICommand RemoveItemCommand => removeItemCommand ?? (removeItemCommand = new RelayCommand(RemoveItem, () => true));
+        private void RemoveItem()
+        {
+
+        }
+
+        private ICommand cancelCommand;
+        public ICommand CancelCommand => cancelCommand ?? (cancelCommand = new RelayCommand(Cancel, () => true));
+        private void Cancel()
+        {
+            SetDefaults();
+        }
 
         private void FillServiceRequestDetails(int custId)
         {
@@ -93,6 +125,9 @@ namespace PureFlow
                         SelectedModel = Models[0];
                     }
                 }
+
+                RequestDate = DateTime.Now;
+                IsUnderWarranty = false;
 
                 return;
             }
@@ -117,6 +152,38 @@ namespace PureFlow
             MakeServiceRequestFieldsReadonly = true;
 
 
+        }
+
+        private int totalAmount; 
+        public int TotalAmount
+        {
+            get => totalAmount;
+            set { totalAmount = value; OnPropertyChanged("TotalAmount"); }
+        }
+
+        private List<ComboDto> technician;
+        public List<ComboDto> Technician
+        {
+            get
+            {
+                return technician;
+            }
+            set
+            {
+                technician = value;              
+                OnPropertyChanged("Technician");
+            }
+        }
+
+        private ComboDto selectedTechnician;
+        public ComboDto SelectedTechnician
+        {
+            get => selectedTechnician;
+            set
+            {
+                selectedTechnician = value;
+                OnPropertyChanged("SelectedTechnician");
+            }
         }
 
         private List<ComboDto> brands;
@@ -278,6 +345,15 @@ namespace PureFlow
         {
             get => customerTable.Address;
             set { customerTable.Address = value; OnPropertyChanged("CustomerAddress"); }
+        }
+
+        
+
+        private DateTime nextServiceDueDate;
+        public DateTime NextServiceDueDate
+        {
+            get { return nextServiceDueDate; }
+            set { nextServiceDueDate = value; OnPropertyChanged("NextServiceDueDate"); }
         }
 
         private DateTime invoiceDate;
