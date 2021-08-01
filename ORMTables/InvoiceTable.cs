@@ -29,6 +29,10 @@ namespace PureFlow
         private String notes;
         public String Notes { get { return notes ?? DEFAULT_STRING; } set { notes = value; } }
 
+        public int GetLastId()
+        {
+            return _dataSource.GetLastId(TableName, eGenericColumnName.ID.ToString());
+        }
 
         public List<InvoiceGridDto> Grid => _dataSource.GetAllInvoices(eGenericColumnName.ID.ToString(),
             nameof(CustomerID),

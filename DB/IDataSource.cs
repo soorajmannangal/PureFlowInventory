@@ -56,8 +56,10 @@ namespace PureFlow
         int GetId(eTableNames tableName, object columnName, object columnValue);
         List<ComboDto> GetColumnData(eTableNames tableName, string columnName);
         List<ComboDto> GetColumnDataById(eTableNames tableName, string columnName, int id);
+        int GetLastId(eTableNames tableName, string columnName);
         List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue);
         void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
+        int GetSingleColumnValueById(eTableNames tableName, int rowId, string columnName);
         List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
         List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
         List<SpareInventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy);

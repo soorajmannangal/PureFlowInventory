@@ -43,8 +43,12 @@ namespace PureFlow
 
         public void UpdateQty(int id, int newQuantity)
         {
-            _dataSource.UpdateSingleColumn(TableName, id, nameof(Quantity), newQuantity);
+
+            int currentValue = _dataSource.GetSingleColumnValueById(TableName, id, nameof(Quantity));
+            _dataSource.UpdateSingleColumn(TableName, id, nameof(Quantity), newQuantity + currentValue);
         }
+
+
 
         public List<ComboDto> GetItemNames()
         {

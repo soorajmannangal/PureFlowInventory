@@ -66,7 +66,7 @@ namespace PureFlow
         public ICommand UpdateCommand => updateCommand ?? (updateCommand = new RelayCommand(Update, CanUpdate));
         private void Update()
         {          
-            spareInventoryTable.UpdateQty(SelectedItem.ID, UpdateQty + SelectedItem.Quantity);
+            spareInventoryTable.UpdateQty(SelectedItem.ID, UpdateQty);
             var invTrans = new InventoryTransactionTable(SelectedItem.ID, UpdateQty, UserInfo.GetInstance().UserID);
             invTrans.InsertAll();
             SetDefaults();

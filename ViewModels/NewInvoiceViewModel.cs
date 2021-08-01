@@ -105,7 +105,7 @@ namespace PureFlow
                 serviceRequestId = SelectedServiceRequest.ID;
             }
 
-            //Decrease inventory count
+           
 
             int serviceManID = 0;
             if (SelectedTechnician != null)
@@ -118,6 +118,24 @@ namespace PureFlow
             invoiceTable.InsertAll();
 
             serviceRequestTable.CloseRequest(serviceRequestId);
+            //Decrease inventory count
+            //InsertInvoiceItems
+            InvoiceItemsTable invoiceItemsTable = new InvoiceItemsTable();
+
+            int invoiceId = invoiceTable.GetLastId();
+            SpareInventoryTable spareTable = new SpareInventoryTable();
+
+            foreach (var items in InvoiceItems)
+            {
+                invoiceItemsTable.InvoiceID = invoiceId;
+                invoiceItemsTable.SpareInventoryID = items.SpareInventoryID;
+                invoiceItemsTable.Qty = items.Qty;
+                invoiceItemsTable.WorkTypeID = items.WorkTypeID;
+                invoiceItemsTable.Amount = items.Amount;
+                invoiceItemsTable.InsertAll();
+
+                spareTable.UpdateQty(items.SpareInventoryID, items.Qty * -1);
+            }
 
             SetDefaults();
         }
@@ -413,7 +431,6 @@ namespace PureFlow
 
         public Dictionary<int, int> usedStock = new Dictionary<int, int>();
 
-       // public IObservable<InvoiceItemsGridDto> InvoiceItemsList; //will update from different gui
         public void UpdateInvoiceItemsGrid()
         {
             decimal total = 0;

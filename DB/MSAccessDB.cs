@@ -132,6 +132,21 @@ namespace PureFlow
             return dto;
         }
 
+        public int GetLastId(eTableNames tableName, string columnName)
+        {
+            int lastId = 0;
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} MAX({columnName}) {FROM} {tableName}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                lastId = int.Parse(reader[0].ToString());
+                   
+            }
+            con.Close();
+            return lastId;
+        }
+
         public List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy)
         {
             List<CustomerGridDto> dtos = new List<CustomerGridDto>();
@@ -310,6 +325,22 @@ namespace PureFlow
         private string Str(string value)
         {
             return "'" + value.Trim() + "'";
+        }
+
+
+        public int GetSingleColumnValueById(eTableNames tableName, int rowId, string columnName)
+        {
+            int val = 0;
+            con.Open();
+            cmd = new OleDbCommand($"{SELECT} {columnName} {FROM} {tableName} {WHERE} {eGenericColumnName.ID}={rowId}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                val = int.Parse(reader[columnName].ToString());
+
+            }
+            con.Close();
+            return val;
         }
 
         public void UpdateSingleColumn(eTableNames tableName, int rowId, string columnName, object columnValue)
