@@ -20,7 +20,6 @@ namespace PureFlow
         private const string ORDER_BY = "ORDER BY";
         private const string SET = "SET";
 
-
         private OleDbConnection con;
         private OleDbCommand cmd;
         private const String DB_NAME = @"\DB\PureFlowDB.accdb";

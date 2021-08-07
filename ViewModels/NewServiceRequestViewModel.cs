@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
-    public class NewServiceRequestViewModel : ViewModelBase, INotifyPropertyChanged
+    public class NewServiceRequestViewModel : ViewModelBase
     {
         private ModelTable modelTable;
         private CustomerTable customerTable;
@@ -225,15 +225,6 @@ namespace PureFlow
         }
 
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+      
     }
 }

@@ -42,7 +42,7 @@
         <DatePicker  SelectedDate="{Binding Path=RequestDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="689,62,0,0" VerticalAlignment="Top" Width="181"/>
         <Label Content="Next Service Due" HorizontalAlignment="Left" Margin="372,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
         <DatePicker SelectedDate="{Binding Path=NextServiceDueDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="480,293,0,0" VerticalAlignment="Top" Width="147"/>
-        <Label Content="Technisian" HorizontalAlignment="Left" Margin="51,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
+        <Label Content="Technician" HorizontalAlignment="Left" Margin="51,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
         <ComboBox ItemsSource="{Binding Technician}" DisplayMemberPath="Field"  SelectedItem="{Binding SelectedTechnician}" HorizontalAlignment="Left" Margin="136,295,0,0" VerticalAlignment="Top" Width="181"/>
         <Button Command="{Binding Path=CreateInvoiceCommand}" Content="Create Invoice" HorizontalAlignment="Left" Margin="836,45.125,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1"/>
         <TextBox   HorizontalAlignment="Left" Height="48" Margin="92,41.125,0,0" TextWrapping="Wrap" Text="{Binding Note, Mode=TwoWay}" VerticalAlignment="Top" Width="363" Grid.Row="1"/>

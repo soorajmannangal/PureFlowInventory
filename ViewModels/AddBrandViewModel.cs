@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddBrandViewModel : ViewModelBase, INotifyPropertyChanged
+    public class AddBrandViewModel : ViewModelBase
     {      
         private readonly BrandTable brandTable;
     
@@ -60,19 +60,5 @@ namespace PureFlow
             get => brandTable.Grid;
             set => OnPropertyChanged("Grid");
         }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-      
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

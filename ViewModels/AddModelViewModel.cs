@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddModelViewModel : ViewModelBase,INotifyPropertyChanged
+    public class AddModelViewModel : ViewModelBase
     {
         private readonly ModelTable modelTable;
 
@@ -77,15 +77,6 @@ namespace PureFlow
             set { modelTable.Details = value; OnPropertyChanged("Details"); }
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
       
-        public event PropertyChangedEventHandler PropertyChanged;      
     }
 }

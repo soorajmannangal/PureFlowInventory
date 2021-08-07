@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
-    public class UpdateSpareInventoryViewModel : ViewModelBase, INotifyPropertyChanged
+    public class UpdateSpareInventoryViewModel : ViewModelBase
     {
         private readonly SpareInventoryTable spareInventoryTable;
         
@@ -76,16 +76,6 @@ namespace PureFlow
         {
             return true;
         }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+      
     }
 }

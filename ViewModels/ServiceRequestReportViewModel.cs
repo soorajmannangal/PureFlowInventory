@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class ServiceRequestReportViewModel : ViewModelBase, INotifyPropertyChanged
+    public class ServiceRequestReportViewModel : ViewModelBase
     {
         private readonly ServiceRequestTable serviceRequestTable;
         public ServiceRequestReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
@@ -27,15 +27,6 @@ namespace PureFlow
             throw new NotImplementedException();
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+       
     }
 }

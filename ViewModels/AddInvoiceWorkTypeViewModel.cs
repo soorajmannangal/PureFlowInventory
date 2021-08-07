@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
-    public class AddInvoiceWorkTypeViewModel : ViewModelBase, INotifyPropertyChanged
+    public class AddInvoiceWorkTypeViewModel : ViewModelBase
     {
         private readonly WorkTypeTable workTypeTable;
 
@@ -58,15 +58,6 @@ namespace PureFlow
             }
         }
      
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+      
     }
 }

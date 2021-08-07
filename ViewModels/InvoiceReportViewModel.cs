@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class InvoiceReportViewModel : ViewModelBase, INotifyPropertyChanged
+    public class InvoiceReportViewModel : ViewModelBase
     {
 
         private readonly InvoiceTable invoiceTable;
@@ -29,15 +29,6 @@ namespace PureFlow
             throw new NotImplementedException();
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+       
     }
 }

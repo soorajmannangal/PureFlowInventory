@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class AddInvoiceItemViewModel : ViewModelBase, INotifyPropertyChanged
+    public class AddInvoiceItemViewModel : ViewModelBase
     {
         private readonly SpareInventoryTable spareInventoryTable;
         NewInvoiceViewModel _invoiceViewModel;
@@ -212,15 +212,5 @@ namespace PureFlow
             set { amount = value; OnPropertyChanged("Amount"); }
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

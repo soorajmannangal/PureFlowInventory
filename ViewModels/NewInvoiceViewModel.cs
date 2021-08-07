@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace PureFlow
 {
-    public class NewInvoiceViewModel : ViewModelBase, INotifyPropertyChanged
+    public class NewInvoiceViewModel : ViewModelBase
     {
         private CustomerTable customerTable;
         private ServiceRequestTable serviceRequestTable;
@@ -446,15 +446,6 @@ namespace PureFlow
 
         private bool CanAddInvoiceItem() => true;
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+      
     }
 }

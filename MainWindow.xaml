@@ -31,14 +31,12 @@
         </Menu>
         <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewServiceRequestViewCommand }"/>
         <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewInvoiceViewCommand }"/>
-        <DataGrid x:Name="dgServiceReminder" HorizontalAlignment="Center" Height="376" Margin="0,228,0,0" VerticalAlignment="Top" Width="978" />
-        <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,123,0,0" VerticalAlignment="Top" Width="220"/>
-        <ComboBox x:Name="cmbBrand" HorizontalAlignment="Left" Margin="431,173,0,0" VerticalAlignment="Top" Width="120" />
-        <DatePicker x:Name="dpFromDate" HorizontalAlignment="Left" Margin="82,171,0,0" VerticalAlignment="Top" />
-        <Label Content="From" HorizontalAlignment="Left" Margin="35,169,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpToDate" HorizontalAlignment="Left" Margin="232,171,0,0" VerticalAlignment="Top" />
-        <Label Content="To" HorizontalAlignment="Left" Margin="203,169,0,0" VerticalAlignment="Top"/>
-        <Label Content="Brand" HorizontalAlignment="Left" Margin="385,172,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgServiceReminder" HorizontalAlignment="Center" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978" />
+        <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,93,0,0" VerticalAlignment="Top" Width="220" Height="32"/>
+        <DatePicker x:Name="dpFromDate" HorizontalAlignment="Left" Margin="74,138,0,0" VerticalAlignment="Top" Height="29" />
+        <Label Content="From" HorizontalAlignment="Left" Margin="27,135,0,0" VerticalAlignment="Top" Height="32"/>
+        <DatePicker x:Name="dpToDate" HorizontalAlignment="Left" Margin="232,138,0,0" VerticalAlignment="Top" Height="29" />
+        <Label Content="To" HorizontalAlignment="Left" Margin="203,135,0,0" VerticalAlignment="Top" Height="32"/>
 
     </Grid>
 </Window>

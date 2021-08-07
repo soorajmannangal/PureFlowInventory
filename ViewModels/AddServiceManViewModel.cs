@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace PureFlow
 {
-    public class AddServiceManViewModel: ViewModelBase, INotifyPropertyChanged
+    public class AddServiceManViewModel: ViewModelBase
     {
         private readonly ServiceManTable serviceManTable;
 
@@ -70,16 +70,6 @@ namespace PureFlow
             set { serviceManTable.Phone = value; OnPropertyChanged("Phone"); }
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public abstract class ViewModelBase : IWindowViewModel
+    public abstract class ViewModelBase : IWindowViewModel, INotifyPropertyChanged
     {
         private ICommand enableMainWindowCommand;
 
@@ -21,6 +22,16 @@ namespace PureFlow
         void IWindowViewModel.Close()
         {
             enableMainWindowCommand.Execute(null);
-        }      
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+                this.PropertyChanged(this, args);
+            }
+        }    
     }
 }

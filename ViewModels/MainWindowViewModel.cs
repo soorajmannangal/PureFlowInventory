@@ -11,14 +11,15 @@ using PureFlow;
 
 namespace PureFlow
 {
-    public class MainWindowViewModel: INotifyPropertyChanged
+    public class MainWindowViewModel:ViewModelBase
     {
         private MainWindow mainWindow;
         private ICommand disableMainWindowCommand;
         private ICommand enableMainWindowCommand;
-            
-        public MainWindowViewModel(MainWindow mainWindow)
+
+        public MainWindowViewModel(MainWindow mainWindow) : base(null)
         {
+            
             this.mainWindow = mainWindow;
             CreateCustomCommands();
         }
@@ -193,15 +194,9 @@ namespace PureFlow
             contextView.Show();
         }
 
-        protected void OnPropertyChanged(string propertyName)
+        public override void SetDefaults()
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
+            throw new NotImplementedException();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

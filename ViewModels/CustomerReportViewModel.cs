@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace PureFlow
 {
-    public class CustomerReportViewModel : ViewModelBase, INotifyPropertyChanged
+    public class CustomerReportViewModel : ViewModelBase
     {
         private readonly CustomerTable customerTable;
 
@@ -28,15 +28,5 @@ namespace PureFlow
             throw new NotImplementedException();
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, args);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
