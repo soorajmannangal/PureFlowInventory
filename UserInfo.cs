@@ -12,9 +12,12 @@ namespace PureFlow
         private int userId;
         public int UserID => userId;
 
+        private bool isAdmin;
+        public bool IsAdmin => isAdmin;
+
         private UserInfo() 
         {
-            SetUserID(1);
+            SetUserID(1, true);
         }
 
         public static UserInfo GetInstance()
@@ -26,8 +29,9 @@ namespace PureFlow
             return instance;
         }
 
-        public void SetUserID(int userId)
+        public void SetUserID(int userId, bool isAdmin)
         {
+            this.isAdmin = isAdmin;
             this.userId = userId;
         }
     }

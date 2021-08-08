@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PureFlow" WindowStartupLocation="CenterScreen"
-        mc:Ignorable="d"
+        mc:Ignorable="d" 
         Title="PureFlow" Height="768" Width="1024">
     <Grid>
         <Menu Height="22" Name="menu1" Width="170" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderThickness="2">
@@ -17,8 +17,8 @@
                 <MenuItem Header="Create New Inventory Item" IsCheckable="False" Command="{Binding Path=ShowAddSpareInventoryViewCommand }" />
                 <MenuItem Header="Add New Brand" IsCheckable="False" Command="{Binding Path=ShowAddNewBrandWindowCommand }" />
                 <MenuItem Header="Add New Model" IsCheckable="False" Command="{Binding Path=ShowAddNewModelWindowCommand }" />
-                <MenuItem Header="Add Technician" IsCheckable="False" Command="{Binding Path=ShowAddServiceManViewCommand }"  />
-                <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" Command="{Binding Path=ShowAddInvoiceWorkTypeViewCommand }" />
+                <MenuItem Header="Add Technician" IsCheckable="False" Command="{Binding Path=ShowTechnicianAddViewCommand }"  />
+                <MenuItem Header="Add New Work Type For Invoice" IsCheckable="False" Command="{Binding Path=ShowWorkTypeAddViewCommand }" />
                 <Separator />
                 <MenuItem Header="Service Request Report" IsCheckable="False" Command="{Binding Path=ShowServiceRequestReportViewCommand}" />
                 <MenuItem Header="Invoice Report" IsCheckable="False" Command="{Binding Path=ShowInvoiceReportViewCommand }" />
@@ -31,7 +31,21 @@
         </Menu>
         <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewServiceRequestViewCommand }"/>
         <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewInvoiceViewCommand }"/>
-        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Center" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978" />
+        <DataGrid ItemsSource="{Binding Grid}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Ind}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="InvoiceDate" Binding="{Binding InvoiceDate}"/>
+                <DataGridTextColumn Header="NextServiceDueDate" Binding="{Binding NextServiceDueDate}"/>
+                <DataGridTextColumn Header="CustomerName" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="CustomerPhone" Binding="{Binding CustomerPhone}"/>
+                <DataGridTextColumn Header="ServiceRequestID" Binding="{Binding ServiceRequestID}"/>
+                <DataGridTextColumn Header="TotalAmount" Binding="{Binding TotalAmount}"/>
+                <DataGridTextColumn Header="Notes" Binding="{Binding Notes}"/>
+                <DataGridTextColumn Header="TechnicianName" Binding="{Binding TechnicianName}"/>
+                <DataGridTextColumn Header="UserName" Binding="{Binding UserName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,93,0,0" VerticalAlignment="Top" Width="220" Height="32"/>
         <DatePicker SelectedDate="{Binding Path=FromDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="74,138,0,0" VerticalAlignment="Top" Height="29" />
         <Label Content="From" HorizontalAlignment="Left" Margin="27,135,0,0" VerticalAlignment="Top" Height="32"/>

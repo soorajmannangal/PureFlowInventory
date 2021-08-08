@@ -176,11 +176,15 @@ namespace PureFlow
                 return;
             }
 
+            int index = _invoiceViewModel.InvoiceItems.Count + 1;
             _invoiceViewModel.InvoiceItems.Add(new InvoiceItemsDto()
             {
-                SpareInventoryID = SelectedItem.ID,
+                Ind = index,
+                ItemName = SelectedItem.Name,
+                InventoryID = SelectedItem.ID,
                 Qty = SelectedQty.ID,
                 WorkTypeID = SelectedServiceDetail.ID,
+                ServiceType = SelectedServiceDetail.Field,
                 Amount = amount
             });
 

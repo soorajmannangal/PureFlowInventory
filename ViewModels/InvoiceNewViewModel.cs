@@ -111,6 +111,7 @@ namespace PureFlow
                 serviceManID = SelectedTechnician.ID;
             }
 
+            invoiceTable.UserID = UserInfo.GetInstance().UserID;
             invoiceTable.ServiceRequestID = serviceRequestId;
             invoiceTable.TechnicianID = serviceManID;
             invoiceTable.InsertAll();
@@ -126,14 +127,14 @@ namespace PureFlow
             foreach (var items in InvoiceItems)
             {
                 invoiceItemsTable.InvoiceID = invoiceId;
-                invoiceItemsTable.SpareInventoryID = items.SpareInventoryID;
+                invoiceItemsTable.SpareInventoryID = items.InventoryID;
                 invoiceItemsTable.Qty = items.Qty;
                 invoiceItemsTable.WorkTypeID = items.WorkTypeID;
                 invoiceItemsTable.Amount = items.Amount;
                 invoiceItemsTable.InsertAll();
 
-                spareTable.UpdateQty(items.SpareInventoryID, items.Qty * -1);
-                var invTrans = new InventoryTransactionTable(items.SpareInventoryID, items.Qty*-1, UserInfo.GetInstance().UserID);
+                spareTable.UpdateQty(items.InventoryID, items.Qty * -1);
+                var invTrans = new InventoryTransactionTable(items.InventoryID, items.Qty*-1, UserInfo.GetInstance().UserID);
                 invTrans.InsertAll();
             }
 

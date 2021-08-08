@@ -50,8 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>7231833_bottle_of_water_ocean_drop_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -113,10 +112,12 @@
     <Compile Include="ORMTables\ModelDto.cs" />
     <Compile Include="ORMTables\BrandDto.cs" />
     <Compile Include="ORMTables\ModelTable.cs" />
+    <Compile Include="ORMTables\UserTable.cs" />
     <Compile Include="ORMTables\TechnicianTable.cs" />
     <Compile Include="ORMTables\InventoryTable.cs" />
     <Compile Include="ORMTables\WorkTypeTable.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\InvoiceItemsAddViewModel.cs" />
     <Compile Include="ViewModels\WorkTypeAddViewModel.cs" />
     <Compile Include="ViewModels\ModelsAddViewModel.cs" />
@@ -151,6 +152,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DB\DBHelper.cs" />
+    <Compile Include="LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WorkTypeAddView.xaml.cs">
       <DependentUpon>WorkTypeAddView.xaml</DependentUpon>
     </Compile>
@@ -198,6 +202,10 @@
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkTypeAddView.xaml">
       <SubType>Designer</SubType>
@@ -293,6 +301,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="7231833_bottle_of_water_ocean_drop_icon.ico" />
     <Content Include="DB\PureFlowDB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

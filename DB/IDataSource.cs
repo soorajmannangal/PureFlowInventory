@@ -88,7 +88,8 @@ namespace PureFlow
         TechnicianID,
         NextServiceDueDate,
         TotalAmount,
-        Notes
+        Notes,
+        UserID
     }
 
     public enum eInvoiceItemsTable
@@ -170,9 +171,11 @@ namespace PureFlow
         List<ComboDto> GetColumnDataById(eTableNames tableName, string columnName, int id);
         int GetLastId(eTableNames tableName, string columnName);
         List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue);
+        bool GetBoolColWithID(eTableNames tableName, int id, string columnName);
         void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
         int GetSingleColumnValueById(eTableNames tableName, int rowId, string columnName);
         ObservableCollection<BrandDto> GetAllBrands(string id, string name, string details, string orderBy);
+        ObservableCollection<ModelDto> GetAllModels();
         ObservableCollection<InventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
         List<InventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy);
         List<ServiceRequestDto> GetServiceRequestList(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy);
@@ -182,6 +185,9 @@ namespace PureFlow
         List<ServiceRequestDto> GetServiceRequestListForCustomerId(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy, int customerId);
         ObservableCollection<InvoiceDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
         ObservableCollection<InvoiceDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        ObservableCollection<InvoiceDto> GetServiceDueForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string notes, string orderBy);
+
+
         List<InvoiceItemsDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID);
         void UpdateServiceRequest(string idColumn, int id, string columnName1, string status, string columnName2, DateTime resovedDate);
     }

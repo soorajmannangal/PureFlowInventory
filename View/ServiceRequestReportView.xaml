@@ -5,9 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PureFlow"
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
-        Title="ServiceRequestReportView" Height="450" Width="800">
+        Title="ServiceRequestReportView" Height="450" Width="900">
     <Grid>
-        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="296" Margin="45,80,0,0" VerticalAlignment="Top" Width="695"/>
+        <DataGrid ItemsSource="{Binding Grid}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="320" Margin="19,52,0,0" VerticalAlignment="Top" Width="850">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Ind}"/>
+                <DataGridTextColumn Header="ReqID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="CustomerName" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="CustomerPhone" Binding="{Binding CustomerPhone}"/>
+                <DataGridTextColumn Header="BrandName" Binding="{Binding BrandName}"/>
+                <DataGridTextColumn Header="ModelName" Binding="{Binding ModelName}"/>
+                <DataGridTextColumn Header="Details" Binding="{Binding Details}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="IsUnderWarranty" Binding="{Binding IsUnderWarranty}"/>
+                <DataGridTextColumn Header="DateOfEntry" Binding="{Binding DateOfEntry}"/>
+                <DataGridTextColumn Header="RequestDate" Binding="{Binding RequestDate}"/>
+                <DataGridTextColumn Header="ResolvedDate" Binding="{Binding ResolvedDate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

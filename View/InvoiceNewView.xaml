@@ -33,13 +33,21 @@
         <DatePicker  SelectedDate="{Binding Path=InvoiceDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="183,34,0,0" VerticalAlignment="Top" Width="134"/>
         <ComboBox ItemsSource="{Binding ServiceRequestCombo}" DisplayMemberPath="RequestDate"  SelectedItem="{Binding SelectedServiceRequest}" HorizontalAlignment="Left" Margin="689,32,0,0" VerticalAlignment="Top" Width="181"/>
 
-
         <Label Content="Date of Invoice" HorizontalAlignment="Left" Margin="51,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>
-        <DataGrid  ItemsSource="{Binding InvoiceItems}" HorizontalAlignment="Left" Height="220" Margin="51,328,0,0" VerticalAlignment="Top" Width="885" Grid.RowSpan="2"/>
+        <DataGrid ItemsSource="{Binding InvoiceItems}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="220" Margin="51,328,0,0" VerticalAlignment="Top" Width="885" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Ind}"/>
+                <DataGridTextColumn Header="ItemName" Binding="{Binding ItemName}"/>
+                <DataGridTextColumn Header="Qty" Binding="{Binding Qty}"/>
+                <DataGridTextColumn Header="ServiceType" Binding="{Binding ServiceType}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button Content="Add Item" Command="{Binding Path=AddInvoiceItemCommand}" HorizontalAlignment="Left" Margin="820,297,0,0" VerticalAlignment="Top" Width="116"/>
         <Button Content="Remove Item" Command="{Binding Path=RemoveItemCommand}" HorizontalAlignment="Left" Margin="689,297,0,0" VerticalAlignment="Top" Width="116"/>
         <Label Content="Total Amount" HorizontalAlignment="Left" Margin="460,41.125,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <TextBox IsReadOnly="True"  HorizontalAlignment="Left" Height="23" Margin="561,43.125,0,0" TextWrapping="Wrap" Text="{Binding Path=TotalAmount, Mode=TwoWay}" VerticalAlignment="Top" Width="120" Grid.Row="1"/>
+        <TextBox  HorizontalAlignment="Left" Height="23" Margin="561,43.125,0,0" TextWrapping="Wrap" IsReadOnly="True"  Text="{Binding Path=TotalAmount, Mode=TwoWay}" VerticalAlignment="Top" Width="120" Grid.Row="1"/>
         <Label Content="Request Date" HorizontalAlignment="Left" Margin="569,57,0,0" VerticalAlignment="Top"/>
         <DatePicker  SelectedDate="{Binding Path=RequestDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="689,62,0,0" VerticalAlignment="Top" Width="181"/>
         <Label Content="Next Service Due" HorizontalAlignment="Left" Margin="372,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.634,-0.368"/>

@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -10,9 +11,9 @@ namespace PureFlow
     {
         private readonly ModelTable modelTable;
 
-        public List<ComboDto> SimpleGrid
+        public ObservableCollection<ModelDto> SimpleGrid
         {
-            get => new ModelTable().GetModelNames();
+            get => new ModelTable().GetModelBrandData();
             set => OnPropertyChanged("SimpleGrid");
         }
 

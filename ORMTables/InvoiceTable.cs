@@ -12,6 +12,9 @@ namespace PureFlow
         private DateTime invoiceDate;
         public DateTime InvoiceDate { get { return invoiceDate; } set { invoiceDate = value; } }
 
+        private int userID;
+        public int UserID { get { return userID; } set { userID = value; } }
+
         private int customerID;
         public int CustomerID { get { return customerID; } set { customerID = value; } }
 
@@ -46,7 +49,20 @@ namespace PureFlow
             nameof(InvoiceDate));
 
 
-        public ObservableCollection<InvoiceDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate)
+        public ObservableCollection<InvoiceDto> GetServiceDueForAPeriod(DateTime fromDate, DateTime toDate)
+        {
+            return _dataSource.GetServiceDueForAPeriod(fromDate, toDate, eGenericColumnName.ID.ToString(),
+           nameof(CustomerID),
+           nameof(InvoiceDate),
+           nameof(ServiceRequestID),
+           nameof(TechnicianID),
+           nameof(NextServiceDueDate),
+           nameof(TotalAmount),
+           nameof(Notes),
+           nameof(InvoiceDate));
+        }
+
+        public ObservableCollection<InvoiceDto> GetInvoiceForAPeriod(DateTime fromDate, DateTime toDate)
         {
             return _dataSource.GetInvoicesForAPeriod(fromDate, toDate, eGenericColumnName.ID.ToString(),
            nameof(CustomerID),
@@ -70,8 +86,8 @@ namespace PureFlow
                  nameof(TechnicianID), TechnicianID,
                  nameof(NextServiceDueDate), NextServiceDueDate,
                  nameof(Notes), Notes,
-                 nameof(TotalAmount), TotalAmount);
-                //nameof(Note), Note);
+                 nameof(TotalAmount), TotalAmount,
+                 nameof(UserID), UserID);
         }
     
     }

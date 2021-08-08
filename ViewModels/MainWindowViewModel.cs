@@ -235,7 +235,7 @@ namespace PureFlow
         private void LoadServiceDueGrid()
         {
             Grid.Clear();
-            foreach(var item in invoiceTable.GetInvoicesForAPeriod(FromDate, ToDate))
+            foreach(var item in invoiceTable.GetServiceDueForAPeriod(FromDate, ToDate))
             {
                 Grid.Add(item);
             }

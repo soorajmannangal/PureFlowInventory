@@ -16,26 +16,63 @@ namespace PureFlow
          public InvoiceReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             invoiceTable = new InvoiceTable();
+            Init();
         }
 
+        private void Init()
+        {
+            Grid = new ObservableCollection<InvoiceDto>();
+            FromDate = DateTime.Now;
+            ToDate = DateTime.Now.AddDays(1);
+          
+
+        }
+
+        private void LoadServiceDueGrid()
+        {
+            if (Grid == null) return;
+
+            Grid.Clear();
+            decimal total = 0;
+            foreach (var item in invoiceTable.GetInvoiceForAPeriod(FromDate, ToDate))
+            {
+                total += item.TotalAmount;
+                Grid.Add(item);
+            }
+            TotalAmount = total;
+        }
+
+
+        private ObservableCollection<InvoiceDto> invoicereport;
         public ObservableCollection<InvoiceDto> Grid
         {
-            get => invoiceTable.Grid;
-            set => OnPropertyChanged("Grid");
+            get => invoicereport;
+            set
+            {
+                invoicereport = value; 
+                OnPropertyChanged(nameof(Grid));
+            }
         }
 
         private DateTime fromDate;
         public DateTime FromDate
         {
             get { return fromDate; }
-            set { fromDate = value; OnPropertyChanged("FromDate"); }
+            set { fromDate = value; LoadServiceDueGrid(); OnPropertyChanged(nameof(FromDate)); }
         }
 
         private DateTime toDate;
         public DateTime ToDate
         {
             get { return toDate; }
-            set { toDate = value; OnPropertyChanged("ToDate"); }
+            set { toDate = value; LoadServiceDueGrid(); OnPropertyChanged(nameof(ToDate)); }
+        }
+
+        private decimal totalAmount;
+        public decimal TotalAmount
+        {
+            get { return totalAmount; }
+            set { totalAmount = value; OnPropertyChanged(nameof(TotalAmount)); }
         }
 
 

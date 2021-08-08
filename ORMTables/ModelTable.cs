@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,9 +59,9 @@ namespace PureFlow
             return true;
         }
 
-        private List<ModelDto> GetModelBrandData()
+        public ObservableCollection<ModelDto> GetModelBrandData()
         {
-            return new List<ModelDto>();
+            return _dataSource.GetAllModels();
         }
 
         internal List<ComboDto> GetModelNamesById(int modelID)

@@ -9,10 +9,15 @@ namespace PureFlow
 {
     public class ServiceRequestDto
     {
+        public int Ind { get; set; }
         public int ID { get; set; }
         public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerPhone { get; set; }
         public int BrandID { get; set; }
+        public string BrandName { get; set; }
         public int ModelID { get; set; }
+        public string ModelName { get; set; }
         public string Details { get; set; }
         public string Status { get; set; }
         public bool IsUnderWarranty { get; set; }

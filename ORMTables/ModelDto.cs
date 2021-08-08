@@ -14,12 +14,9 @@ namespace PureFlow
         public string ModelName { get; set; }
         public string Details { get; set; }
 
-        public ModelDto(int id, string brandName, string modelName, string details)
+        public ModelDto()
         {
-            this.ID = id;
-            this.BrandName = brandName;
-            this.ModelName = modelName;
-            this.Details = details;
+
         }
     }
 }

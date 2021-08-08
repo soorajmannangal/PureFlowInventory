@@ -7,12 +7,26 @@
         mc:Ignorable="d" Closed="Window_OnClosed" WindowStartupLocation="CenterScreen"
         Title="InvoiceReportView" Height="450" Width="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="271" Margin="70,77,0,0" VerticalAlignment="Top" Width="653"/>
+        <DataGrid ItemsSource="{Binding Grid}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="271" Margin="70,77,0,0" VerticalAlignment="Top" Width="653">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Ind}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="InvoiceDate" Binding="{Binding InvoiceDate}"/>
+                <DataGridTextColumn Header="NextServiceDueDate" Binding="{Binding NextServiceDueDate}"/>
+                <DataGridTextColumn Header="CustomerName" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="CustomerPhone" Binding="{Binding CustomerPhone}"/>
+                <DataGridTextColumn Header="ServiceRequestID" Binding="{Binding ServiceRequestID}"/>
+                <DataGridTextColumn Header="TotalAmount" Binding="{Binding TotalAmount}"/>
+                <DataGridTextColumn Header="Notes" Binding="{Binding Notes}"/>
+                <DataGridTextColumn Header="TechnicianName" Binding="{Binding TechnicianName}"/>
+                <DataGridTextColumn Header="UserName" Binding="{Binding UserName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <DatePicker SelectedDate="{Binding Path=FromDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="126,41,0,0" VerticalAlignment="Top"/>
         <DatePicker SelectedDate="{Binding Path=ToDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="324,42,0,0" VerticalAlignment="Top"/>
         <Label Content="From" HorizontalAlignment="Left" Margin="70,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>
         <Label Content="To" HorizontalAlignment="Left" Margin="281,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>
         <Label Content="Total Amount" HorizontalAlignment="Left" Margin="515,363,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="613,365,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="110"/>
+        <TextBox IsReadOnly="True"  Text="{Binding Path=TotalAmount, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="613,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
     </Grid>
 </Window>
