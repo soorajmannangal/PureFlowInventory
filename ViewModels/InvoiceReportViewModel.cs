@@ -23,12 +23,25 @@ namespace PureFlow
             set => OnPropertyChanged("Grid");
         }
 
+        private DateTime fromDate;
+        public DateTime FromDate
+        {
+            get { return fromDate; }
+            set { fromDate = value; OnPropertyChanged("FromDate"); }
+        }
+
+        private DateTime toDate;
+        public DateTime ToDate
+        {
+            get { return toDate; }
+            set { toDate = value; OnPropertyChanged("ToDate"); }
+        }
+
 
         public override void SetDefaults()
         {
             throw new NotImplementedException();
         }
-
        
     }
 }

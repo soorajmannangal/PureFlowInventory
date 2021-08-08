@@ -8,8 +8,8 @@
         Title="InvoiceReportView" Height="450" Width="800">
     <Grid>
         <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Left" Height="271" Margin="70,77,0,0" VerticalAlignment="Top" Width="653"/>
-        <DatePicker HorizontalAlignment="Left" Margin="126,41,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="324,42,0,0" VerticalAlignment="Top"/>
+        <DatePicker SelectedDate="{Binding Path=FromDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="126,41,0,0" VerticalAlignment="Top"/>
+        <DatePicker SelectedDate="{Binding Path=ToDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="324,42,0,0" VerticalAlignment="Top"/>
         <Label Content="From" HorizontalAlignment="Left" Margin="70,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>
         <Label Content="To" HorizontalAlignment="Left" Margin="281,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>
         <Label Content="Total Amount" HorizontalAlignment="Left" Margin="515,363,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.324,0.379"/>

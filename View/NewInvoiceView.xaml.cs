@@ -34,7 +34,7 @@ namespace PureFlow
         private void Window_OnClosed(object sender, EventArgs e)
         {
             contextViewModel.Close();
-            invoiceViewModel.UpdateInvoiceItemsGrid();
+            invoiceViewModel?.UpdateInvoiceItemsGrid();
         }
     }
 }

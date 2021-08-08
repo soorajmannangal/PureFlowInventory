@@ -31,11 +31,11 @@
         </Menu>
         <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewServiceRequestViewCommand }"/>
         <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewInvoiceViewCommand }"/>
-        <DataGrid x:Name="dgServiceReminder" HorizontalAlignment="Center" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978" />
+        <DataGrid ItemsSource="{Binding Grid}" HorizontalAlignment="Center" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978" />
         <Label Content="Service Reminder" HorizontalAlignment="Left" Margin="23,93,0,0" VerticalAlignment="Top" Width="220" Height="32"/>
-        <DatePicker x:Name="dpFromDate" HorizontalAlignment="Left" Margin="74,138,0,0" VerticalAlignment="Top" Height="29" />
+        <DatePicker SelectedDate="{Binding Path=FromDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="74,138,0,0" VerticalAlignment="Top" Height="29" />
         <Label Content="From" HorizontalAlignment="Left" Margin="27,135,0,0" VerticalAlignment="Top" Height="32"/>
-        <DatePicker x:Name="dpToDate" HorizontalAlignment="Left" Margin="232,138,0,0" VerticalAlignment="Top" Height="29" />
+        <DatePicker SelectedDate="{Binding Path=ToDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="232,138,0,0" VerticalAlignment="Top" Height="29" />
         <Label Content="To" HorizontalAlignment="Left" Margin="203,135,0,0" VerticalAlignment="Top" Height="32"/>
 
     </Grid>

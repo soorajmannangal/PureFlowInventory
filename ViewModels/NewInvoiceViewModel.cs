@@ -184,10 +184,13 @@ namespace PureFlow
                 return;
             }
 
-            SelectedServiceRequest = ServiceRequestCombo[0];
+            SelectedServiceRequest = ServiceRequestCombo[0]; 
+         }
 
+        private void LoadServiceRequestInfo()
+        {
             Brands = new BrandTable().GetNamesById(SelectedServiceRequest.BrandID);
-            if(Brands.Count > 0)
+            if (Brands.Count > 0)
             {
                 SelectedBrand = Brands[0];
             }
@@ -202,20 +205,18 @@ namespace PureFlow
             RequestDate = SelectedServiceRequest.RequestDate;
             RequestDetails = SelectedServiceRequest.Details;
             MakeServiceRequestFieldsReadonly = true;
-
-
         }
 
         public string Notes
         {
             get => invoiceTable.Notes;
-            set { invoiceTable.Notes = value; OnPropertyChanged("Note"); }
+            set { invoiceTable.Notes = value; OnPropertyChanged(nameof(Notes)); }
         }
 
         public Decimal TotalAmount
         {
             get => invoiceTable.TotalAmount;
-            set { invoiceTable.TotalAmount = value; OnPropertyChanged("TotalAmount"); }
+            set { invoiceTable.TotalAmount = value; OnPropertyChanged(nameof(TotalAmount)); }
         }
 
         private List<ComboDto> technician;
@@ -228,7 +229,7 @@ namespace PureFlow
             set
             {
                 technician = value;              
-                OnPropertyChanged("Technician");
+                OnPropertyChanged(nameof(Technician));
             }
         }
 
@@ -239,7 +240,7 @@ namespace PureFlow
             set
             {
                 selectedTechnician = value;
-                OnPropertyChanged("SelectedTechnician");
+                OnPropertyChanged(nameof(SelectedTechnician));
             }
         }
 
@@ -261,7 +262,7 @@ namespace PureFlow
                         SelectedModel = Models[0];
                     }
                 }
-                OnPropertyChanged("Brands");
+                OnPropertyChanged(nameof(Brands));
             }
         }
 
@@ -272,7 +273,7 @@ namespace PureFlow
             set
             {
                 selectedBrand = value;
-                OnPropertyChanged("SelectedBrand");
+                OnPropertyChanged(nameof(SelectedBrand));
             }
         }
 
@@ -283,7 +284,7 @@ namespace PureFlow
             set
             {
                 models = value;
-                OnPropertyChanged("Models");
+                OnPropertyChanged(nameof(Models));
             }
         }
        
@@ -294,14 +295,14 @@ namespace PureFlow
             set
             {
                 selectedModel = value;
-                OnPropertyChanged("SelectedModel");
+                OnPropertyChanged(nameof(SelectedModel));
             }
         }
         private DateTime requestDate;
         public DateTime RequestDate
         {
             get { return requestDate; }
-            set { requestDate = value; OnPropertyChanged("RequestDate"); }
+            set { requestDate = value; OnPropertyChanged(nameof(RequestDate)); }
         }
 
 
@@ -309,7 +310,7 @@ namespace PureFlow
         public String RequestDetails
         {
             get { return requestDetails; }
-            set { requestDetails = value; OnPropertyChanged("RequestDetails"); }
+            set { requestDetails = value; OnPropertyChanged(nameof(RequestDetails)); }
         }
 
         private bool isUnderWarranty;
@@ -319,7 +320,7 @@ namespace PureFlow
             set
             {
                 isUnderWarranty = value;
-                OnPropertyChanged("IsUnderWarranty");
+                OnPropertyChanged(nameof(IsUnderWarranty));
             }
         }
 
@@ -336,7 +337,7 @@ namespace PureFlow
             set
             {
                 serviceRequestCombo = value;
-                OnPropertyChanged("ServiceRequestCombo");
+                OnPropertyChanged(nameof(ServiceRequestCombo));
             }
         }
 
@@ -346,8 +347,11 @@ namespace PureFlow
             get => selectedServiceRequest;
             set
             {
-                selectedServiceRequest = value;            
-                OnPropertyChanged("SelectedServiceRequest");            
+                selectedServiceRequest = value;
+
+                //Fetch details for this
+                LoadServiceRequestInfo();
+                OnPropertyChanged(nameof(SelectedServiceRequest));            
             }
         }
 
@@ -358,7 +362,7 @@ namespace PureFlow
             set
             {
                 makeServiceRequestFieldsReadonly = value;
-                OnPropertyChanged("MakeServiceRequestFieldsReadonly");
+                OnPropertyChanged(nameof(MakeServiceRequestFieldsReadonly));
             }
         }
 
@@ -369,45 +373,45 @@ namespace PureFlow
             set
             {
                 makeCustomerFieldsReadonly = value;
-                OnPropertyChanged("MakeCustomerFieldsReadonly");
+                OnPropertyChanged(nameof(MakeCustomerFieldsReadonly));
             }
         }
 
         public String CustomerName
         {
             get => customerTable.Name;
-            set { customerTable.Name = value; OnPropertyChanged("CustomerName"); }
+            set { customerTable.Name = value; OnPropertyChanged(nameof(CustomerName)); }
         }
 
         public String CustomerMobile
         {
             get => customerTable.Phone;
-            set { customerTable.Phone = value; OnPropertyChanged("CustomerMobile"); }
+            set { customerTable.Phone = value; OnPropertyChanged(nameof(CustomerMobile)); }
         }
 
         public String CustomerEmail
         {
             get => customerTable.Email;
-            set { customerTable.Email = value; OnPropertyChanged("CustomerEmail"); }
+            set { customerTable.Email = value; OnPropertyChanged(nameof(CustomerEmail)); }
         }
 
         public String CustomerAddress
         {
             get => customerTable.Address;
-            set { customerTable.Address = value; OnPropertyChanged("CustomerAddress"); }
+            set { customerTable.Address = value; OnPropertyChanged(nameof(CustomerAddress)); }
         }
 
         
         public DateTime NextServiceDueDate
         {
             get { return invoiceTable.NextServiceDueDate; }
-            set { invoiceTable.NextServiceDueDate = value; OnPropertyChanged("NextServiceDueDate"); }
+            set { invoiceTable.NextServiceDueDate = value; OnPropertyChanged(nameof(NextServiceDueDate)); }
         }
 
         public DateTime InvoiceDate
         {
             get { return invoiceTable.InvoiceDate; }
-            set { invoiceTable.InvoiceDate = value; OnPropertyChanged("InvoiceDate"); }
+            set { invoiceTable.InvoiceDate = value; OnPropertyChanged(nameof(InvoiceDate)); }
         }
 
 
@@ -416,9 +420,8 @@ namespace PureFlow
         public ObservableCollection<InvoiceItemsGridDto> InvoiceItems
         {
             get { return invoiceItems; }
-            set { invoiceItems = value; OnPropertyChanged("InvoiceItems"); }
+            set { invoiceItems = value; OnPropertyChanged(nameof(InvoiceItems)); }
         }
-
       
 
         private ICommand addInvoiceItemCommand;
@@ -444,8 +447,16 @@ namespace PureFlow
             TotalAmount = total;
         }
 
-        private bool CanAddInvoiceItem() => true;
 
-      
+        //private ICommand requestPlacedDateChange;
+        //public ICommand RequestPlacedDateChange => requestPlacedDateChange ?? (requestPlacedDateChange = new RelayCommand(OnRequestPlacedDateChange, ()=>true));
+        //private void OnRequestPlacedDateChange()
+        //{
+        //    int test = 0;
+        //}
+
+
+        private bool CanAddInvoiceItem() => true;
+    
     }
 }

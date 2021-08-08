@@ -198,5 +198,27 @@ namespace PureFlow
         {
             throw new NotImplementedException();
         }
+
+
+        private DateTime fromDate;
+        public DateTime FromDate
+        {
+            get { return fromDate; }
+            set { fromDate = value; OnPropertyChanged("FromDate"); }
+        }
+
+        private DateTime toDate;
+        public DateTime ToDate
+        {
+            get { return toDate; }
+            set { toDate = value; OnPropertyChanged("ToDate"); }
+        }
+
+        public List<BrandGridDto> Grid
+        {
+            get => new BrandTable().Grid;
+            set => OnPropertyChanged("Grid");
+        }
+
     }
 }
