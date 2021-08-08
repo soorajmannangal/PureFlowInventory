@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,10 @@ namespace PureFlow
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
 
        
-        public List<SpareInventoryDto> Grid => _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
+        public ObservableCollection<SpareInventoryDto> Grid => _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
 
 
-        public List<SpareInventoryDto> GetInventoryItems()
+        public ObservableCollection<SpareInventoryDto> GetInventoryItems()
         {
             return _dataSource.GetAllSpares(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Quantity), nameof(Name));
         }

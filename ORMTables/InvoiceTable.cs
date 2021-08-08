@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace PureFlow
             return _dataSource.GetLastId(TableName, eGenericColumnName.ID.ToString());
         }
 
-        public List<InvoiceGridDto> Grid => _dataSource.GetAllInvoices(eGenericColumnName.ID.ToString(),
+        public ObservableCollection<InvoiceGridDto> Grid => _dataSource.GetAllInvoices(eGenericColumnName.ID.ToString(),
             nameof(CustomerID),
             nameof(InvoiceDate), 
             nameof(ServiceRequestID),
@@ -43,6 +44,20 @@ namespace PureFlow
             nameof(TotalAmount), 
             nameof(Notes),
             nameof(InvoiceDate));
+
+
+        public ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate)
+        {
+            return _dataSource.GetInvoicesForAPeriod(fromDate, toDate, eGenericColumnName.ID.ToString(),
+           nameof(CustomerID),
+           nameof(InvoiceDate),
+           nameof(ServiceRequestID),
+           nameof(ServiceManID),
+           nameof(NextServiceDueDate),
+           nameof(TotalAmount),
+           nameof(Notes),
+           nameof(InvoiceDate));
+        }
 
         public override eTableNames TableName => eTableNames.Invoice;
 

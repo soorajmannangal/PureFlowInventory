@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace PureFlow
 {
@@ -17,7 +18,7 @@ namespace PureFlow
             invoiceTable = new InvoiceTable();
         }
 
-        public List<InvoiceGridDto> Grid
+        public ObservableCollection<InvoiceGridDto> Grid
         {
             get => invoiceTable.Grid;
             set => OnPropertyChanged("Grid");

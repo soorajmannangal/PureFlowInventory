@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -88,9 +89,9 @@ namespace PureFlow
             return id;
         }
 
-        public List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy)
+        public ObservableCollection<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy)
         {
-            List<BrandGridDto> allBrands = new List<BrandGridDto>();
+            ObservableCollection<BrandGridDto> allBrands = new ObservableCollection<BrandGridDto>();
             con.Open();
             cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.Brand} {ORDER_BY} {name}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
@@ -353,9 +354,9 @@ namespace PureFlow
             con.Close();
         }
 
-        public List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy)
+        public ObservableCollection<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy)
         {
-            List<SpareInventoryDto> results = new List<SpareInventoryDto>();
+            ObservableCollection<SpareInventoryDto> results = new ObservableCollection<SpareInventoryDto>();
             con.Open();
             cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
@@ -434,12 +435,46 @@ namespace PureFlow
             return results;
         }
 
-        public List<InvoiceGridDto> GetAllInvoices(string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
+        public ObservableCollection<InvoiceGridDto> GetAllInvoices(string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
         {
-            List<InvoiceGridDto> results = new List<InvoiceGridDto>();
+            ObservableCollection<InvoiceGridDto> results = new ObservableCollection<InvoiceGridDto>();
             con.Open();
             
             cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.Invoice} {ORDER_BY} {orderBy}", con);
+            OleDbDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int resId = int.Parse(reader[id].ToString());
+                DateTime resinvoiceDate = DateTime.Parse(reader[invoiceDate].ToString());
+                DateTime resnextServiceDueDate = DateTime.Parse(reader[nextServiceDueDate].ToString());
+                int rescustomerID = int.Parse(reader[customerID].ToString());
+                int resserviceRequestID = int.Parse(reader[serviceRequestID].ToString());
+                int resserviceManID = int.Parse(reader[serviceManID].ToString());
+                decimal restotalAmount = decimal.Parse(reader[totalAmount].ToString());
+                string resnote = reader[note].ToString();
+                results.Add(
+                    new InvoiceGridDto()
+                    {
+                        ID = resId,
+                        InvoiceDate = resinvoiceDate,
+                        CustomerID = rescustomerID,
+                        ServiceRequestID = resserviceRequestID,
+                        ServiceManID = resserviceManID,
+                        NextServiceDueDate = resnextServiceDueDate,
+                        TotalAmount = restotalAmount,
+                        Notes = resnote,
+                    });
+            }
+            con.Close();
+            return results;
+        }
+
+        public ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
+        {
+            ObservableCollection<InvoiceGridDto> results = new ObservableCollection<InvoiceGridDto>();
+            con.Open();
+            string condition = $" {nextServiceDueDate} Between  Format(#" + fromDate + "#, 'dd/mm/yyyy') And   Format(#" + toDate + "#, 'dd/mm/yyyy') ";
+            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.Invoice} {WHERE} {condition} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {

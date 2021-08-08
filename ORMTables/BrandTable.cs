@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace PureFlow
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
 
 
-        public List<BrandGridDto> Grid => _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
+        public ObservableCollection<BrandGridDto> Grid => _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name));
 
         public override eTableNames TableName => eTableNames.Brand;
 

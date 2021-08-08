@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections.ObjectModel;
 
 namespace PureFlow
 {
@@ -22,14 +23,14 @@ namespace PureFlow
             }
         }
 
-        public List<SpareInventoryDto> Grid
+        public ObservableCollection<SpareInventoryDto> Grid
         {
             get => spareInventoryTable.Grid;
             set => OnPropertyChanged("Grid");
         }
 
-        private List<SpareInventoryDto> items;
-        public List<SpareInventoryDto> Items => items ?? (items = spareInventoryTable.Grid);
+        private ObservableCollection<SpareInventoryDto> items;
+        public ObservableCollection<SpareInventoryDto> Items => items ?? (items = spareInventoryTable.Grid);
 
         private SpareInventoryDto selectedItem;
         public SpareInventoryDto SelectedItem

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace PureFlow
 {
@@ -17,7 +18,7 @@ namespace PureFlow
             spareInventoryTable = new SpareInventoryTable();
         }
 
-        public List<SpareInventoryDto> Grid
+        public ObservableCollection<SpareInventoryDto> Grid
         {
             get => spareInventoryTable.Grid;
             set => OnPropertyChanged("Grid");

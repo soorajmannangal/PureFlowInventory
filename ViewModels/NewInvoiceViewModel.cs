@@ -189,6 +189,12 @@ namespace PureFlow
 
         private void LoadServiceRequestInfo()
         {
+            if(SelectedServiceRequest == null)
+            {
+                return;
+            }
+
+
             Brands = new BrandTable().GetNamesById(SelectedServiceRequest.BrandID);
             if (Brands.Count > 0)
             {
@@ -446,15 +452,6 @@ namespace PureFlow
 
             TotalAmount = total;
         }
-
-
-        //private ICommand requestPlacedDateChange;
-        //public ICommand RequestPlacedDateChange => requestPlacedDateChange ?? (requestPlacedDateChange = new RelayCommand(OnRequestPlacedDateChange, ()=>true));
-        //private void OnRequestPlacedDateChange()
-        //{
-        //    int test = 0;
-        //}
-
 
         private bool CanAddInvoiceItem() => true;
     

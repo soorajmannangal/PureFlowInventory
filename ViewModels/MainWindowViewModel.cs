@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -22,6 +23,13 @@ namespace PureFlow
             
             this.mainWindow = mainWindow;
             CreateCustomCommands();
+            Init();
+        }
+
+        private void Init()
+        {
+            FromDate = DateTime.Now;
+            ToDate = FromDate.AddDays(14);
         }
 
         private void CreateCustomCommands()
@@ -204,20 +212,45 @@ namespace PureFlow
         public DateTime FromDate
         {
             get { return fromDate; }
-            set { fromDate = value; OnPropertyChanged("FromDate"); }
+            set 
+            { 
+                fromDate = value;
+                LoadServiceDueGrid();
+                OnPropertyChanged(nameof(FromDate)); 
+            }
         }
 
         private DateTime toDate;
         public DateTime ToDate
         {
             get { return toDate; }
-            set { toDate = value; OnPropertyChanged("ToDate"); }
+            set 
+            { 
+                toDate = value;
+                LoadServiceDueGrid();
+                OnPropertyChanged(nameof(ToDate)); 
+            }
         }
 
-        public List<BrandGridDto> Grid
+        private void LoadServiceDueGrid()
         {
-            get => new BrandTable().Grid;
-            set => OnPropertyChanged("Grid");
+            Grid.Clear();
+            foreach(var item in invoiceTable.GetInvoicesForAPeriod(FromDate, ToDate))
+            {
+                Grid.Add(item);
+            }
+        }
+
+
+        InvoiceTable invoiceTable = new InvoiceTable();
+
+        ObservableCollection<InvoiceGridDto> invoiceGrid = new ObservableCollection<InvoiceGridDto>();
+
+
+        public ObservableCollection<InvoiceGridDto> Grid
+        {
+            get => invoiceGrid;
+            set => OnPropertyChanged(nameof(Grid));
         }
 
     }

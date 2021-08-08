@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,15 +61,16 @@ namespace PureFlow
         List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue);
         void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
         int GetSingleColumnValueById(eTableNames tableName, int rowId, string columnName);
-        List<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
-        List<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
+        ObservableCollection<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
+        ObservableCollection<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
         List<SpareInventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy);
         List<ServiceRequestGridDto> GetServiceRequestList(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy);
         List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy);
         List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy);
         CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch);
         List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy, int customerId);
-        List<InvoiceGridDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        ObservableCollection<InvoiceGridDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
         List<InvoiceItemsGridDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID);
         void UpdateServiceRequest(string idColumn, int id, string columnName1, string status, string columnName2, DateTime resovedDate);
     }
