@@ -11,14 +11,14 @@ namespace PureFlow
 {
     public class InventoryReportViewModel : ViewModelBase
     {
-        private readonly SpareInventoryTable spareInventoryTable;
+        private readonly InventoryTable spareInventoryTable;
 
         public InventoryReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
-            spareInventoryTable = new SpareInventoryTable();
+            spareInventoryTable = new InventoryTable();
         }
 
-        public ObservableCollection<SpareInventoryDto> Grid
+        public ObservableCollection<InventoryDto> Grid
         {
             get => spareInventoryTable.Grid;
             set => OnPropertyChanged("Grid");

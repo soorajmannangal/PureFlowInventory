@@ -16,7 +16,7 @@ namespace PureFlow
             serviceRequestTable = new ServiceRequestTable();
         }
 
-        public List<ServiceRequestGridDto> Grid
+        public List<ServiceRequestDto> Grid
         {
             get => serviceRequestTable.Grid;
             set => OnPropertyChanged("Grid");

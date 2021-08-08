@@ -89,15 +89,15 @@ namespace PureFlow
             return id;
         }
 
-        public ObservableCollection<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy)
+        public ObservableCollection<BrandDto> GetAllBrands(string id, string name, string details, string orderBy)
         {
-            ObservableCollection<BrandGridDto> allBrands = new ObservableCollection<BrandGridDto>();
+            ObservableCollection<BrandDto> allBrands = new ObservableCollection<BrandDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.Brand} {ORDER_BY} {name}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{details} {FROM} {eTableNames.BrandsTable} {ORDER_BY} {name}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                allBrands.Add(new BrandGridDto()
+                allBrands.Add(new BrandDto()
                 {
                     ID = int.Parse(reader[id].ToString()),
                     Name = reader[name].ToString(),
@@ -110,15 +110,15 @@ namespace PureFlow
 
        
 
-        public CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch)
+        public CustomerDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch)
         {
-            CustomerGridDto dto = null;
+            CustomerDto dto = null;
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.Customer} {WHERE} {phone}={Str(phoneNoToMatch)}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.CustomerTable} {WHERE} {phone}={Str(phoneNoToMatch)}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                dto = (new CustomerGridDto()
+                dto = (new CustomerDto()
                 {
                     ID = int.Parse(reader[id].ToString()),
                     Name = reader[name].ToString(),
@@ -147,15 +147,15 @@ namespace PureFlow
             return lastId;
         }
 
-        public List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy)
+        public List<CustomerDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy)
         {
-            List<CustomerGridDto> dtos = new List<CustomerGridDto>();
+            List<CustomerDto> dtos = new List<CustomerDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.Customer} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{phone},{email},{address} {FROM} {eTableNames.CustomerTable} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                dtos.Add(new CustomerGridDto()
+                dtos.Add(new CustomerDto()
                 {
                     ID = int.Parse(reader[id].ToString()),
                     Name = reader[name].ToString(),
@@ -169,7 +169,7 @@ namespace PureFlow
         }
 
       
-        public List<ServiceRequestGridDto> GetServiceRequestList(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
+        public List<ServiceRequestDto> GetServiceRequestList(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
             string Status,
             string BrandID,
             string ModelID,
@@ -177,13 +177,13 @@ namespace PureFlow
             string resolvedDate,
             string orderBy            )
         {
-            List<ServiceRequestGridDto> dtos = new List<ServiceRequestGridDto>();
+            List<ServiceRequestDto> dtos = new List<ServiceRequestDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate},{resolvedDate} {FROM} {eTableNames.ServiceRequest} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate},{resolvedDate} {FROM} {eTableNames.ServiceRequestTable} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                dtos.Add(new ServiceRequestGridDto()
+                dtos.Add(new ServiceRequestDto()
                 {
                     ID = int.Parse(reader[id].ToString()),
                     CustomerID = int.Parse(reader[CustomerID].ToString()),                 
@@ -202,7 +202,7 @@ namespace PureFlow
             return dtos;
         }
 
-        public List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
+        public List<ServiceRequestDto> GetServiceRequestListForCustomerId(string id, string CustomerID, string Details, string IsUnderWarranty, string DateOfEntry,
             string Status,
             string BrandID,
             string ModelID,
@@ -211,16 +211,16 @@ namespace PureFlow
             string orderBy,
             int customerId)
         {
-            List<ServiceRequestGridDto> dtos = new List<ServiceRequestGridDto>();
+            List<ServiceRequestDto> dtos = new List<ServiceRequestDto>();
             con.Open();
 
             string condition = $" {CustomerID} = {customerId} AND {resolvedDate} =  Format(#" + DateTime.MinValue + "#, 'dd/mm/yyyy') ";
             string fieldsToSelect = $"{id},{CustomerID},{Details},{IsUnderWarranty},{DateOfEntry},{Status},{BrandID},{ModelID},{RequestDate},{resolvedDate}";
-            cmd = new OleDbCommand($"{SELECT} {fieldsToSelect} {FROM} {eTableNames.ServiceRequest} {WHERE} {condition}  {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {fieldsToSelect} {FROM} {eTableNames.ServiceRequestTable} {WHERE} {condition}  {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                dtos.Add(new ServiceRequestGridDto()
+                dtos.Add(new ServiceRequestDto()
                 {
                     ID = int.Parse(reader[id].ToString()),
                     CustomerID = int.Parse(reader[CustomerID].ToString()),
@@ -242,7 +242,7 @@ namespace PureFlow
         {
             OleDbCommand cmd = new OleDbCommand();
             con.Open();
-            cmd.CommandText = $"UPDATE {eTableNames.ServiceRequest} SET {columnName1} = {Str(status)}, {columnName2} = {Str(resovedDate.ToString())}  {WHERE} {idColumn}= {id}";
+            cmd.CommandText = $"UPDATE {eTableNames.ServiceRequestTable} SET {columnName1} = {Str(status)}, {columnName2} = {Str(resovedDate.ToString())}  {WHERE} {idColumn}= {id}";
             cmd.Connection = con;
             cmd.ExecuteNonQuery();
             con.Close();
@@ -354,11 +354,11 @@ namespace PureFlow
             con.Close();
         }
 
-        public ObservableCollection<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy)
+        public ObservableCollection<InventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy)
         {
-            ObservableCollection<SpareInventoryDto> results = new ObservableCollection<SpareInventoryDto>();
+            ObservableCollection<InventoryDto> results = new ObservableCollection<InventoryDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.SpareInventory} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.InventoryTable} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -367,7 +367,7 @@ namespace PureFlow
                 string resDetails = reader[details].ToString();
                 int resQty = int.Parse(reader[quantity].ToString());
                 results.Add(
-                    new SpareInventoryDto()
+                    new InventoryDto()
                     {
                         ID = resId,
                         Name = resName,
@@ -379,12 +379,12 @@ namespace PureFlow
             return results;
         }
 
-        public List<SpareInventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy)
+        public List<InventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy)
         {
-            List<SpareInventoryDto> results = new List<SpareInventoryDto>();
+            List<InventoryDto> results = new List<InventoryDto>();
             con.Open();
             string condition = $" {WHERE} {quantity} > 0 ";
-            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.SpareInventory} {condition} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{name},{quantity},{details} {FROM} {eTableNames.InventoryTable} {condition} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -393,7 +393,7 @@ namespace PureFlow
                 string resDetails = reader[details].ToString();
                 int resQty = int.Parse(reader[quantity].ToString());
                 results.Add(
-                    new SpareInventoryDto()
+                    new InventoryDto()
                     {
                         ID = resId,
                         Name = resName,
@@ -405,12 +405,12 @@ namespace PureFlow
             return results;
         }
 
-        public List<InvoiceItemsGridDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID)
+        public List<InvoiceItemsDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID)
         {
-            List<InvoiceItemsGridDto> results = new List<InvoiceItemsGridDto>();
+            List<InvoiceItemsDto> results = new List<InvoiceItemsDto>();
             con.Open();
 
-            cmd = new OleDbCommand($"{SELECT} {id},{invoiceID},{spareInventoryID},{qty},{workTypeID},{amount} {FROM} {eTableNames.Invoice} {WHERE} {invoiceID}={reqInvoiceID}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{invoiceID},{spareInventoryID},{qty},{workTypeID},{amount} {FROM} {eTableNames.InvoiceTable} {WHERE} {invoiceID}={reqInvoiceID}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -421,7 +421,7 @@ namespace PureFlow
                 int resworkTypeID = int.Parse(reader[workTypeID].ToString());
                 decimal resamount = decimal.Parse(reader[amount].ToString());
                 results.Add(
-                    new InvoiceItemsGridDto()
+                    new InvoiceItemsDto()
                     {
                         ID = resId,
                         InvoiceID = resinvoiceID,
@@ -435,12 +435,12 @@ namespace PureFlow
             return results;
         }
 
-        public ObservableCollection<InvoiceGridDto> GetAllInvoices(string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
+        public ObservableCollection<InvoiceDto> GetAllInvoices(string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
         {
-            ObservableCollection<InvoiceGridDto> results = new ObservableCollection<InvoiceGridDto>();
+            ObservableCollection<InvoiceDto> results = new ObservableCollection<InvoiceDto>();
             con.Open();
             
-            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.Invoice} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.InvoiceTable} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -453,7 +453,7 @@ namespace PureFlow
                 decimal restotalAmount = decimal.Parse(reader[totalAmount].ToString());
                 string resnote = reader[note].ToString();
                 results.Add(
-                    new InvoiceGridDto()
+                    new InvoiceDto()
                     {
                         ID = resId,
                         InvoiceDate = resinvoiceDate,
@@ -469,12 +469,12 @@ namespace PureFlow
             return results;
         }
 
-        public ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
+        public ObservableCollection<InvoiceDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string invoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy)
         {
-            ObservableCollection<InvoiceGridDto> results = new ObservableCollection<InvoiceGridDto>();
+            ObservableCollection<InvoiceDto> results = new ObservableCollection<InvoiceDto>();
             con.Open();
             string condition = $" {nextServiceDueDate} Between  Format(#" + fromDate + "#, 'dd/mm/yyyy') And   Format(#" + toDate + "#, 'dd/mm/yyyy') ";
-            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.Invoice} {WHERE} {condition} {ORDER_BY} {orderBy}", con);
+            cmd = new OleDbCommand($"{SELECT} {id},{customerID},{invoiceDate},{serviceRequestID},{serviceManID},{nextServiceDueDate},{totalAmount},{note} {FROM} {eTableNames.InvoiceTable} {WHERE} {condition} {ORDER_BY} {orderBy}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -487,7 +487,7 @@ namespace PureFlow
                 decimal restotalAmount = decimal.Parse(reader[totalAmount].ToString());
                 string resnote = reader[note].ToString();
                 results.Add(
-                    new InvoiceGridDto()
+                    new InvoiceDto()
                     {
                         ID = resId,
                         InvoiceDate = resinvoiceDate,
@@ -508,19 +508,25 @@ namespace PureFlow
         {
             List<InventoryTransactionDto> results = new List<InventoryTransactionDto>();
             con.Open();
-            cmd = new OleDbCommand($"{SELECT} {id},{spareInventoryID},{qty},{userID},{transactionDate} {FROM} {eTableNames.InventoryTransaction} {ORDER_BY} {orderBy}", con);
+            string selection = $" IT.{id} as {id}, IT.{spareInventoryID} as {spareInventoryID},IT.{qty} as {qty}, IT.{userID} as {userID},  SI.Name as SpareName, US.Name as UserName, FORMAT(IT.{transactionDate}, 'Short Date') as {transactionDate} ";
+            string source = $" (({eTableNames.InventoryTransactionTable} as IT inner join {eTableNames.InventoryTable} as SI on IT.SpareInventoryID = SI.ID ) inner join {eTableNames.UserTable} as US on IT.{userID} = US.ID) ";
+            cmd = new OleDbCommand($"{SELECT} {selection} {FROM} {source}", con);
             OleDbDataReader reader = cmd.ExecuteReader();
+            int ind = 1;
             while (reader.Read())
             {
                 results.Add(
                     new InventoryTransactionDto()
                     {
+                        Ind = ind++,
                         ID = int.Parse(reader[id].ToString()),
                         SpareInventoryID = int.Parse(reader[spareInventoryID].ToString()),
+                        SpareName = reader["SpareName"].ToString(),
                         Qty = int.Parse(reader[qty].ToString()),
                         UserID = int.Parse(reader[userID].ToString()),
+                        UserName = reader["UserName"].ToString(),
                         TransactionDate = DateTime.Parse(reader[transactionDate].ToString())
-                    });
+                    }) ;
             }
             con.Close();
             return results;

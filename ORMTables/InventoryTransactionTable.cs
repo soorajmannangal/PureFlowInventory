@@ -8,7 +8,7 @@ namespace PureFlow
 {
     public class InventoryTransactionTable : ORMBase
     {
-        public override eTableNames TableName => eTableNames.InventoryTransaction;
+        public override eTableNames TableName => eTableNames.InventoryTransactionTable;
     
         private int spareInventoryID;
         public int SpareInventoryID  { get => spareInventoryID; set => spareInventoryID = value; }

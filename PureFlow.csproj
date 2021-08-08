@@ -99,47 +99,47 @@
     </ApplicationDefinition>
     <Compile Include="CustomCommands\DisableInvoiceWindowCommand.cs" />
     <Compile Include="CustomCommands\EnableMainWindowCommand.cs" />
-    <Compile Include="ORMTables\InvoiceItemsGridDto.cs" />
-    <Compile Include="ORMTables\InvoiceGridDto.cs" />
+    <Compile Include="ORMTables\InvoiceItemsDto.cs" />
+    <Compile Include="ORMTables\InvoiceDto.cs" />
     <Compile Include="ORMTables\InvoiceItemsTable.cs" />
     <Compile Include="ORMTables\InvoiceTable.cs" />
-    <Compile Include="ORMTables\ServiceRequestGridDto.cs" />
-    <Compile Include="ORMTables\CustomerGridDto.cs" />
+    <Compile Include="ORMTables\ServiceRequestDto.cs" />
+    <Compile Include="ORMTables\CustomerDto.cs" />
     <Compile Include="ORMTables\CustomerTable.cs" />
     <Compile Include="ORMTables\InventoryTransactionDto.cs" />
     <Compile Include="ORMTables\ServiceRequestTable.cs" />
     <Compile Include="ORMTables\InventoryTransactionTable.cs" />
-    <Compile Include="ORMTables\SpareInventoryDto.cs" />
-    <Compile Include="ORMTables\ModelGridDto.cs" />
-    <Compile Include="ORMTables\BrandGridDto.cs" />
+    <Compile Include="ORMTables\InventoryDto.cs" />
+    <Compile Include="ORMTables\ModelDto.cs" />
+    <Compile Include="ORMTables\BrandDto.cs" />
     <Compile Include="ORMTables\ModelTable.cs" />
-    <Compile Include="ORMTables\ServiceManTable.cs" />
-    <Compile Include="ORMTables\SpareInventoryTable.cs" />
+    <Compile Include="ORMTables\TechnicianTable.cs" />
+    <Compile Include="ORMTables\InventoryTable.cs" />
     <Compile Include="ORMTables\WorkTypeTable.cs" />
     <Compile Include="UserInfo.cs" />
-    <Compile Include="ViewModels\AddInvoiceItemViewModel.cs" />
-    <Compile Include="ViewModels\AddInvoiceWorkTypeViewModel.cs" />
-    <Compile Include="ViewModels\AddModelViewModel.cs" />
-    <Compile Include="ViewModels\AddBrandViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceItemsAddViewModel.cs" />
+    <Compile Include="ViewModels\WorkTypeAddViewModel.cs" />
+    <Compile Include="ViewModels\ModelsAddViewModel.cs" />
+    <Compile Include="ViewModels\BrandAddViewModel.cs" />
     <Compile Include="ViewModels\CustomerReportViewModel.cs" />
     <Compile Include="ViewModels\ServiceRequestReportViewModel.cs" />
-    <Compile Include="ViewModels\UpdateSpareInventoryViewModel.cs" />
-    <Compile Include="ViewModels\NewServiceRequestViewModel.cs" />
-    <Compile Include="ViewModels\NewInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\InventoryUpdateViewModel.cs" />
+    <Compile Include="ViewModels\ServiceRequestNewViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceNewViewModel.cs" />
     <Compile Include="ViewModels\InvoiceReportViewModel.cs" />
     <Compile Include="ViewModels\InventoryTransactionReportViewModel.cs" />
     <Compile Include="ViewModels\InventoryReportViewModel.cs" />
-    <Compile Include="ViewModels\AddSpareInventoryViewModel.cs" />
-    <Compile Include="ViewModels\AddServiceManViewModel.cs" />
+    <Compile Include="ViewModels\InventoryAddViewModel.cs" />
+    <Compile Include="ViewModels\TechnicianAddViewModel.cs" />
     <Compile Include="ViewModels\IWindowViewModel.cs" />
     <Compile Include="CustomCommands\EnableInvoiceWindowCommand.cs" />
     <Compile Include="CustomCommands\DisableMainWindowCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="View\AddInvoiceItemView.xaml.cs">
-      <DependentUpon>AddInvoiceItemView.xaml</DependentUpon>
+    <Compile Include="View\InvoiceItemsAddView.xaml.cs">
+      <DependentUpon>InvoiceItemsAddView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddBrandView.xaml.cs">
-      <DependentUpon>AddBrandView.xaml</DependentUpon>
+    <Compile Include="View\BrandAddView.xaml.cs">
+      <DependentUpon>BrandAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="DB\IDataSource.cs" />
@@ -151,47 +151,47 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DB\DBHelper.cs" />
-    <Compile Include="View\AddInvoiceWorkTypeView.xaml.cs">
-      <DependentUpon>AddInvoiceWorkTypeView.xaml</DependentUpon>
+    <Compile Include="View\WorkTypeAddView.xaml.cs">
+      <DependentUpon>WorkTypeAddView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddModelView.xaml.cs">
-      <DependentUpon>AddModelView.xaml</DependentUpon>
+    <Compile Include="View\ModelsAddView.xaml.cs">
+      <DependentUpon>ModelsAddView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddServiceManView.xaml.cs">
-      <DependentUpon>AddServiceManView.xaml</DependentUpon>
+    <Compile Include="View\TechnicianAddView.xaml.cs">
+      <DependentUpon>TechnicianAddView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddSpareInventoryView.xaml.cs">
-      <DependentUpon>AddSpareInventoryView.xaml</DependentUpon>
+    <Compile Include="View\InventoryAddView.xaml.cs">
+      <DependentUpon>InventoryAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InventoryReportView.xaml.cs">
       <DependentUpon>InventoryReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CustomerReportView.xaml.cs">
-      <DependentUpon>CustomerReportView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\InventoryTransactionReportView.xaml.cs">
       <DependentUpon>InventoryTransactionReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomerReportView.xaml.cs">
+      <DependentUpon>CustomerReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\InvoiceReportView.xaml.cs">
       <DependentUpon>InvoiceReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NewInvoiceView.xaml.cs">
-      <DependentUpon>NewInvoiceView.xaml</DependentUpon>
+    <Compile Include="View\InvoiceNewView.xaml.cs">
+      <DependentUpon>InvoiceNewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NewServiceRequestView.xaml.cs">
-      <DependentUpon>NewServiceRequestView.xaml</DependentUpon>
+    <Compile Include="View\ServiceRequestNewView.xaml.cs">
+      <DependentUpon>ServiceRequestNewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ServiceRequestReportView.xaml.cs">
       <DependentUpon>ServiceRequestReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UpdateSpareInventoryView.xaml.cs">
-      <DependentUpon>UpdateSpareInventoryView.xaml</DependentUpon>
+    <Compile Include="View\InventoryUpdateView.xaml.cs">
+      <DependentUpon>InventoryUpdateView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AddInvoiceItemView.xaml">
+    <Page Include="View\InvoiceItemsAddView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AddBrandView.xaml">
+    <Page Include="View\BrandAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,19 +199,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AddInvoiceWorkTypeView.xaml">
+    <Page Include="View\WorkTypeAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddModelView.xaml">
+    <Page Include="View\ModelsAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddServiceManView.xaml">
+    <Page Include="View\TechnicianAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddSpareInventoryView.xaml">
+    <Page Include="View\InventoryAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,11 +219,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CustomerReportView.xaml">
+    <Page Include="View\InventoryTransactionReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\InventoryTransactionReportView.xaml">
+    <Page Include="View\CustomerReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,11 +231,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NewInvoiceView.xaml">
+    <Page Include="View\InvoiceNewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NewServiceRequestView.xaml">
+    <Page Include="View\ServiceRequestNewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +243,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UpdateSpareInventoryView.xaml">
+    <Page Include="View\InventoryUpdateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,7 +23,7 @@ namespace PureFlow
         private decimal amount;
         public decimal Amount { get { return amount; } set { amount = value; } }
 
-        public List<InvoiceItemsGridDto> GetInvoiceItems(int reqInvoiceID)
+        public List<InvoiceItemsDto> GetInvoiceItems(int reqInvoiceID)
         {
             return _dataSource.GetInvoiceItems(eGenericColumnName.ID.ToString(),
              nameof(InvoiceID),
@@ -34,7 +34,7 @@ namespace PureFlow
              reqInvoiceID);
         }
 
-        public override eTableNames TableName => eTableNames.InvoiceItems;
+        public override eTableNames TableName => eTableNames.InvoiceItemsTable;
 
         public void InsertAll()
         {

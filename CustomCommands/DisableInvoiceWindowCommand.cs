@@ -11,8 +11,8 @@ namespace PureFlow
     {
         public event EventHandler CanExecuteChanged;
 
-        private NewInvoiceView window;
-        public DisableInvoiceWindowCommand(NewInvoiceView invoiceWindow)
+        private InvoiceNewView window;
+        public DisableInvoiceWindowCommand(InvoiceNewView invoiceWindow)
         {
             this.window = invoiceWindow;
         }

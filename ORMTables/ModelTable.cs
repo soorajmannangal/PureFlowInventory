@@ -17,7 +17,7 @@ namespace PureFlow
         private string details;
         public string Details { get { return details ?? DEFAULT_STRING; } set { details = value; } }
 
-        public override eTableNames TableName => eTableNames.Model;
+        public override eTableNames TableName => eTableNames.ModelsTable;
 
         public int GetIdByName()
         {
@@ -58,9 +58,9 @@ namespace PureFlow
             return true;
         }
 
-        private List<ModelGridDto> GetModelBrandData()
+        private List<ModelDto> GetModelBrandData()
         {
-            return new List<ModelGridDto>();
+            return new List<ModelDto>();
         }
 
         internal List<ComboDto> GetModelNamesById(int modelID)

@@ -17,10 +17,10 @@ namespace PureFlow
     /// <summary>
     /// Interaction logic for InventoryTransactionReportView.xaml
     /// </summary>
-    public partial class InventoryTransactionReportView : Window
+    public partial class CustomerReportView : Window
     {
         private IWindowViewModel contextViewModel;
-        public InventoryTransactionReportView(IWindowViewModel contextViewModel)
+        public CustomerReportView(IWindowViewModel contextViewModel)
         {
             InitializeComponent();
             this.contextViewModel = contextViewModel;

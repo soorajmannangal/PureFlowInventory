@@ -18,8 +18,8 @@ namespace PureFlow
         private int serviceRequestID;
         public int ServiceRequestID { get { return serviceRequestID; } set { serviceRequestID = value; } }
 
-        private int serviceManID;
-        public int ServiceManID { get { return serviceManID; } set { serviceManID = value; } }
+        private int technicianID;
+        public int TechnicianID { get { return technicianID; } set { technicianID = value; } }
 
         private DateTime nextServiceDueDate;
         public DateTime NextServiceDueDate { get { return nextServiceDueDate; } set { nextServiceDueDate = value; } }
@@ -35,31 +35,31 @@ namespace PureFlow
             return _dataSource.GetLastId(TableName, eGenericColumnName.ID.ToString());
         }
 
-        public ObservableCollection<InvoiceGridDto> Grid => _dataSource.GetAllInvoices(eGenericColumnName.ID.ToString(),
+        public ObservableCollection<InvoiceDto> Grid => _dataSource.GetAllInvoices(eGenericColumnName.ID.ToString(),
             nameof(CustomerID),
             nameof(InvoiceDate), 
             nameof(ServiceRequestID),
-            nameof(ServiceManID), 
+            nameof(TechnicianID), 
             nameof(NextServiceDueDate),
             nameof(TotalAmount), 
             nameof(Notes),
             nameof(InvoiceDate));
 
 
-        public ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate)
+        public ObservableCollection<InvoiceDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate)
         {
             return _dataSource.GetInvoicesForAPeriod(fromDate, toDate, eGenericColumnName.ID.ToString(),
            nameof(CustomerID),
            nameof(InvoiceDate),
            nameof(ServiceRequestID),
-           nameof(ServiceManID),
+           nameof(TechnicianID),
            nameof(NextServiceDueDate),
            nameof(TotalAmount),
            nameof(Notes),
            nameof(InvoiceDate));
         }
 
-        public override eTableNames TableName => eTableNames.Invoice;
+        public override eTableNames TableName => eTableNames.InvoiceTable;
 
         public void InsertAll()
         {
@@ -67,7 +67,7 @@ namespace PureFlow
                 nameof(CustomerID), CustomerID,
                  nameof(InvoiceDate), InvoiceDate,
                  nameof(ServiceRequestID), ServiceRequestID,
-                 nameof(ServiceManID), ServiceManID,
+                 nameof(TechnicianID), TechnicianID,
                  nameof(NextServiceDueDate), NextServiceDueDate,
                  nameof(Notes), Notes,
                  nameof(TotalAmount), TotalAmount);

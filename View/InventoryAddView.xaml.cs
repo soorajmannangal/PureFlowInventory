@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 namespace PureFlow
 {
     /// <summary>
-    /// Interaction logic for InventoryTransactionReportView.xaml
+    /// Interaction logic for AddSpareInventory.xaml
     /// </summary>
-    public partial class InventoryTransactionReportView : Window
+    public partial class InventoryAddView : Window
     {
         private IWindowViewModel contextViewModel;
-        public InventoryTransactionReportView(IWindowViewModel contextViewModel)
+        public InventoryAddView(IWindowViewModel contextViewModel)
         {
             InitializeComponent();
             this.contextViewModel = contextViewModel;

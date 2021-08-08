@@ -9,18 +9,129 @@ namespace PureFlow
 {
     public enum eTableNames
     {
-        Brand,
-        Customer,
-        InventoryTransaction,
-        Invoice,
-        Model,
-        ServiceMan,
-        ServiceReminder,
-        ServiceRequest,
-        SpareInventory,
-        User,
-        WorkType,
-        InvoiceItems
+        BrandsTable,
+        CustomerTable,
+        InventoryTable,
+        InventoryTransactionTable,
+        InvoiceItemsTable,
+        InvoiceTable,
+        ModelsTable,
+        ServiceReminderTable,
+        ServiceRequestTable,
+        TechnicianTable,
+        UserTable,
+        WorkTypeTable
+    }
+
+    public enum eWorkTypeTable
+    {
+        ID,
+        Name
+    }
+
+    public enum eUserTable
+    {
+        ID,
+        Name,
+        Phone,
+        Password,
+        IsAdmin,
+        IsActive
+    }
+
+    public enum eTechnicianTable
+    {
+        ID,
+        Name,
+        Phone,
+        Details,
+        IsActive
+    }
+
+    public enum eServiceRequestTable
+    {
+        ID,
+        CustomerID,
+        Details,
+        IsUnderWarranty,
+        DateOfEntry,
+        Status,
+        BrandID,
+        ModelID,
+        RequestDate,
+        ResovedDate
+    }
+    public enum eServiceReminderTable
+    {
+        ID,
+        CustomerID,
+        BrandID,
+        ModelID,
+        InvoiceID,
+        ExpiaryDate
+    }
+
+    public enum eModelsTable
+    {
+        ID,
+        BrandID,
+        Name,
+        Details
+    }
+
+    public enum eInvoiceTable
+    {
+        ID,
+        InvoiceDate,
+        CustomerID,
+        ServiceRequestID,
+        TechnicianID,
+        NextServiceDueDate,
+        TotalAmount,
+        Notes
+    }
+
+    public enum eInvoiceItemsTable
+    {
+        ID,
+        InvoiceID,
+        SpareInventoryID,
+        Qty,
+        WorkTypeID,
+        Amount
+    }
+
+    public enum eInventoryTransactionTable
+    {
+        ID,
+        SpareInventoryID,
+        Qty,
+        UserID,
+        TransactionDate
+    }
+
+    public enum eInventoryTable
+    {
+        ID,
+        Name,
+        Quantity,
+        Details
+    }
+
+    public enum eCustomerTable
+    {
+        ID,
+        Name,
+        Phone,
+        Address,
+        Email
+    }
+
+    public enum eBrandsTable
+    {
+        ID,
+        Name,
+        Details
     }
 
     public enum ServiceRequestStatus
@@ -61,17 +172,17 @@ namespace PureFlow
         List<ComboDto> GetColumnDataByFKId(eTableNames tableName, string columnName, string fkIdColumnName, int fkIdValue);
         void UpdateSingleColumn(eTableNames tableNames, int rowId, string columnName, object columnValue);
         int GetSingleColumnValueById(eTableNames tableName, int rowId, string columnName);
-        ObservableCollection<BrandGridDto> GetAllBrands(string id, string name, string details, string orderBy);
-        ObservableCollection<SpareInventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
-        List<SpareInventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy);
-        List<ServiceRequestGridDto> GetServiceRequestList(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy);
+        ObservableCollection<BrandDto> GetAllBrands(string id, string name, string details, string orderBy);
+        ObservableCollection<InventoryDto> GetAllSpares(string id, string name, string details, string quantity, string orderBy);
+        List<InventoryDto> GetAllSparesWithStock(string id, string name, string details, string quantity, string orderBy);
+        List<ServiceRequestDto> GetServiceRequestList(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy);
         List<InventoryTransactionDto> GetInventoryTransactionData(string id, string spareInventoryID, string qty, string userID, string transactionDate, string orderBy);
-        List<CustomerGridDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy);
-        CustomerGridDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch);
-        List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy, int customerId);
-        ObservableCollection<InvoiceGridDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
-        ObservableCollection<InvoiceGridDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
-        List<InvoiceItemsGridDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID);
+        List<CustomerDto> GetAllCustomers(string id, string name, string phone, string address, string email, string orderBy);
+        CustomerDto GetCustomerByPhone(string id, string name, string phone, string address, string email, string phoneNoToMatch);
+        List<ServiceRequestDto> GetServiceRequestListForCustomerId(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string v9, string v10, string orderBy, int customerId);
+        ObservableCollection<InvoiceDto> GetAllInvoices(string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        ObservableCollection<InvoiceDto> GetInvoicesForAPeriod(DateTime fromDate, DateTime toDate, string id, string customerID, string nvoiceDate, string serviceRequestID, string serviceManID, string nextServiceDueDate, string totalAmount, string note, string orderBy);
+        List<InvoiceItemsDto> GetInvoiceItems(string id, string invoiceID, string spareInventoryID, string qty, string workTypeID, string amount, int reqInvoiceID);
         void UpdateServiceRequest(string idColumn, int id, string columnName1, string status, string columnName2, DateTime resovedDate);
     }
 }

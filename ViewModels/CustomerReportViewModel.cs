@@ -17,7 +17,7 @@ namespace PureFlow
             customerTable = new CustomerTable();
         }
 
-        public List<CustomerGridDto> Grid
+        public List<CustomerDto> Grid
         {
             get => customerTable.Grid;
             set => OnPropertyChanged("Grid");

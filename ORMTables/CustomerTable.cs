@@ -23,12 +23,12 @@ namespace PureFlow
 
         // private List<BrandGridDto> grid;
         // public List<BrandGridDto> Grid => grid ?? (grid = _dataSource.GetAllBrands(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Details), nameof(Name)));
-        public List<CustomerGridDto> Grid => _dataSource.GetAllCustomers(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Phone), nameof(Address), nameof(Email), nameof(Name));
+        public List<CustomerDto> Grid => _dataSource.GetAllCustomers(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Phone), nameof(Address), nameof(Email), nameof(Name));
 
-        public override eTableNames TableName => eTableNames.Customer;
+        public override eTableNames TableName => eTableNames.CustomerTable;
 
 
-        public CustomerGridDto GetCustomerByPhone(string phoneNoToMatch)
+        public CustomerDto GetCustomerByPhone(string phoneNoToMatch)
         {
            return _dataSource.GetCustomerByPhone(eGenericColumnName.ID.ToString(), nameof(Name), nameof(Phone), nameof(Address), nameof(Email), phoneNoToMatch);
         }

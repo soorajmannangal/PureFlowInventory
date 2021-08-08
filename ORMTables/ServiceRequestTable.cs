@@ -8,7 +8,7 @@ namespace PureFlow
 {
     public class ServiceRequestTable : ORMBase
     {
-        public override eTableNames TableName => eTableNames.ServiceRequest;
+        public override eTableNames TableName => eTableNames.ServiceRequestTable;
 
         private int customerId;
         public int CustomerID { get => customerId; set => customerId = value; }
@@ -46,7 +46,7 @@ namespace PureFlow
             UpdateRequest(id, ServiceRequestStatus.RequestResolved.ToString(), DateTime.Now);
         }
 
-        public List<ServiceRequestGridDto> Grid => _dataSource.GetServiceRequestList(
+        public List<ServiceRequestDto> Grid => _dataSource.GetServiceRequestList(
                                                 eGenericColumnName.ID.ToString(),   
                                                 nameof(CustomerID),
                                                 nameof(Details),
@@ -61,7 +61,7 @@ namespace PureFlow
             
       
 
-        public List<ServiceRequestGridDto> GetServiceRequestListForCustomerId(int customerId)
+        public List<ServiceRequestDto> GetServiceRequestListForCustomerId(int customerId)
         {
             return _dataSource.GetServiceRequestListForCustomerId(
                                                 eGenericColumnName.ID.ToString(),

@@ -18,7 +18,7 @@ namespace PureFlow
             invoiceTable = new InvoiceTable();
         }
 
-        public ObservableCollection<InvoiceGridDto> Grid
+        public ObservableCollection<InvoiceDto> Grid
         {
             get => invoiceTable.Grid;
             set => OnPropertyChanged("Grid");

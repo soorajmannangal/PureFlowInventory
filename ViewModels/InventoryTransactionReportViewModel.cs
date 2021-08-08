@@ -15,6 +15,13 @@ namespace PureFlow
         public InventoryTransactionReportViewModel(ICommand enableMainWindowCommand) : base(enableMainWindowCommand)
         {
             inventoryTransactionTable = new InventoryTransactionTable();
+            Init();
+        }
+
+        private void Init()
+        {
+            FromDate = DateTime.Now;
+            ToDate = DateTime.Now;
         }
 
         public List<InventoryTransactionDto> Grid
@@ -28,6 +35,19 @@ namespace PureFlow
             throw new NotImplementedException();
         }
 
-      
+        private DateTime fromDate;
+        public DateTime FromDate
+        {
+            get { return fromDate; }
+            set { fromDate = value; OnPropertyChanged("FromDate"); }
+        }
+
+        private DateTime toDate;
+        public DateTime ToDate
+        {
+            get { return toDate; }
+            set { toDate = value; OnPropertyChanged("ToDate"); }
+        }
+
     }
 }

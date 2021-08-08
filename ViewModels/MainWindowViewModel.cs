@@ -43,8 +43,8 @@ namespace PureFlow
         private bool CanShowAddNewBrandWindow() => true;  
         private void ShowAddNewBrandWindow()
         {
-            IWindowViewModel contextViewModel = new AddBrandViewModel(enableMainWindowCommand);
-            var contextView = new AddBrandView(contextViewModel);
+            IWindowViewModel contextViewModel = new BrandAddViewModel(enableMainWindowCommand);
+            var contextView = new BrandAddView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -55,32 +55,32 @@ namespace PureFlow
         private bool CanShowAddNewModelWindow() => true;     
         private void ShowAddNewModelWindow()
         {
-            IWindowViewModel contextViewModel = new AddModelViewModel(enableMainWindowCommand);
-            var contextView = new AddModelView(contextViewModel);
+            IWindowViewModel contextViewModel = new ModelsAddViewModel(enableMainWindowCommand);
+            var contextView = new ModelsAddView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
 
-        private ICommand showAddInvoiceWorkTypeViewCommand;
-        public ICommand ShowAddInvoiceWorkTypeViewCommand => showAddInvoiceWorkTypeViewCommand ?? (showAddInvoiceWorkTypeViewCommand = new RelayCommand(ShowAddInvoiceWorkTypeView, CanShowAddInvoiceWorkTypeView));
+        private ICommand showWorkTypeAddViewCommand;
+        public ICommand ShowWorkTypeAddViewCommand => showWorkTypeAddViewCommand ?? (showWorkTypeAddViewCommand = new RelayCommand(ShowWorkTypeAddView, CanShowWorkTypeAddView));
 
-        private bool CanShowAddInvoiceWorkTypeView() => true;
-        private void ShowAddInvoiceWorkTypeView()
+        private bool CanShowWorkTypeAddView() => true;
+        private void ShowWorkTypeAddView()
         {
-            IWindowViewModel contextViewModel = new AddInvoiceWorkTypeViewModel(enableMainWindowCommand);
-            var contextView = new AddInvoiceWorkTypeView(contextViewModel);
+            IWindowViewModel contextViewModel = new WorkTypeAddViewModel(enableMainWindowCommand);
+            var contextView = new WorkTypeAddView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
 
-        private ICommand showAddServiceManViewCommand;
-        public ICommand ShowAddServiceManViewCommand => showAddServiceManViewCommand ?? (showAddServiceManViewCommand = new RelayCommand(ShowAddServiceManView, CanShowAddServiceManView));
+        private ICommand showTechnicianAddViewCommand;
+        public ICommand ShowTechnicianAddViewCommand => showTechnicianAddViewCommand ?? (showTechnicianAddViewCommand = new RelayCommand(ShowTechnicianAddView, CanShowTechnicianAddView));
 
-        private bool CanShowAddServiceManView() => true;
-        private void ShowAddServiceManView()
+        private bool CanShowTechnicianAddView() => true;
+        private void ShowTechnicianAddView()
         {
-            IWindowViewModel contextViewModel = new AddServiceManViewModel(enableMainWindowCommand);
-            var contextView = new AddServiceManView(contextViewModel);
+            IWindowViewModel contextViewModel = new TechnicianAddViewModel(enableMainWindowCommand);
+            var contextView = new TechnicianAddView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -91,8 +91,8 @@ namespace PureFlow
         private bool CanShowAddSpareInventoryView() => true;
         private void ShowAddSpareInventoryView()
         {
-            IWindowViewModel contextViewModel = new AddSpareInventoryViewModel(enableMainWindowCommand);
-            var contextView = new AddSpareInventoryView(contextViewModel);
+            IWindowViewModel contextViewModel = new InventoryAddViewModel(enableMainWindowCommand);
+            var contextView = new InventoryAddView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -144,8 +144,8 @@ namespace PureFlow
         private bool CanShowNewInvoiceView() => true;
         private void ShowNewInvoiceView()
         {
-            NewInvoiceViewModel newInvoiceViewModel = new NewInvoiceViewModel(enableMainWindowCommand);
-            var contextView = new NewInvoiceView(newInvoiceViewModel);
+            InvoiceNewViewModel newInvoiceViewModel = new InvoiceNewViewModel(enableMainWindowCommand);
+            var contextView = new InvoiceNewView(newInvoiceViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -157,8 +157,8 @@ namespace PureFlow
         private bool CanShowNewServiceRequestView() => true;
         private void ShowAddNewServiceRequestView()
         {
-            IWindowViewModel contextViewModel = new NewServiceRequestViewModel(enableMainWindowCommand);
-            var contextView = new NewServiceRequestView(contextViewModel);
+            IWindowViewModel contextViewModel = new ServiceRequestNewViewModel(enableMainWindowCommand);
+            var contextView = new ServiceRequestNewView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -183,8 +183,8 @@ namespace PureFlow
         private bool CanShowUpdateSpareInventoryView() => true;
         private void ShowUpdateSpareInventoryView()
         {
-            IWindowViewModel contextViewModel = new UpdateSpareInventoryViewModel(enableMainWindowCommand);
-            var contextView = new UpdateSpareInventoryView(contextViewModel);
+            IWindowViewModel contextViewModel = new InventoryUpdateViewModel(enableMainWindowCommand);
+            var contextView = new InventoryUpdateView(contextViewModel);
             disableMainWindowCommand.Execute(null);
             contextView.Show();
         }
@@ -244,10 +244,10 @@ namespace PureFlow
 
         InvoiceTable invoiceTable = new InvoiceTable();
 
-        ObservableCollection<InvoiceGridDto> invoiceGrid = new ObservableCollection<InvoiceGridDto>();
+        ObservableCollection<InvoiceDto> invoiceGrid = new ObservableCollection<InvoiceDto>();
 
 
-        public ObservableCollection<InvoiceGridDto> Grid
+        public ObservableCollection<InvoiceDto> Grid
         {
             get => invoiceGrid;
             set => OnPropertyChanged(nameof(Grid));

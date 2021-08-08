@@ -14,22 +14,25 @@ using System.Windows.Shapes;
 
 namespace PureFlow
 {
-    /// <summary>
-    /// Interaction logic for InventoryTransactionReportView.xaml
-    /// </summary>
-    public partial class InventoryTransactionReportView : Window
+
+    public partial class InvoiceItemsAddView : Window
     {
         private IWindowViewModel contextViewModel;
-        public InventoryTransactionReportView(IWindowViewModel contextViewModel)
+        InvoiceNewViewModel _invoiceViewModel;
+        public InvoiceItemsAddView(IWindowViewModel contextViewModel, InvoiceNewViewModel invoiceViewModel)
         {
             InitializeComponent();
             this.contextViewModel = contextViewModel;
             this.DataContext = contextViewModel;
+            _invoiceViewModel = invoiceViewModel;
         }
 
         private void Window_OnClosed(object sender, EventArgs e)
         {
             contextViewModel.Close();
+            _invoiceViewModel.UpdateInvoiceItemsGrid();
         }
+
+       
     }
 }
