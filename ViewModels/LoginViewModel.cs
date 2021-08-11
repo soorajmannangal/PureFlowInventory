@@ -18,13 +18,25 @@ namespace PureFlow
         {
             userTable = new UserTable();
             login = loginView;
-            login.txtUser.Focus();
+            SetDefaults();
+            login.passwordBox.KeyDown += PasswordBox_KeyDown;
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                Login();
+            }
         }
 
         public override void SetDefaults()
         {
             UserName = "";
-            Password = "";
+            login.passwordBox.Password = "";
+            ErrorMessage = "";
+            login.txtUser.Focus();
+            login.errTxtBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
 
@@ -32,20 +44,29 @@ namespace PureFlow
         public ICommand LoginCommand => loginCommand ?? (loginCommand = new RelayCommand(Login, ()=>true));
         private void Login()
         {
-            int userId = userTable.CheckPassword(UserName, Password);
-            if (userId == -1)
+            try
             {
-                Password = "";
-                login.txtPswd.Focus();
+                string pswd = login.passwordBox.Password;
+                int userId = userTable.CheckPassword(UserName, pswd);
+                if (userId == -1)
+                {
+                    login.passwordBox.Password = "";
+                    login.passwordBox.Focus();
+                }
+                else
+                {
+                    bool isAdmin = userTable.CheckIsAdmin(userId);
+                    UserInfo.GetInstance().SetUserID(userId, isAdmin);
+
+                    var contextView = new MainWindow();
+                    contextView.Show();
+                    login.Close();
+                }
             }
-            else
+            catch(Exception e)
             {
-                bool isAdmin = userTable.CheckIsAdmin(userId);
-                UserInfo.GetInstance().SetUserID(userId, isAdmin);
-               
-                var contextView = new MainWindow();
-                contextView.Show();
-                login.Close();
+                login.errTxtBox.Visibility = System.Windows.Visibility.Visible;
+                ErrorMessage = e.Message;
             }
         }
        
@@ -61,13 +82,18 @@ namespace PureFlow
             }
         }
 
-        private string password;
-        public String Password
+        private string errorMessage;
+        public String ErrorMessage
         {
-            get => password;
-            set { password = value; OnPropertyChanged(nameof(Password)); }
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
         }
 
+     
   
     }
 }

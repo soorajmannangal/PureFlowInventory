@@ -23,11 +23,12 @@ namespace PureFlow
 
         private OleDbConnection con;
         private OleDbCommand cmd;
-        private const String DB_NAME = @"\DB\PureFlowDB.accdb";
+        private const String DB_NAME = @"\PureFlowDB.accdb";
 
         public MSAccessDB()
         {
             string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + DB_NAME;
+           
             con = new OleDbConnection(connectionString);
         }
 

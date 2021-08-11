@@ -116,6 +116,7 @@
     <Compile Include="ORMTables\TechnicianTable.cs" />
     <Compile Include="ORMTables\InventoryTable.cs" />
     <Compile Include="ORMTables\WorkTypeTable.cs" />
+    <Compile Include="PassordHelper.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\InvoiceItemsAddViewModel.cs" />
@@ -302,7 +303,7 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="7231833_bottle_of_water_ocean_drop_icon.ico" />
-    <Content Include="DB\PureFlowDB.accdb">
+    <Content Include="PureFlowDB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
