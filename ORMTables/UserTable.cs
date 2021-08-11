@@ -39,7 +39,6 @@ namespace PureFlow
 
         public bool CheckIsAdmin(int userId)
         {
-            throw new Exception("test erro");
             return _dataSource.GetBoolColWithID(TableName, userId, eUserTable.IsAdmin.ToString());
         }
 

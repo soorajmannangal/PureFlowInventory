@@ -56,8 +56,9 @@ namespace PureFlow
                 else
                 {
                     bool isAdmin = userTable.CheckIsAdmin(userId);
-                    UserInfo.GetInstance().SetUserID(userId, isAdmin);
-
+                    var userInfo = UserInfo.GetInstance();
+                    userInfo.SetUserID(userId, isAdmin);
+                    userInfo.UserName = UserName;
                     var contextView = new MainWindow();
                     contextView.Show();
                     login.Close();

@@ -31,7 +31,7 @@
         </Menu>
         <Button Content="New Service Request" HorizontalAlignment="Left" Margin="231,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewServiceRequestViewCommand }"/>
         <Button Content="New Invoice" HorizontalAlignment="Left" Margin="512,21,0,0" VerticalAlignment="Top" Height="37" Width="242" Command="{Binding Path=ShowNewInvoiceViewCommand }"/>
-        <DataGrid ItemsSource="{Binding Grid}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="498" Margin="19,188,19,0" VerticalAlignment="Top" Width="978">
+        <DataGrid ItemsSource="{Binding Grid}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="498" Margin="19,188,0,0" VerticalAlignment="Top" Width="963">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Index" Binding="{Binding Ind}"/>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
@@ -51,6 +51,7 @@
         <Label Content="From" HorizontalAlignment="Left" Margin="27,135,0,0" VerticalAlignment="Top" Height="32"/>
         <DatePicker SelectedDate="{Binding Path=ToDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="232,138,0,0" VerticalAlignment="Top" Height="29" />
         <Label Content="To" HorizontalAlignment="Left" Margin="203,135,0,0" VerticalAlignment="Top" Height="32"/>
+        <Label Content="{Binding UserName}" HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Margin="904,10,0,693" Width="93"/>
 
     </Grid>
 </Window>

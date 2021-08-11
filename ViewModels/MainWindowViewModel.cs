@@ -30,12 +30,24 @@ namespace PureFlow
         {
             FromDate = DateTime.Now;
             ToDate = FromDate.AddDays(14);
+            UserName = UserInfo.GetInstance().UserName;
         }
 
         private void CreateCustomCommands()
         {
             disableMainWindowCommand = new DisableMainWindowCommand(mainWindow);
             enableMainWindowCommand = new EnableMainWindowCommand(mainWindow);
+        }
+
+        private string userName;
+        public string UserName
+        {
+            get => userName;
+            set
+            {
+                userName = value;
+                OnPropertyChanged(nameof(UserName));
+            }
         }
 
         private ICommand showAddNewBrandWindowCommand;      

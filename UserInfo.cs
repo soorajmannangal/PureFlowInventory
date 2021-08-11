@@ -14,6 +14,7 @@ namespace PureFlow
 
         private bool isAdmin;
         public bool IsAdmin => isAdmin;
+        public string UserName;
 
         private UserInfo() 
         {
